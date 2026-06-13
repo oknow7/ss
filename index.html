@@ -3,1753 +3,726 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChintaLM — Private AI. Directly on Android.</title>
-
-    <meta name="description" content="Run powerful language models locally on Android. Chat offline, analyze documents, and connect cloud AI providers from a single open-source application.">
-    <meta name="keywords" content="ChintaLM, Android AI, offline AI, local LLM, GGUF, privacy, open source, on-device AI, language model">
-    <meta name="author" content="ChintaLM">
-    <meta name="robots" content="index, follow">
-
-    <meta property="og:title" content="ChintaLM — Private AI. Directly on Android.">
-    <meta property="og:description" content="Run powerful language models locally on Android. Chat offline, analyze documents, and connect cloud AI providers.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://glitchsumon.github.io/ChintaLM/">
-    <meta property="og:site_name" content="ChintaLM">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ChintaLM — Private AI. Directly on Android.">
-    <meta name="twitter:description" content="Run powerful language models locally on Android. Chat offline, analyze documents, and connect cloud AI providers.">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "ChintaLM",
-        "applicationCategory": "UtilitiesApplication",
-        "operatingSystem": "Android",
-        "description": "Run powerful language models locally on Android. Chat offline, analyze documents, and connect cloud AI providers from a single application.",
-        "license": "https://opensource.org/licenses/MIT",
-        "codeRepository": "https://github.com/glitchsumon/ChintaLM",
-        "programmingLanguage": "Kotlin",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        }
-    }
-    </script>
-
+    <title>Premium Live TV</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        *, *::before, *::after {
+        :root {
+            --bg-color: #141414;
+            --header-bg: rgba(20, 20, 20, 0.85);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-hover: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent: #e50914;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --online-green: #00e676;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F8FAFC;
-            --card-bg: #FFFFFF;
-            --border: #E5E7EB;
-            --border-light: #F3F4F6;
-            --text-primary: #111827;
-            --text-secondary: #6B7280;
-            --text-tertiary: #9CA3AF;
-            --accent: #2563EB;
-            --accent-light: #EFF6FF;
-            --accent-hover: #1D4ED8;
-            --accent-subtle: #DBEAFE;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
             color: var(--text-primary);
-            background: var(--bg-primary);
-            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        ::selection {
-            background: var(--accent-subtle);
-            color: var(--accent);
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        @media (min-width: 768px) {
-            .container { padding: 0 40px; }
-        }
-
-        @media (min-width: 1024px) {
-            .container { padding: 0 48px; }
-        }
-
-        /* ===== NAVIGATION ===== */
-        .nav {
+        /* Scan Overlay */
+        #scan-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
-            height: 64px;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            transition: background 0.3s ease, box-shadow 0.3s ease;
+            transition: opacity 0.5s ease;
         }
+        #scan-overlay.hidden { opacity: 0; pointer-events: none; }
+        .scanner { width: 60px; height: 60px; border: 4px solid rgba(255,255,255,0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .scan-text { font-size: 18px; color: var(--text-secondary); }
 
-        .nav.scrolled {
-            background: rgba(255, 255, 255, 0.85);
+        /* Header */
+        header {
+            position: sticky;
+            top: 0; z-index: 100;
+            background: var(--header-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 1px 0 var(--border);
-        }
-
-        .nav-inner {
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 20px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        @media (min-width: 768px) {
-            .nav-inner { padding: 0 40px; }
-        }
-
-        @media (min-width: 1024px) {
-            .nav-inner { padding: 0 48px; }
-        }
-
-        .nav-logo {
-            display: flex;
             align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: var(--text-primary);
+            gap: 15px;
         }
 
-        .nav-logo-mark {
-            width: 32px;
-            height: 32px;
-            background: var(--accent);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+        .logo {
+            font-size: 24px; font-weight: 800; letter-spacing: -1px; color: var(--accent);
+            display: flex; align-items: center; gap: 8px; flex-shrink: 0;
         }
+        .logo svg { width: 28px; height: 28px; fill: var(--accent); }
 
-        .nav-logo-mark::before {
-            content: '';
-            width: 14px;
-            height: 14px;
-            border: 2px solid #FFFFFF;
-            border-radius: 50%;
+        .header-controls {
+            display: flex; align-items: center; gap: 15px; width: 100%; max-width: 600px;
         }
 
-        .nav-logo-mark::after {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: #FFFFFF;
-            border-radius: 50%;
-            position: absolute;
+        .search-box {
+            position: relative; flex-grow: 1;
         }
-
-        .nav-logo-text {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        .nav-links {
-            display: none;
-            align-items: center;
-            gap: 32px;
-            list-style: none;
-        }
-
-        @media (min-width: 768px) {
-            .nav-links { display: flex; }
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .nav-cta {
-            display: none;
-        }
-
-        @media (min-width: 768px) {
-            .nav-cta { display: flex; }
-        }
-
-        .nav-cta a {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
-            background: var(--text-primary);
-            color: #FFFFFF;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: background 0.2s ease;
-        }
-
-        .nav-cta a:hover {
-            background: #1F2937;
-        }
-
-        .nav-cta-arrow {
-            display: inline-block;
-            transition: transform 0.2s ease;
-        }
-
-        .nav-cta a:hover .nav-cta-arrow {
-            transform: translateX(2px);
-        }
-
-        .mobile-toggle {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 4px;
-        }
-
-        @media (min-width: 768px) {
-            .mobile-toggle { display: none; }
-        }
-
-        .mobile-toggle span {
-            width: 20px;
-            height: 2px;
-            background: var(--text-primary);
-            border-radius: 1px;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-
-        .mobile-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .mobile-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .mobile-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 64px;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 24px;
-            z-index: 999;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .mobile-menu.open {
-            display: block;
-        }
-
-        .mobile-menu a {
-            display: block;
-            padding: 12px 0;
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .mobile-menu a:last-child {
-            border-bottom: none;
-        }
-
-        /* ===== HERO ===== */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            padding-top: 64px;
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .floating-shape {
-            position: absolute;
-            border-radius: 50%;
-            will-change: transform;
-            transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
-        }
-
-        .shape-1 {
-            width: 500px;
-            height: 500px;
-            background: #DBEAFE;
-            opacity: 0.35;
-            top: -120px;
-            right: -100px;
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-            animation: float1 20s ease-in-out infinite;
-        }
-
-        .shape-2 {
-            width: 400px;
-            height: 400px;
-            background: #E0E7FF;
-            opacity: 0.3;
-            bottom: -80px;
-            left: -80px;
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            animation: float2 25s ease-in-out infinite;
-        }
-
-        .shape-3 {
-            width: 250px;
-            height: 250px;
-            background: #DBEAFE;
-            opacity: 0.25;
-            top: 40%;
-            right: 20%;
-            border-radius: 50% 50% 30% 70% / 50% 60% 40% 50%;
-            animation: float3 18s ease-in-out infinite;
-        }
-
-        .shape-4 {
-            width: 200px;
-            height: 200px;
-            background: #EFF6FF;
-            opacity: 0.4;
-            top: 20%;
-            left: 15%;
-            border-radius: 30% 70% 50% 50% / 50% 40% 60% 50%;
-            animation: float4 22s ease-in-out infinite;
-        }
-
-        .shape-5 {
-            width: 150px;
-            height: 150px;
-            background: #EDE9FE;
-            opacity: 0.3;
-            bottom: 25%;
-            right: 10%;
-            border-radius: 70% 30% 50% 50% / 40% 60% 40% 60%;
-            animation: float5 16s ease-in-out infinite;
-        }
-
-        .shape-6 {
-            width: 180px;
-            height: 180px;
-            background: #DBEAFE;
-            opacity: 0.2;
-            top: 60%;
-            left: 30%;
-            border-radius: 50% 50% 40% 60% / 60% 40% 60% 40%;
-            animation: float6 19s ease-in-out infinite;
-        }
-
-        @keyframes float1 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -30px) rotate(5deg); }
-            66% { transform: translate(-20px, 20px) rotate(-3deg); }
-        }
-
-        @keyframes float2 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(-25px, 20px) rotate(-4deg); }
-            66% { transform: translate(15px, -25px) rotate(3deg); }
-        }
-
-        @keyframes float3 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(20px, -20px) rotate(6deg); }
-        }
-
-        @keyframes float4 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(-15px, 25px) rotate(-5deg); }
-        }
-
-        @keyframes float5 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(25px, 15px) rotate(4deg); }
-        }
-
-        @keyframes float6 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(-20px, -15px) rotate(-3deg); }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            max-width: 800px;
-            padding: 40px 24px;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 16px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 32px;
-        }
-
-        .hero-badge-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-
-        .hero-badge-sep {
-            width: 1px;
-            height: 12px;
-            background: var(--border);
-        }
-
-        .hero-title {
-            font-size: 48px;
-            font-weight: 800;
-            line-height: 1.08;
-            letter-spacing: -0.035em;
-            color: var(--text-primary);
-            margin-bottom: 24px;
-        }
-
-        @media (min-width: 640px) {
-            .hero-title { font-size: 60px; }
-        }
-
-        @media (min-width: 1024px) {
-            .hero-title { font-size: 72px; }
-        }
-
-        .hero-title-accent {
-            color: var(--accent);
-        }
-
-        .hero-subtitle {
-            font-size: 18px;
-            line-height: 1.7;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 40px;
-            font-weight: 400;
-        }
-
-        @media (min-width: 640px) {
-            .hero-subtitle { font-size: 20px; }
-        }
-
-        .hero-actions {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
-            background: var(--accent);
-            color: #FFFFFF;
-            border: none;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background 0.2s ease, transform 0.15s ease;
-            font-family: inherit;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-
-        .btn-primary-arrow {
-            display: inline-block;
-            transition: transform 0.2s ease;
-        }
-
-        .btn-primary:hover .btn-primary-arrow {
-            transform: translateX(3px);
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
-            font-family: inherit;
-        }
-
-        .btn-secondary:hover {
-            background: var(--bg-secondary);
-            border-color: #D1D5DB;
-            transform: translateY(-1px);
-        }
-
-        .btn-secondary:active {
-            transform: translateY(0);
-        }
-
-        /* ===== SECTION COMMON ===== */
-        .section {
-            padding: 100px 0;
-        }
-
-        @media (min-width: 768px) {
-            .section { padding: 120px 0; }
-        }
-
-        .section-alt {
-            background: var(--bg-secondary);
-        }
-
-        .section-header {
-            text-align: center;
-            max-width: 640px;
-            margin: 0 auto 64px;
-        }
-
-        .section-label {
-            display: inline-block;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 16px;
-        }
-
-        .section-title {
-            font-size: 36px;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.15;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-        }
-
-        @media (min-width: 640px) {
-            .section-title { font-size: 42px; }
-        }
-
-        @media (min-width: 1024px) {
-            .section-title { font-size: 48px; }
-        }
-
-        .section-desc {
-            font-size: 17px;
-            line-height: 1.7;
-            color: var(--text-secondary);
-        }
-
-        /* ===== FEATURES ===== */
-        .features-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        @media (min-width: 640px) {
-            .features-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (min-width: 1024px) {
-            .features-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-
-        .feature-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 28px;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            border-color: #D1D5DB;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-            transform: translateY(-2px);
-        }
-
-        .feature-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--accent-light);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        /* CSS-only icon shapes */
-        .icon-offline {
-            position: relative;
-        }
-
-        .icon-offline::before {
-            content: '';
-            width: 16px;
-            height: 16px;
-            border: 2px solid var(--accent);
-            border-radius: 50%;
-        }
-
-        .icon-offline::after {
-            content: '';
-            width: 22px;
-            height: 2px;
-            background: var(--accent);
-            position: absolute;
-            transform: rotate(-45deg);
-            border-radius: 1px;
-        }
-
-        .icon-gguf {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 3px;
-        }
-
-        .icon-gguf span {
-            display: block;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 2px;
-        }
-
-        .icon-gguf span:nth-child(1) { width: 18px; }
-        .icon-gguf span:nth-child(2) { width: 14px; }
-        .icon-gguf span:nth-child(3) { width: 18px; }
-
-        .icon-voice {
-            display: flex;
-            align-items: flex-end;
-            gap: 3px;
-            height: 20px;
-        }
-
-        .icon-voice span {
-            display: block;
-            width: 3px;
-            background: var(--accent);
-            border-radius: 2px;
-        }
-
-        .icon-voice span:nth-child(1) { height: 8px; }
-        .icon-voice span:nth-child(2) { height: 16px; }
-        .icon-voice span:nth-child(3) { height: 12px; }
-        .icon-voice span:nth-child(4) { height: 18px; }
-        .icon-voice span:nth-child(5) { height: 10px; }
-
-        .icon-chat {
-            position: relative;
-        }
-
-        .icon-chat::before {
-            content: '';
-            width: 18px;
-            height: 14px;
-            border: 2px solid var(--accent);
-            border-radius: 3px 3px 3px 3px;
-        }
-
-        .icon-chat::after {
-            content: '';
-            width: 0;
-            height: 0;
-            border-left: 4px solid var(--accent);
-            border-bottom: 4px solid transparent;
-            position: absolute;
-            bottom: 5px;
-            left: 11px;
-        }
-
-        .icon-image {
-            position: relative;
-        }
-
-        .icon-image::before {
-            content: '';
-            width: 18px;
-            height: 16px;
-            border: 2px solid var(--accent);
-            border-radius: 3px;
-        }
-
-        .icon-image::after {
-            content: '';
-            width: 5px;
-            height: 5px;
-            background: var(--accent);
-            border-radius: 50%;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-
-        .icon-code {
-            font-size: 0;
-            position: relative;
-            width: 20px;
-            height: 14px;
-        }
-
-        .icon-code::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 1px;
-            width: 7px;
-            height: 10px;
-            border-left: 2px solid var(--accent);
-            border-bottom: 2px solid var(--accent);
-            border-radius: 0 0 0 3px;
-            transform: rotate(0deg);
-        }
-
-        .icon-code::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 1px;
-            width: 7px;
-            height: 10px;
-            border-right: 2px solid var(--accent);
-            border-top: 2px solid var(--accent);
-            border-radius: 0 3px 0 0;
-        }
-
-        .icon-providers {
-            position: relative;
-            width: 20px;
-            height: 20px;
-        }
-
-        .icon-providers span {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-
-        .icon-providers span:nth-child(1) { top: 0; left: 7px; }
-        .icon-providers span:nth-child(2) { bottom: 2px; left: 0; }
-        .icon-providers span:nth-child(3) { bottom: 2px; right: 0; }
-
-        .icon-shield {
-            position: relative;
-        }
-
-        .icon-shield::before {
-            content: '';
-            width: 16px;
-            height: 18px;
-            background: var(--accent);
-            clip-path: polygon(50% 0%, 100% 18%, 100% 65%, 50% 100%, 0% 65%, 0% 18%);
-        }
-
-        .icon-shield::after {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: var(--accent-light);
-            border-radius: 50%;
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .feature-card h3 {
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .feature-card p {
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--text-secondary);
-        }
-
-        /* ===== MODELS ===== */
-        .models-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-        }
-
-        @media (min-width: 640px) {
-            .models-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (min-width: 1024px) {
-            .models-grid { grid-template-columns: repeat(5, 1fr); }
-        }
-
-        .model-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 24px;
-            text-align: center;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-        }
-
-        .model-card:hover {
-            border-color: var(--accent-subtle);
-            box-shadow: 0 4px 24px rgba(37, 99, 235, 0.06);
-            transform: translateY(-2px);
-        }
-
-        .model-icon {
-            width: 48px;
-            height: 48px;
-            margin: 0 auto 16px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 18px;
-            color: var(--accent);
-        }
-
-        .model-icon-tiny { background: #FEF3C7; color: #D97706; }
-        .model-icon-gemma { background: #DBEAFE; color: #2563EB; }
-        .model-icon-phi { background: #D1FAE5; color: #059669; }
-        .model-icon-qwen { background: #EDE9FE; color: #7C3AED; }
-        .model-icon-deep { background: #FCE7F3; color: #DB2777; }
-
-        .model-card h3 {
-            font-size: 17px;
-            font-weight: 650;
-            margin-bottom: 6px;
-            letter-spacing: -0.01em;
-        }
-
-        .model-card p {
-            font-size: 13px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 14px;
-        }
-
-        .model-tag {
-            display: inline-block;
-            padding: 4px 10px;
-            background: var(--bg-secondary);
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-
-        /* ===== OPEN SOURCE ===== */
-        .oss-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        @media (min-width: 640px) {
-            .oss-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (min-width: 1024lvl) {
-            .oss-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-
-        .oss-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px;
-            text-align: center;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .oss-card:hover {
-            border-color: #D1D5DB;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-        }
-
-        .oss-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--accent-light);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            position: relative;
-        }
-
-        .oss-icon-license {
-            position: relative;
-        }
-
-        .oss-icon-license::before {
-            content: '';
-            width: 18px;
-            height: 22px;
-            border: 2px solid var(--accent);
-            border-radius: 3px;
-        }
-
-        .oss-icon-license::after {
-            content: '';
-            width: 8px;
-            height: 2px;
-            background: var(--accent);
-            position: absolute;
-            top: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 5px 0 var(--accent);
-        }
-
-        .oss-icon-community {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2px;
-        }
-
-        .oss-icon-community span {
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-
-        .oss-icon-community span:nth-child(2) {
-            margin-top: -4px;
-        }
-
-        .oss-icon-transparency {
-            position: relative;
-        }
-
-        .oss-icon-transparency::before {
-            content: '';
-            width: 18px;
-            height: 18px;
-            border: 2px solid var(--accent);
-            border-radius: 50%;
-        }
-
-        .oss-icon-transparency::after {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .oss-icon-repo {
-            position: relative;
-        }
-
-        .oss-icon-repo::before {
-            content: '';
-            width: 16px;
-            height: 20px;
-            border: 2px solid var(--accent);
-            border-radius: 3px;
-        }
-
-        .oss-icon-repo::after {
-            content: '';
-            width: 10px;
-            height: 2px;
-            background: var(--accent);
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 4px 0 var(--accent);
-        }
-
-        .oss-card h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            letter-spacing: -0.01em;
-        }
-
-        .oss-card p {
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--text-secondary);
-        }
-
-        /* ===== STATS ===== */
-        .stats-section {
-            padding: 80px 0;
-            background: var(--text-primary);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 32px;
-        }
-
-        @media (min-width: 768px) {
-            .stats-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 36px;
-            font-weight: 700;
-            color: #FFFFFF;
-            letter-spacing: -0.03em;
-            margin-bottom: 4px;
-        }
-
-        @media (min-width: 768px) {
-            .stat-value { font-size: 44px; }
+        .search-box input {
+            width: 100%; padding: 10px 15px 10px 40px; border-radius: 8px;
+            border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary); font-size: 14px; outline: none; transition: all 0.3s ease;
         }
-
-        .stat-label {
-            font-size: 14px;
-            color: #9CA3AF;
-            font-weight: 500;
-        }
-
-        .stat-divider {
-            display: none;
-        }
-
-        @media (min-width: 768px) {
-            .stat-item:not(:last-child) .stat-divider {
-                display: block;
-                position: absolute;
-                right: -16px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 1px;
-                height: 40px;
-                background: #374151;
-            }
-
-            .stat-item {
-                position: relative;
-            }
-        }
-
-        /* ===== CTA ===== */
-        .cta-section {
-            padding: 100px 0;
-            text-align: center;
-        }
-
-        @media (min-width: 768px) {
-            .cta-section { padding: 120px 0; }
-        }
-
-        .cta-section .section-title {
-            margin-bottom: 20px;
-        }
-
-        .cta-section .section-desc {
-            margin-bottom: 40px;
-        }
-
-        .cta-actions {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            border-top: 1px solid var(--border);
-            padding: 40px 0;
-        }
-
-        .footer-inner {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        @media (min-width: 768px) {
-            .footer-inner {
-                flex-direction: row;
-                justify-content: space-between;
-            }
-        }
-
-        .footer-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-logo-mark {
-            width: 24px;
-            height: 24px;
-            background: var(--accent);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .footer-logo-mark::before {
-            content: '';
-            width: 10px;
-            height: 10px;
-            border: 1.5px solid #FFFFFF;
-            border-radius: 50%;
+        .search-box input:focus { border-color: var(--accent); background: rgba(255, 255, 255, 0.1); }
+        .search-box svg {
+            position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+            width: 16px; height: 16px; stroke: var(--text-secondary);
         }
 
-        .footer-brand {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-primary);
+        .counter {
+            background: rgba(0, 230, 118, 0.1); color: var(--online-green);
+            padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 600;
+            border: 1px solid rgba(0, 230, 118, 0.2); white-space: nowrap; flex-shrink: 0;
         }
 
-        .footer-copy {
-            font-size: 13px;
-            color: var(--text-tertiary);
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 24px;
-            list-style: none;
-        }
+        /* Main Content */
+        main { max-width: 1400px; margin: 0 auto; padding: 20px; }
 
-        .footer-links a {
-            font-size: 13px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.2s ease;
+        .player-container {
+            position: relative; width: 100%; aspect-ratio: 16 / 9; max-height: 75vh;
+            background: #000; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); margin-bottom: 20px;
         }
+        video { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-        .footer-links a:hover {
-            color: var(--text-primary);
+        #fullscreen-btn {
+            position: absolute; bottom: 15px; right: 15px;
+            background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255,255,255,0.2);
+            color: white; width: 40px; height: 40px; border-radius: 8px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s; z-index: 20;
         }
+        #fullscreen-btn:hover { background: rgba(229, 9, 20, 0.8); }
 
-        /* ===== ANIMATIONS ===== */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
-                        transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+        .now-playing {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--glass-border);
         }
-
-        .animate-on-scroll.animate-in {
-            opacity: 1;
-            transform: translateY(0);
+        .live-badge {
+            background: var(--accent); color: white; padding: 4px 8px; border-radius: 4px;
+            font-size: 12px; font-weight: 800; letter-spacing: 1px;
+            display: flex; align-items: center; gap: 5px; animation: pulse 2s infinite;
         }
-
-        .stagger-1 { transition-delay: 0.05s; }
-        .stagger-2 { transition-delay: 0.1s; }
-        .stagger-3 { transition-delay: 0.15s; }
-        .stagger-4 { transition-delay: 0.2s; }
-        .stagger-5 { transition-delay: 0.25s; }
-        .stagger-6 { transition-delay: 0.3s; }
-        .stagger-7 { transition-delay: 0.35s; }
-        .stagger-8 { transition-delay: 0.4s; }
+        .live-dot { width: 6px; height: 6px; background: white; border-radius: 50%; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .channel-title { font-size: 20px; font-weight: 600; }
 
-        .animate-fade {
-            opacity: 0;
-            transition: opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+        /* Grid */
+        .channels-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;
         }
 
-        .animate-fade.animate-in {
-            opacity: 1;
+        .channel-card {
+            background: var(--card-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border); border-radius: 10px; padding: 15px;
+            cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column;
+            align-items: center; text-align: center; position: relative; overflow: hidden;
+            animation: fadeIn 0.5s ease forwards;
         }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Hero entrance */
-        .hero-content .hero-badge {
-            opacity: 0;
-            transform: translateY(16px);
-            animation: heroEnter 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s forwards;
+        .channel-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            opacity: 0; transition: opacity 0.3s ease;
         }
-
-        .hero-content .hero-title {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: heroEnter 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s forwards;
+        .channel-card:hover {
+            transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); background: var(--card-hover);
         }
+        .channel-card:hover::before { opacity: 1; }
 
-        .hero-content .hero-subtitle {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: heroEnter 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) 0.35s forwards;
+        .channel-card.active {
+            border-color: var(--accent); box-shadow: 0 0 15px rgba(229, 9, 20, 0.3); background: rgba(229, 9, 20, 0.1);
         }
 
-        .hero-content .hero-actions {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: heroEnter 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) 0.5s forwards;
+        .logo-initials {
+            width: 50px; height: 50px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; font-weight: 800; margin-bottom: 10px;
+            color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.3s ease;
         }
+        .channel-card:hover .logo-initials { transform: scale(1.1); }
 
-        @keyframes heroEnter {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .card-name {
+            font-size: 13px; font-weight: 500; color: var(--text-primary); line-height: 1.3;
+            max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;
         }
 
-        /* ===== ACCESSIBILITY ===== */
-        :focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-            border-radius: 4px;
+        .status-indicator {
+            position: absolute; top: 10px; right: 10px; width: 8px; height: 8px;
+            background: var(--online-green); border-radius: 50%; box-shadow: 0 0 5px var(--online-green);
         }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
 
-            .animate-on-scroll {
-                opacity: 1;
-                transform: none;
-            }
-
-            .hero-content .hero-badge,
-            .hero-content .hero-title,
-            .hero-content .hero-subtitle,
-            .hero-content .hero-actions {
-                opacity: 1;
-                transform: none;
-            }
-
-            .floating-shape {
-                animation: none !important;
-            }
-        }
+        .no-results { grid-column: 1 / -1; text-align: center; color: var(--text-secondary); padding: 40px 0; font-size: 16px; }
 
-        /* ===== RESPONSIVE FIX ===== */
-        @media (min-width: 1024px) {
-            .oss-grid { grid-template-columns: repeat(4, 1fr); }
+        @media (max-width: 768px) {
+            header { flex-wrap: wrap; gap: 10px; padding: 10px; }
+            .search-box { order: 3; width: 100%; }
+            .channels-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+            .channel-title { font-size: 16px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
-        <div class="nav-inner">
-            <a href="#" class="nav-logo" aria-label="ChintaLM home">
-                <div class="nav-logo-mark"></div>
-                <span class="nav-logo-text">ChintaLM</span>
-            </a>
-
-            <ul class="nav-links" role="list">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#models">Models</a></li>
-                <li><a href="#opensource">Open Source</a></li>
-                <li><a href="https://github.com/glitchsumon/ChintaLM" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-            </ul>
-
-            <div class="nav-cta">
-                <a href="https://github.com/glitchsumon/ChintaLM" target="_blank" rel="noopener noreferrer">
-                    View on GitHub <span class="nav-cta-arrow">&rarr;</span>
-                </a>
-            </div>
-
-            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
-        <a href="#features" onclick="closeMobileMenu()">Features</a>
-        <a href="#models" onclick="closeMobileMenu()">Models</a>
-        <a href="#opensource" onclick="closeMobileMenu()">Open Source</a>
-        <a href="https://github.com/glitchsumon/ChintaLM" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <div id="scan-overlay">
+        <div class="scanner"></div>
+        <div class="scan-text">Scanning for live channels...</div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="hero-bg" aria-hidden="true">
-            <div class="floating-shape shape-1" data-depth="0.03"></div>
-            <div class="floating-shape shape-2" data-depth="0.02"></div>
-            <div class="floating-shape shape-3" data-depth="0.04"></div>
-            <div class="floating-shape shape-4" data-depth="0.025"></div>
-            <div class="floating-shape shape-5" data-depth="0.035"></div>
-            <div class="floating-shape shape-6" data-depth="0.015"></div>
+    <header>
+        <div class="logo">
+            <svg viewBox="0 0 24 24"><path d="M2 4h20v16H2V4zm2 2v12h16V6H4zm4 2l8 4-8 4V8z"/></svg>
+            STREAMTV
+        </div>
+        <div class="header-controls">
+            <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="search" placeholder="Search channels...">
+            </div>
+            <div class="counter" id="counter">Working: 0</div>
+        </div>
+    </header>
+
+    <main>
+        <div class="player-container">
+            <video id="video" playsinline></video>
+            <button id="fullscreen-btn" title="Fullscreen">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </button>
         </div>
 
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span class="hero-badge-dot"></span>
-                Open Source
-                <span class="hero-badge-sep"></span>
-                Android Native
-                <span class="hero-badge-sep"></span>
-                Privacy First
-            </div>
-
-            <h1 class="hero-title">
-                Private AI.<br>
-                Directly on <span class="hero-title-accent">Android.</span>
-            </h1>
-
-            <p class="hero-subtitle">
-                Run powerful language models locally, chat offline, analyze documents, and connect cloud AI providers from a single application.
-            </p>
-
-            <div class="hero-actions">
-                <a href="https://github.com/glitchsumon/ChintaLM" target="_blank" rel="noopener noreferrer" class="btn-primary">
-                    View on GitHub <span class="btn-primary-arrow">&rarr;</span>
-                </a>
-                <a href="#features" class="btn-secondary">
-                    Explore Features
-                </a>
-            </div>
+        <div class="now-playing">
+            <div class="live-badge"><div class="live-dot"></div>LIVE</div>
+            <div class="channel-title" id="channel-name">Loading...</div>
         </div>
-    </section>
 
-    <!-- Features Section -->
-    <section class="section section-alt" id="features">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="section-label">Features</span>
-                <h2 class="section-title">Everything you need for on-device AI</h2>
-                <p class="section-desc">A complete toolkit for running language models on Android, designed for privacy, performance, and flexibility.</p>
-            </div>
-
-            <div class="features-grid">
-                <div class="feature-card animate-on-scroll stagger-1">
-                    <div class="feature-icon">
-                        <div class="icon-offline"></div>
-                    </div>
-                    <h3>Offline AI</h3>
-                    <p>Run language models entirely on-device with no internet connection required. Your AI, available anywhere.</p>
-                </div>
-
-                <div class="feature-card animate-on-scroll stagger-2">
-                    <div class="feature-icon">
-                        <div class="icon-gguf">
-                            <span></span><span></span><span></span>
-                        </div>
-                    </div>
-                    <h3>GGUF Support</h3>
-                    <p>Compatible with the GGUF model format, enabling efficient quantized inference on mobile hardware.</p>
-                </div>
-
-                <div class="feature-card animate-on-scroll stagger-3">
-                    <div class="feature-icon">
-                        <div class="icon-voice">
-                            <span></span><span></span><span></span><span></span><span></span>
-                        </div>
-                    </div>
-                    <h3>Voice Assistant</h3>
-                    <p>Interact with AI through natural voice conversations. Speak and receive intelligent responses hands-free.</p>
-                </div>
-
-                <div class="feature-card animate-on-scroll stagger-4">
-                    <div class="feature-icon">
-                        <div class="icon-chat"></div>
-                    </div>
-                    <h3>PDF Chat</h3>
-                    <p>Upload and analyze PDF documents with AI. Extract insights, summarize content, and ask questions.</p>
-                </div>
-
-                <div class="feature-card animate-on-scroll stagger-5">
-                    <div class="feature-icon">
-                        <div class="icon-image"></div>
-                    </div>
-                    <h3>Image Analysis</h3>
-                    <p>Analyze and understand images with multimodal AI capabilities. Get descriptions and insights from visual content.</p>
-                </div>
-
-                <div class="feature-card animate-on-scroll stagger-6">
-                    <div class="feature-icon">
-                        <div class="icon-code"></div>
-                    </div>
-                    <h3>Coding Assistant</h3>
-                    <p>Get help with code generation, debugging, and explanation. Your portable programming companion.</p>
-                </div>
-
-                <div class="feature-card animate-on-scroll stagger-7">
-                    <div class="feature-icon">
-                        <div class="icon-providers">
-                            <span></span><span></span><span></span>
-                        </div>
-                    </div>
-                    <h3>Multiple Providers</h3>
-                    <p>Connect to cloud AI providers alongside local models. Switch between local and cloud inference seamlessly.</p>
-                </div>
-
-                <div class="feature-card animate-on-scroll stagger-8">
-                    <div class="feature-icon">
-                        <div class="icon-shield"></div>
-                    </div>
-                    <h3>Privacy First</h3>
-                    <p>Your data never leaves your device when using local models. No tracking, no data collection, no compromises.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Models Section -->
-    <section class="section" id="models">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="section-label">Models</span>
-                <h2 class="section-title">Supported model families</h2>
-                <p class="section-desc">Run a growing collection of popular open-source models optimized for on-device inference.</p>
-            </div>
-
-            <div class="models-grid">
-                <div class="model-card animate-on-scroll stagger-1">
-                    <div class="model-icon model-icon-tiny">T</div>
-                    <h3>TinyLlama</h3>
-                    <p>Compact and efficient model ideal for resource-constrained devices.</p>
-                    <span class="model-tag">1.1B Params</span>
-                </div>
-
-                <div class="model-card animate-on-scroll stagger-2">
-                    <div class="model-icon model-icon-gemma">G</div>
-                    <h3>Gemma</h3>
-                    <p>Google's lightweight open model built for responsible AI development.</p>
-                    <span class="model-tag">2B / 7B</span>
-                </div>
-
-                <div class="model-card animate-on-scroll stagger-3">
-                    <div class="model-icon model-icon-phi">P</div>
-                    <h3>Phi</h3>
-                    <p>Microsoft's small yet capable model punching well above its size.</p>
-                    <span class="model-tag">2.7B Params</span>
-                </div>
-
-                <div class="model-card animate-on-scroll stagger-4">
-                    <div class="model-icon model-icon-qwen">Q</div>
-                    <h3>Qwen</h3>
-                    <p>Alibaba's multilingual model with strong reasoning capabilities.</p>
-                    <span class="model-tag">1.5B - 7B</span>
-                </div>
-
-                <div class="model-card animate-on-scroll stagger-5">
-                    <div class="model-icon model-icon-deep">D</div>
-                    <h3>DeepSeek</h3>
-                    <p>Advanced reasoning model with competitive performance at smaller sizes.</p>
-                    <span class="model-tag">1.3B - 7B</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Open Source Section -->
-    <section class="section section-alt" id="opensource">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="section-label">Open Source</span>
-                <h2 class="section-title">Built in the open</h2>
-                <p class="section-desc">ChintaLM is fully open source, ensuring transparency, trust, and community-driven development.</p>
-            </div>
-
-            <div class="oss-grid">
-                <div class="oss-card animate-on-scroll stagger-1">
-                    <div class="oss-icon">
-                        <div class="oss-icon-license"></div>
-                    </div>
-                    <h3>MIT License</h3>
-                    <p>Free to use, modify, and distribute. No vendor lock-in, no hidden restrictions.</p>
-                </div>
-
-                <div class="oss-card animate-on-scroll stagger-2">
-                    <div class="oss-icon">
-                        <div class="oss-icon-community">
-                            <span></span><span></span><span></span>
-                        </div>
-                    </div>
-                    <h3>Community Driven</h3>
-                    <p>Built by contributors worldwide. Join the community and help shape the future of on-device AI.</p>
-                </div>
-
-                <div class="oss-card animate-on-scroll stagger-3">
-                    <div class="oss-icon">
-                        <div class="oss-icon-transparency"></div>
-                    </div>
-                    <h3>Full Transparency</h3>
-                    <p>Every line of code is visible and auditable. No black boxes, no hidden behavior.</p>
-                </div>
-
-                <div class="oss-card animate-on-scroll stagger-4">
-                    <div class="oss-icon">
-                        <div class="oss-icon-repo"></div>
-                    </div>
-                    <h3>GitHub Repository</h3>
-                    <p>Star, fork, and contribute on GitHub. All development happens in the open.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats-section" id="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item animate-on-scroll stagger-1">
-                    <div class="stat-value">100%</div>
-                    <div class="stat-label">Open Source</div>
-                    <div class="stat-divider"></div>
-                </div>
-                <div class="stat-item animate-on-scroll stagger-2">
-                    <div class="stat-value">Native</div>
-                    <div class="stat-label">Android First</div>
-                    <div class="stat-divider"></div>
-                </div>
-                <div class="stat-item animate-on-scroll stagger-3">
-                    <div class="stat-value">Zero</div>
-                    <div class="stat-label">Data Collected</div>
-                    <div class="stat-divider"></div>
-                </div>
-                <div class="stat-item animate-on-scroll stagger-4">
-                    <div class="stat-value">MIT</div>
-                    <div class="stat-label">License</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="animate-on-scroll">
-                <span class="section-label">Get Started</span>
-                <h2 class="section-title">Ready to run AI locally?</h2>
-                <p class="section-desc">Join the community building private, on-device AI for Android. Contribute, star, or fork the repository today.</p>
-                <div class="cta-actions">
-                    <a href="https://github.com/glitchsumon/ChintaLM" target="_blank" rel="noopener noreferrer" class="btn-primary">
-                        View on GitHub <span class="btn-primary-arrow">&rarr;</span>
-                    </a>
-                    <a href="#features" class="btn-secondary">
-                        Learn More
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-inner">
-                <div class="footer-left">
-                    <div class="footer-logo-mark"></div>
-                    <span class="footer-brand">ChintaLM</span>
-                </div>
-                <p class="footer-copy">&copy; 2025 ChintaLM. Released under the MIT License.</p>
-                <ul class="footer-links" role="list">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#models">Models</a></li>
-                    <li><a href="https://github.com/glitchsumon/ChintaLM" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+        <div class="channels-grid" id="channels-grid"></div>
+    </main>
 
     <script>
-        // ===== Navigation Scroll Effect =====
-        const nav = document.getElementById('nav');
-        let lastScrollY = 0;
+        const rawChannels = [
+            { name: "TNT Sports ARG", url: "https://1nyaler.streamhostingcdn.top/stream/30/index.m3u8" },
+            { name: "TyC Sports ARG", url: "https://1nyaler.streamhostingcdn.top/stream/84/index.m3u8" },
+            { name: "ESPN LAT", url: "http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espnlat_720.m3u8" },
+            { name: "ESPN ARG", url: "http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espnar_lng.m3u8" },
+            { name: "ESPN 2", url: "http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn2ar_lng.m3u8" },
+            { name: "ESPN 3", url: "http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn3ar_lng.m3u8" },
+            { name: "ESPN 3 720p", url: "http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn3lat_720.m3u8" },
+            { name: "ESPN 4 720p", url: "http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn4lat_720.m3u8" },
+            { name: "ESPN 4", url: "http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn4lat.playlist.m3u8" },
+            { name: "ESPN 5 720p", url: "http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn5lat_720.m3u8" },
+            { name: "ESPN 6", url: "http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn6lat_720.m3u8" },
+            { name: "ESPN 7", url: "http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn7lt_720.m3u8" },
+            { name: "ESPN PREMIUM", url: "http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espnpremar_lng.m3u8" },
+            { name: "ESPN PREMIUM 720p", url: "http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espnpremlat_720.m3u8" },
+            { name: "FOX SPORTS", url: "http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-fox1ar_720.m3u8" },
+            { name: "FOX SPORT 2", url: "http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-fox2ar.playlist.m3u8" },
+            { name: "win", url: "http://8.243.126.131:8000/play/a025/index.m3u8" },
+            { name: "Win Sports", url: "http://181.78.17.52:8000/play/a0pw/index.m3u8" },
+            { name: "WIN SPORTS", url: "http://181.78.71.71:18000/play/a03p/index.m3u8" },
+            { name: "win+", url: "http://190.60.37.154:45000/play/a00q/index.m3u8" },
+            { name: "TYC", url: "http://190.60.37.154:45000/play/a05a/index.m3u8" },
+            { name: "DSPORTS 1 🇦🇷", url: "http://190.117.20.37:8000/play/a08d/index.m3u8" },
+            { name: "DSports", url: "http://205.235.6.29:8000/play/a0nq/index.m3u8" },
+            { name: "espn premium", url: "http://205.235.6.29:8000/play/a0pz/index.m3u8" },
+            { name: "tnt sport", url: "http://205.235.6.29:8000/play/a0xa/index.m3u8" },
+            { name: "tnt sport premium", url: "http://205.235.6.29:8000/play/a104/index.m3u8" },
+            { name: "espn", url: "http://205.235.6.29:8000/play/a0zf/index.m3u8" },
+            { name: "espn 7", url: "http://205.235.6.29:8000/play/a0zv/index.m3u8" },
+            { name: "WIN", url: "http://217.26.190.76:8888/play/a06a/index.m3u8" },
+            { name: "DSPORTS +", url: "http://217.26.190.76:8888/play/a0jb/index.m3u8" },
+            { name: "DIRECTV SPORTS", url: "http://217.26.190.76:8888/play/a0co/index.m3u8" },
+            { name: "DSports", url: "http://38.226.210.46:8000/play/A008/index.m3u8" },
+            { name: "dsport", url: "http://jumangis.cloud:2082/JairoVargas/5T5wLJjTbu/117708" },
+            { name: "TUDN USA", url: "http://m3u.tvcluboficial.com/m/m/957.m3u8" },
+            { name: "win sport", url: "http://m3u.tvcluboficial.com/m/m/1039.m3u8" },
+            { name: "win sports+", url: "http://m3u.tvcluboficial.com/m/m/1042.m3u8" },
+            { name: "ADRENALINA SPORTS", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/98.m3u8" },
+            { name: "CLAROSPORTS", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/103.m3u8" },
+            { name: "TNT SPORTS CHILE", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/462.m3u8" },
+            { name: "EUROSPORT 1", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/618.m3u8" },
+            { name: "EUROSPORT 2", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/619.m3u8" },
+            { name: "BEIN SPORTS Ñ", url: "https://amg01334-beinsportsllc-beinxtraesp-localnow-aekzc.amagi.tv/playlist.m3u8" },
+            { name: "DAZN F1", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/374.m3u8" },
+            { name: "TUDN 1", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/128.m3u8" },
+            { name: "ESPN DEPORTES", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/112.m3u8" },
+            { name: "WIN SPORTS PLUS", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/126.m3u8" },
+            { name: "TUDN 2", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/791.m3u8" },
+            { name: "ESPN PREMIUM CHI", url: "http://186.33.40.97:8789/play/22" },
+            { name: "ETC TV", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/578.m3u8" },
+            { name: "ESPN", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/107.m3u8" },
+            { name: "ESPN CO", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/10685.m3u8" },
+            { name: "ESPN 2", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/108.m3u8" },
+            { name: "ESPN 3", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/109.m3u8" },
+            { name: "ESPN 4", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/110.m3u8" },
+            { name: "CLAROSPORTS", url: "http://162.19.255.233:8080/play/UNbAl57p9hXZClOu56FCTUSaL5q1VtS-E1wCfb1nvO4/m3u8" },
+            { name: "FOX", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/459.m3u8" },
+            { name: "FOX 2", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/10532.m3u8" },
+            { name: "WIN SPORTS", url: "http://190.60.39.195:8000/play/a0ug/index.m3u8" },
+            { name: "ESPN PREMIUN 1", url: "http://190.7.19.197:232/play/a038/index.m3u8" },
+            { name: "ESPN 5", url: "http://181.118.158.103:8000/play/a03c/index.m3u8" },
+            { name: "ESPN ARG", url: "http://45.170.130.224:8000/play/a04l/index.m3u8" },
+            { name: "TYC SPORTS", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/8631.m3u8" },
+            { name: "TYC SPORTS Internacional", url: "http://190.7.19.197:232/play/a04w/index.m3u8" },
+            { name: "DAZN 1", url: "http://znty.dyndns.org:5010/hls/eleven1.m3u8" },
+            { name: "DAZN 2", url: "http://znty.dyndns.org:5010/hls/eleven2.m3u8" },
+            { name: "DAZN 3", url: "http://znty.dyndns.org:5010/hls/eleven3.m3u8" },
+            { name: "DAZN 4", url: "http://znty.dyndns.org:5010/hls/eleven4.m3u8" },
+            { name: "DAZN 5", url: "http://znty.dyndns.org:5010/hls/eleven5.m3u8" },
+            { name: "МАТЧ! ФУТБOЛ 2HD 🇷🇺", url: "http://193.25.8.59:8000/fut2" },
+            { name: "SKY SPORT LALIGA 🇲🇽", url: "http://179.60.224.196:8000/play/a0i7/index.m3u8" },
+            { name: "LIG 🇪🇸", url: "http://200.115.120.1:8000/play/ca124/index.m3u8" },
+            { name: "МАТЧ! ФУТБOЛ 2HD 🇷🇺", url: "http://cdntv.online/low/9mlxywika2/56.m3u8" },
+            { name: "TDM Desporto 🇲🇴", url: "http://cdn6.163189.xyz/163189/amty" },
+            { name: "IDMANTV 🇹🇷", url: "https://str2.yodacdn.net/idman_300_to_small/tracks-v1a1/mono.m3u8" },
+            { name: "MAX SPORT 4 🇧🇬", url: "http://77.46.130.252:99/maxsport4" },
+            { name: "SKY SPORT LALIGA 🇲🇽", url: "http://181.78.109.48:9998/play/a06r/index.m3u8" },
+            { name: "OTT CLUB 🇷🇺", url: "http://czrb8vng.ottclub.xyz/iptv/AHMQNVLWUTM5PW/6554/index.m3u8" },
+            { name: "Digi Sport 2 🇷🇴", url: "http://91.201.172.14:35006/" },
+            { name: "Матч! 🇷🇺", url: "http://catchup.videoline.ru/match/tracks-v1a1/mono.m3u8" },
+            { name: "Матч! 🇷🇺", url: "http://bl.video.matchtv.ru/media/playlist/free_d46d0cf1712c0542ec7fd4f0808f600a_hd/17_89756005/1080/e6bef86de8a133cd7b27deb040758a00/4796141934.m3u8" },
+            { name: "Матч! 🇷🇺", url: "http://cdntv.online/low/9mlxywika2/48.m3u8" },
+            { name: "ESPN 2 🇦🇷", url: "http://181.205.130.194:4000/play/a07i" },
+            { name: "ESPN 2 🇦🇷", url: "http://191.97.49.82:8001/play/a00m/index.m3u8" },
+            { name: "Dazn 1 🇵🇹", url: "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2531/index.m3u8" },
+            { name: "Dazn 1 🇵🇹", url: "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/19158/index.m3u8" },
+            { name: "Dazn 2 🇵🇹", url: "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2532/index.m3u8" },
+            { name: "Dazn 3 🇵🇹", url: "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/7062/index.m3u8" },
+            { name: "Dazn 4 🇵🇹", url: "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2534/index.m3u8" },
+            { name: "Dazn 5 🇵🇹", url: "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2535/index.m3u8" },
+            { name: "TNT SPORTS PREMIUM 🇬🇧", url: "http://200.115.120.1:8000/play/ca040/index.m3u8" },
+            { name: "BEIN 3 🇫🇷", url: "http://145.239.5.177/559/mpegts" },
+            { name: "Bein Sport 1 🇫🇷", url: "http://99.27.51.147:8080/BeinSport/index.m3u8" },
+            { name: "Bein Sport 3 🇫🇷", url: "http://99.27.51.147:8080/BeinSport3/index.m3u8" },
+            { name: "Bein Sport 3 🇫🇷", url: "http://145.239.5.177:80/559/index.m3u8" },
+            { name: "CANAL + Sport 🇫🇷", url: "http://151.80.18.177:86/Canal+_sport_HD/index.m3u8" },
+            { name: "Setenta Sport 1 🇷🇺", url: "http://cdntv.online/low/9mlxywika2/1021.m3u8" },
+            { name: "Setenta Sport 2 🇷🇺", url: "http://cdntv.online/low/9mlxywika2/1022.m3u8" },
+            { name: "Матч! 🇷🇺", url: "http://tv.tuva.ru/machtv/index.m3u8" },
+            { name: "Матч! 🇷🇺", url: "http://185.46.48.18:80/match/tracks-v1a1/mono.m3u8" },
+            { name: "Матч! 🇷🇺", url: "http://5.188.221.43:8080/play/match" },
+            { name: "Матч! 🇷🇺", url: "http://95.47.155.244:8001/play/a003" },
+            { name: "МАТЧ! ФУТБOЛ 1HD 🇷🇺", url: "http://193.25.8.59:8000/fut" },
+            { name: "МАТЧ! ФУТБOЛ 1HD 🇷🇺", url: "http://cdntv.online/low/9mlxywika2/55.m3u8" },
+            { name: "МАТЧ! ФУТБOЛ 3HD 🇷🇺", url: "http://185.57.68.33/110/mpegts" },
+            { name: "Матч! Футбол 3 HD 🇷🇺", url: "http://185.57.68.33:8091/110/playlist.m3u8" },
+            { name: "МАТЧ! ФУТБOЛ 3HD 🇷🇺", url: "http://cdntv.online/low/9mlxywika2/57.m3u8" },
+            { name: "Футбол 3 (SD) 🇷🇺", url: "http://185.57.68.33:80/110/index.m3u8" },
+            { name: "Матч! 4 HD 🇷🇺", url: "http://46.149.191.217:9010/play/a019" },
+            { name: "Setanta Sport 🇺🇦", url: "http://217.174.225.146/hls/ch004_720/index.m3u8" },
+            { name: "Суспільне Kiev Спорт HD 🇺🇦", url: "https://tva.in.ua/live/susp-sport.m3u8" },
+            { name: "Super Sport 1 🇦🇱", url: "http://93.93.113.95:25461/TV-Berati/XtreamCodes/494" },
+            { name: "Super Sport 2 🇦🇱", url: "http://93.93.113.95:25461/TV-Berati/XtreamCodes/495" },
+            { name: "RTSH Sport 🇦🇱", url: "http://217.73.139.200:5443/play/a01d" },
+            { name: "NOVA SPORT 1 HD 🇨🇿", url: "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2555/index.m3u8" },
+            { name: "CT SPORT HD 🇨🇿", url: "http://88.212.15.19/live/test_ctsport_25p/playlist.m3u8" },
+            { name: "SPORT 1 HD 🇨🇿", url: "http://88.212.15.19/live/test_sport1_25p/playlist.m3u8" },
+            { name: "SPORT 2 HD 🇨🇿", url: "http://88.212.15.19/live/test_sport_2/playlist.m3u8" },
+            { name: "ARENA SPORT 1 🇨🇿", url: "http://88.212.15.19/live/test_arenasport/playlist.m3u8" },
+            { name: "ARENA SPORT 2 🇨🇿", url: "http://88.212.15.19/live/test_arenasport_dva/playlist.m3u8" },
+            { name: "MAX SPORT 1 🇧🇬", url: "http://77.46.130.252:99/maxsport1" },
+            { name: "MAX SPORT 2 🇧🇬", url: "http://77.46.130.252:99/maxsport2" },
+            { name: "MAX SPORT 3 🇧🇬", url: "http://77.46.130.252:99/maxsport3" },
+            { name: "M4 Sport 🇭🇺", url: "http://46.149.191.217:9010/play/a017" },
+            { name: "Sportdigital 🇩🇪", url: "https://jmp2.uk/stvp-ATAJ0500433A" },
+            { name: "ZIGGO SPORT 2 HD 🇳🇱", url: "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2561/index.m3u8" },
+            { name: "ZIGGO SPORT 3 HD 🇳🇱", url: "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2559/index.m3u8" },
+            { name: "ZIGGO SPORT LIVE 🇳🇱", url: "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2560/index.m3u8" },
+            { name: "2TV Sport 🇳🇴", url: "https://tv.cdn.xsg.ge/gpb-2tv/index.m3u8" },
+            { name: "ORF+ 🇦🇹", url: "http://212.186.45.34:9981/stream/channelid/906723447" },
+            { name: "5 SPORT 🇮🇱", url: "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2558/index.m3u8" },
+            { name: "TELEFE 🇦🇷", url: "http://200.115.120.1:8000/play/ca016/index.m3u8" },
+            { name: "CAZE TV 1 🇧🇷", url: "https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/Caze_TV.m3u8" },
+            { name: "REAL MADRID TV 🇪🇸", url: "https://rmtv.akamaized.net/hls/live/2043153/rmtv-es-web/bitrate_3.m3u8" },
+            { name: "BEIN SPORT EXTRA Ñ 🇪🇸", url: "https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8" },
+            { name: "TELEMUNDO 🇲🇽", url: "https://nbculocallive.akamaized.net/hls/live/2037499/puertorico/stream1/master.m3u8" },
+            { name: "MTR Sports-1 🇬🇧", url: "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg02873-kravemedia-mtrspt1-distrotv/playlist.m3u8" },
+            { name: "X SPORT 🇷🇺", url: "http://iptv.prosto.tv:7000/ch109/video.m3u8" },
+            { name: "Turkmenistan Sport 🇹🇲", url: "https://alpha.tv.online.tm/legacyhls/ch004_720/index.m3u8" },
+            { name: "Turkmenistan Sport 🇹🇲", url: "http://217.174.225.146/legacyhls/ch004_720/index.m3u8" },
+            { name: "SPORT ITALIA 🇮🇹", url: "https://amg01370-italiansportcom-sportitalia-rakuten-3hmdb.amagi.tv/amRdirect/ads_pod_type=playerpage_midroll&ads_env=prod&ads_ppid=&ads_rtvid=271861&ads_streaming_id=4f185419-74f6-4564-8ea9-4cdc60746e2f&ads_amagi_channel=781&ads_device_type=web&ads_device_model=&ads_device_year=&ads_player_width=&ads_rtv_content_language=ita&ads_market=it&ads_rtv_content_id=3741&ads_device_make=&ads_user_type=visitor&ads_content_classification=6&ads_gdpr_consent=&ads_device_lmt=1&ads_player_height=&uid=1gnmqg5gu-qsvc-bfo-gaq3-3dgjgexshpe/hls/amagi_hls_data_rakutenAA-sportitalia-rakuten/CDN/1920x1080_4540800/chunklist.m3u8" },
+            { name: "TR Sport (480p) 🇮🇹", url: "https://livetr.teleromagna.it/mia/live/playlist.m3u8" },
+            { name: "L'Equipe 🇫🇷", url: "https://jmp2.uk/stvp-FR200016Y5" },
+            { name: "INFOSPORT 🇫🇷", url: "http://212.102.60.80/Infosport/index.m3u8" },
+            { name: "ON Sports+ 🇭🇰", url: "https://freem3u.xyz/api/live/play.m3u8" },
+            { name: "Fox Sports 🇮🇳", url: "http://y3fqd48g.megatv.fun/iptv/NRLXRWSBWBPLN4/19146/index.m3u8" },
+            { name: "MMN Sport 🇸🇦", url: "http://mmn.mypsx.net:1935/live/mmnhdsport/chunklist.m3u8" },
+            { name: "MASR 🇶🇦", url: "https://shls-masr-ak.akamaized.net/out/v1/d5036cabf11e45bf9d0db410ca135c18/index.m3u8" },
+            { name: "TELETRAK 🇨🇱", url: "http://unlimited6-cl.dps.live/sportinghd/sportinghd.smil/playlist.m3u8" },
+            { name: "Sport5 🇮🇱", url: "https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8" },
+            { name: "Sport5 🇮🇱", url: "https://rgelive.akamaized.net/hls/live/2043095/live3/playlist.m3u8" },
+            { name: "TUDN 🇲🇽", url: "http://45.5.119.43:4000/play/a05q/index.m3u8" },
+            { name: "ESPN 🇦🇷", url: "http://181.118.156.46:8000/play/a04g/index.m3u8" },
+            { name: "ESPN 2 🇨🇴", url: "http://200.10.30.241:8000/play/a01r/index.m3u8" },
+            { name: "ClaroSports 2", url: "http://45.5.118.152:8000/play/a0ah/index.m3u8" },
+            { name: "Movistar Deportes", url: "http://38.226.210.46:8000/play/a06d/index.m3u8" },
+            { name: "Tigo Sports", url: "http://181.78.17.52:8000/play/a0rq/index.m3u8" },
+            { name: "Via X Sport", url: "http://38.226.49.253:8000/play/a042/index.m3u8" },
+            { name: "Golf Channel", url: "http://45.167.1.136:8000/play/a05s" },
+            { name: "Golf Channel", url: "https://andro.226503.xyz/checklist/androstreamlivebiraz1.m3u8" },
+            { name: "BEIN SPORTS 2 Turkey", url: "https://andro.okan11gote12sokan.cfd/checklist/androstreamlivebs2.m3u8" },
+            { name: "BEIN SPORTS 3 Turkey", url: "https://andro.okan11gote12sokan.cfd/checklist/androstreamlivebs3.m3u8" },
+            { name: "BEIN SPORTS 4 Turkey", url: "https://andro.okan11gote12sokan.cfd/checklist/androstreamlivebs4.m3u8" },
+            { name: "BEIN SPORTS 5 Turkey", url: "https://andro.226503.xyz/checklist/androstreamlivebs5.m3u8" },
+            { name: "BEIN SPORTS France (alt)", url: "http://99.27.51.147:8080/BeinSport/mpegts" },
+            { name: "BEIN SPORTS 3 France (Alt)", url: "http://99.27.51.147:8080/BeinSport3/mpegts" },
+            { name: "NBC Team USA", url: "https://amg01416-amg01416c4-firetv-us-4522.playouts.now.amagi.tv/playlist.m3u8" },
+            { name: "AYM Sports", url: "https://aym-as.otteravision.com/aym/as/as.m3u8" },
+            { name: "BEK Sports West (USA)", url: "https://cdn3.wowza.com/5/ZWQ1K2NYTmpFbGsr/BEK-WOWZA-1/smil:BEKPRIMEW.smil/.m3u8" },
+            { name: "RS News", url: "https://video07.logicahost.com.br/rsnews01/rsnews01/playlist.m3u8" },
+            { name: "RS Sports 1", url: "https://video07.logicahost.com.br/rssports01/rssports01/playlist.m3u8" },
+            { name: "RS Sports 2", url: "https://video07.logicahost.com.br/rssports02/rssports02/playlist.m3u8" },
+            { name: "RS Sports 3", url: "https://video07.logicahost.com.br/rssports03/rssports03/playlist.m3u8" },
+            { name: "RS Sports 4", url: "https://video07.logicahost.com.br/rssports04/rssports04/playlist.m3u8" },
+            { name: "RS Sports 5", url: "https://video03.logicahost.com.br/rssports5/rssports5/playlist.m3u8" },
+            { name: "RS TV", url: "https://video07.logicahost.com.br/rstv1/rstv1/playlist.m3u8" },
+            { name: "RS News Web", url: "https://video01.logicahost.com.br/rsnewswebtv/rsnewswebtv/playlist.m3u8" },
+            { name: "RS PREMIERE", url: "https://video03.logicahost.com.br/rspremiere/rspremiere/playlist.m3u8" },
+            { name: "Latino | beIN Sports ñ HD", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/101.m3u8" },
+            { name: "Latino | FOX SPORTS HD", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/113.m3u8" },
+            { name: "Latino | FOX SPORTS 2 HD", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/114.m3u8" },
+            { name: "Latino | REAL MADRID HD", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/121.m3u8" },
+            { name: "MX | TVC DEPORTES HD", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/122.m3u8" },
+            { name: "Latino | Win Sports HD", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/125.m3u8" },
+            { name: "espn4", url: "http://45.5.119.43:4000/play/a028/index.m3u8" },
+            { name: "la liga", url: "http://45.5.119.43:4000/play/a05r/index.m3u8" },
+            { name: "espn2", url: "http://45.5.119.43:4000/play/a053/index.m3u8" },
+            { name: "SKY SPORTS GT", url: "http://45.171.64.30:2000/play/a08m/index.m3u8" },
+            { name: "TIGO SPORT", url: "http://45.171.64.30:2000/play/a08e/index.m3u8" },
+            { name: "Winsport", url: "http://181.78.85.59:2500/play/a030/index.m3u8" },
+            { name: "ESPN CO", url: "http://181.205.130.194:4000/play/a08n" },
+            { name: "ESPN 6 HD", url: "http://181.205.130.194:4000/play/a0eh" },
+            { name: "TUDN", url: "http://45.171.64.30:2000/play/a08j/index.m3u8" },
+            { name: "Latino | FOX SPORTS PREMIUM HD", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/375.m3u8" },
+            { name: "Latino | FOX DEPORTES HD", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/376.m3u8" },
+            { name: "Latino | TYC SPORTS HD", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/380.m3u8" },
+            { name: "USA | NBA TV", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/402.m3u8" },
+            { name: "AR | ESPN 2 HD", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/449.m3u8" },
+            { name: "USA | Fox Soccer Plus", url: "https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/3414.m3u8" },
+            { name: "Fox SPORTS 3", url: "http://45.5.119.43:4000/play/a024/index.m3u8" },
+            { name: "5", url: "http://45.5.119.43:4000/play/a05o/index.m3u8" },
+            { name: "Win2", url: "http://190.60.37.118:4000/play/a0bw" },
+            { name: "Gol TV", url: "http://38.44.109.41:8003/play/a02h/index.m3u8" },
+            { name: "ESPN Premium", url: "http://217.26.190.76:8888/play/a0es/index.m3u8" },
+            { name: "ESPN IXP", url: "http://200.229.147.142:8000/play/a013/index.m3u8" },
+            { name: "TUDN IXP", url: "http://200.229.147.142:8000/play/a096/index.m3u8" },
+            { name: "ESPN 4 HD", url: "http://181.78.49.113:9999/play/a07e/index.m3u8" },
+            { name: "ESPN 5 HD", url: "http://181.78.49.113:9999/play/a07f/index.m3u8" },
+            { name: "win4", url: "http://181.205.130.194:4000/play/a0fu" },
+            { name: "Mundial NBC Universo", url: "http://190.11.225.124:5000/live/universo_hd/playlist.m3u8" },
+            { name: "Mundial Azteca UNO", url: "http://38.44.109.41:8003/play/a033/index.m3u8" },
+            { name: "Azteca 7", url: "https://tv91.hostingnuclear.com:19360/xhunestv/xhunestv.m3u8" },
+            { name: "Azteca 7a", url: "https://estrellatv-roku.amagi.tv/playlist.m3u8" },
+            { name: "BeiN Sports Extra", url: "https://bein-esp-xumo.amagi.tv/playlistR720P.m3u8" },
+            { name: "BEIN SPORTS 1 AU", url: "https://wahyu1ptv.pages.dev/AstroBein2.m3u8" },
+            { name: "BEIN SPORTS 1 AU", url: "https://wahyu1ptv.pages.dev/AstroBein3.m3u8" },
+            { name: "RTI 1 (1080p)", url: "http://69.64.57.208:8080/rti1/playlist.m3u8" },
+            { name: "RTI 2 (1080p)", url: "http://69.64.57.208:8080/rti2/playlist.m3u8" },
+            { name: "✔️ Bein Sports Xtra ñ *2", url: "https://bein-esp-xumo.amagi.tv/playlist.m3u8" },
+            { name: "✔️ Garage TV", url: "https://stream1.sersat.com/hls/garagetv.m3u8" },
+            { name: "✔️ Red Bull TV", url: "http://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_3360.m3u8" },
+            { name: "✔️ TyC Sports", url: "http://38.44.109.41:8003/play/a02l/index.m3u8" },
+            { name: "✔️ Xtrema TV Cna Deportes 2", url: "https://stmv6.voxtvhd.com.br/cnardeportes/cnardeportes/playlist.m3u8" },
+            { name: "Tango Sports 4", url: "http://190.7.19.197:232/play/a037/index.m3u8" }
+        ];
 
-        function handleNavScroll() {
-            const scrollY = window.scrollY;
-            if (scrollY > 20) {
-                nav.classList.add('scrolled');
+        // State Management
+        let onlineChannels = [];
+        let currentPlayingId = null;
+        let activeHls = null;
+        let scanIndex = 0;
+
+        // DOM Elements
+        const video = document.getElementById('video');
+        const channelNameEl = document.getElementById('channel-name');
+        const channelsGrid = document.getElementById('channels-grid');
+        const searchInput = document.getElementById('search');
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const scanOverlay = document.getElementById('scan-overlay');
+        const counterEl = document.getElementById('counter');
+
+        // Initialize Channel Data
+        rawChannels.forEach((ch, idx) => {
+            ch.id = idx;
+            let hash = 0;
+            for (let i = 0; i < ch.name.length; i++) {
+                hash = ch.name.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            const h = hash % 360;
+            ch.color = `hsl(${h < 0 ? h + 360 : h}, 65%, 25%)`;
+            ch.initials = ch.name.replace(/[^a-zA-Z0-9À-ÿ]/g, ' ').trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase() || "TV";
+        });
+
+        function updateCounter() {
+            counterEl.textContent = `Working: ${onlineChannels.length}`;
+        }
+
+        // Probe Logic: Tests a single channel with retries and timeout
+        function probeChannel(channel) {
+            return new Promise((resolve) => {
+                let retries = 0;
+                const maxRetries = 3;
+                const timeoutMs = 8000;
+
+                function attempt() {
+                    if (retries >= maxRetries) {
+                        resolve(false);
+                        return;
+                    }
+                    retries++;
+                    
+                    // Temp video element for probing
+                    const probeVideo = document.createElement('video');
+                    const hls = new Hls({
+                        enableWorker: false,
+                        maxBufferLength: 1,
+                        maxMaxBufferLength: 1,
+                        manifestLoadingTimeOut: timeoutMs,
+                        manifestLoadingMaxRetry: 0,
+                        levelLoadingTimeOut: timeoutMs,
+                        fragLoadingTimeOut: timeoutMs
+                    });
+                    
+                    let settled = false;
+                    let timer = setTimeout(() => {
+                        if (!settled) {
+                            settled = true;
+                            hls.destroy();
+                            probeVideo.remove();
+                            attempt(); // retry on timeout
+                        }
+                    }, timeoutMs + 500); // small buffer for network lag
+
+                    hls.attachMedia(probeVideo);
+                    hls.loadSource(channel.url);
+
+                    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                        if (!settled) {
+                            settled = true;
+                            clearTimeout(timer);
+                            hls.destroy();
+                            probeVideo.remove();
+                            resolve(true);
+                        }
+                    });
+
+                    hls.on(Hls.Events.ERROR, (event, data) => {
+                        if (data.fatal && !settled) {
+                            settled = true;
+                            clearTimeout(timer);
+                            hls.destroy();
+                            probeVideo.remove();
+                            attempt(); // retry on error
+                        }
+                    });
+                }
+                attempt();
+            });
+        }
+
+        // Scanning Batches to prevent browser overload
+        async function scanChannels() {
+            const concurrencyLimit = 8;
+            let index = 0;
+            
+            async function next() {
+                if (index >= rawChannels.length) return;
+                const ch = rawChannels[index++];
+                const isOnline = await probeChannel(ch);
+                
+                if (isOnline) {
+                    onlineChannels.push(ch);
+                    addChannelToGrid(ch);
+                    updateCounter();
+                    
+                    // Auto-play the first working channel immediately
+                    if (!currentPlayingId) {
+                        playChannel(ch.id);
+                    }
+                }
+                return next(); // recursively start next
+            }
+            
+            const workers = [];
+            for (let i = 0; i < concurrencyLimit; i++) {
+                workers.push(next());
+            }
+            await Promise.all(workers);
+            
+            // Hide scanning overlay when done
+            scanOverlay.classList.add('hidden');
+        }
+
+        // Background monitor to ensure channels remain active
+        function startBackgroundMonitor() {
+            setInterval(async () => {
+                if (onlineChannels.length === 0) return;
+                
+                // Cycle through channels slowly (1 every 12 seconds to not spam)
+                const ch = onlineChannels[scanIndex % onlineChannels.length];
+                scanIndex++;
+                
+                // Don't probe the currently playing one; main player handles its errors
+                if (ch.id === currentPlayingId) return;
+                
+                const isOnline = await probeChannel(ch);
+                if (!isOnline) {
+                    removeChannelFromGrid(ch.id);
+                }
+            }, 12000);
+        }
+
+        // Playback Logic
+        function playChannel(id) {
+            const channel = onlineChannels.find(c => c.id === id);
+            if (!channel) return;
+
+            if (activeHls) {
+                activeHls.destroy();
+            }
+
+            currentPlayingId = id;
+            channelNameEl.textContent = channel.name;
+            
+            // UI Highlight
+            document.querySelectorAll('.channel-card').forEach(card => {
+                card.classList.toggle('active', parseInt(card.dataset.id) === id);
+            });
+
+            if (Hls.isSupported()) {
+                activeHls = new Hls({ enableWorker: true, lowLatencyMode: true });
+                activeHls.loadSource(channel.url);
+                activeHls.attachMedia(video);
+                
+                activeHls.on(Hls.Events.MANIFEST_PARSED, () => {
+                    video.play().catch(e => console.log("Autoplay blocked"));
+                });
+                
+                activeHls.on(Hls.Events.ERROR, (event, data) => {
+                    if (data.fatal) {
+                        handleCurrentChannelFailure();
+                    }
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = channel.url;
+                video.addEventListener('loadedmetadata', () => {
+                    video.play().catch(e => console.log("Autoplay blocked"));
+                });
+                video.addEventListener('error', handleCurrentChannelFailure);
+            }
+        }
+
+        function handleCurrentChannelFailure() {
+            if (!currentPlayingId) return;
+            const failedId = currentPlayingId;
+            
+            // Remove from online list and grid
+            removeChannelFromGrid(failedId);
+            
+            // Find next working channel
+            if (onlineChannels.length > 0) {
+                playChannel(onlineChannels[0].id);
             } else {
-                nav.classList.remove('scrolled');
+                channelNameEl.textContent = "No channels available";
+                if(activeHls) activeHls.destroy();
+                video.src = '';
             }
-            lastScrollY = scrollY;
         }
 
-        window.addEventListener('scroll', handleNavScroll, { passive: true });
-        handleNavScroll();
+        // Grid Management
+        function addChannelToGrid(ch) {
+            const card = document.createElement('div');
+            card.className = 'channel-card';
+            card.dataset.id = ch.id;
+            card.dataset.name = ch.name.toLowerCase();
+            
+            card.innerHTML = `
+                <div class="status-indicator"></div>
+                <div class="logo-initials" style="background: ${ch.color}">${ch.initials}</div>
+                <div class="card-name" title="${ch.name}">${ch.name}</div>
+            `;
 
-        // ===== Mobile Menu =====
-        const mobileToggle = document.getElementById('mobileToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        mobileToggle.addEventListener('click', function() {
-            const isOpen = mobileMenu.classList.toggle('open');
-            mobileToggle.classList.toggle('active');
-            mobileToggle.setAttribute('aria-expanded', isOpen);
-        });
-
-        function closeMobileMenu() {
-            mobileMenu.classList.remove('open');
-            mobileToggle.classList.remove('active');
-            mobileToggle.setAttribute('aria-expanded', 'false');
+            card.addEventListener('click', () => playChannel(ch.id));
+            channelsGrid.appendChild(card);
         }
 
-        // Close mobile menu on resize
-        window.addEventListener('resize', function() {
-            if (window.innerWidth >= 768) {
-                closeMobileMenu();
+        function removeChannelFromGrid(id) {
+            // Remove from state
+            onlineChannels = onlineChannels.filter(c => c.id !== id);
+            updateCounter();
+            
+            // Remove from DOM
+            const card = channelsGrid.querySelector(`[data-id="${id}"]`);
+            if (card) {
+                card.style.transition = 'opacity 0.3s, transform 0.3s';
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.8)';
+                setTimeout(() => card.remove(), 300);
+            }
+
+            // If the currently playing channel is removed, switch
+            if (id === currentPlayingId) {
+                handleCurrentChannelFailure();
+            }
+        }
+
+        // Search Functionality
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const cards = channelsGrid.querySelectorAll('.channel-card');
+            let visibleCount = 0;
+            
+            cards.forEach(card => {
+                const name = card.dataset.name;
+                const isVisible = name.includes(query);
+                card.style.display = isVisible ? 'flex' : 'none';
+                if(isVisible) visibleCount++;
+            });
+
+            const noResults = channelsGrid.querySelector('.no-results');
+            if (noResults) noResults.remove();
+
+            if (visibleCount === 0 && onlineChannels.length > 0) {
+                channelsGrid.innerHTML = '<div class="no-results">No channels found matching your search</div>';
             }
         });
 
-        // ===== Parallax Mouse Movement =====
-        const shapes = document.querySelectorAll('.floating-shape');
-        let mouseX = 0;
-        let mouseY = 0;
-        let currentX = 0;
-        let currentY = 0;
-
-        document.addEventListener('mousemove', function(e) {
-            mouseX = (e.clientX - window.innerWidth / 2) / window.innerWidth;
-            mouseY = (e.clientY - window.innerHeight / 2) / window.innerHeight;
+        // Fullscreen
+        fullscreenBtn.addEventListener('click', () => {
+            if (video.requestFullscreen) video.requestFullscreen();
+            else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+            else if (video.msRequestFullscreen) video.msRequestFullscreen();
         });
 
-        function animateParallax() {
-            currentX += (mouseX - currentX) * 0.04;
-            currentY += (mouseY - currentY) * 0.04;
-
-            shapes.forEach(function(shape) {
-                const depth = parseFloat(shape.getAttribute('data-depth')) || 0.02;
-                const moveX = currentX * depth * 1000;
-                const moveY = currentY * depth * 1000;
-                shape.style.transform = 'translate(' + moveX + 'px, ' + moveY + 'px)';
-            });
-
-            requestAnimationFrame(animateParallax);
-        }
-
-        animateParallax();
-
-        // ===== Scroll Animations (Intersection Observer) =====
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -40px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.animate-on-scroll, .animate-fade').forEach(function(el) {
-            observer.observe(el);
-        });
-
-        // ===== Smooth scroll for anchor links =====
-        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const offset = 80;
-                    const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                    window.scrollTo({ top: top, behavior: 'smooth' });
-                }
-            });
-        });
+        // Init
+        scanChannels();
+        startBackgroundMonitor();
     </script>
 </body>
 </html>
