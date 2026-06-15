@@ -3,1499 +3,1221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AI Toolbox - Professional AI-powered tools including text summarizer, grammar checker, paraphraser, code explainer, translator, email writer, and blog generator.">
-    <meta name="keywords" content="AI tools, text summarizer, grammar checker, paraphraser, code explainer, translator, email writer, blog generator, Gemini API">
-    <meta name="author" content="AI Toolbox">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="AI Toolbox - Professional AI Tools">
-    <meta property="og:description" content="Access powerful AI tools for text processing, translation, content generation, and more.">
-    <meta property="og:type" content="website">
-    <title>AI Toolbox - Professional AI-Powered Tools</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>MSR TV - Live Sports</title>
+    <!-- HLS.js for streaming -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
         :root {
-            --bg: #ffffff;
-            --bg-secondary: #f8f9fa;
-            --bg-tertiary: #f1f3f5;
-            --text-primary: #1a1a2e;
-            --text-secondary: #495057;
-            --text-tertiary: #6c757d;
-            --border: #dee2e6;
-            --border-light: #e9ecef;
-            --accent: #2563eb;
-            --accent-hover: #1d4ed8;
-            --accent-light: #eff6ff;
-            --success: #059669;
-            --success-light: #ecfdf5;
-            --error: #dc2626;
-            --error-light: #fef2f2;
-            --warning: #d97706;
-            --warning-light: #fffbeb;
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-            --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.04);
-            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.06), 0 4px 10px rgba(0, 0, 0, 0.04);
-            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
-            --radius-sm: 6px;
-            --radius: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 20px;
-            --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            --max-width: 1200px;
-            --header-height: 64px;
+            /* Light Mode Variables */
+            --bg-color: #ffffff;
+            --card-bg: #fafafa;
+            --text-primary: #000000;
+            --text-secondary: #666666;
+            --border-color: #eaeaea;
+            --accent-color: #000000;
+            --accent-text: #ffffff;
+            --success-color: #22c55e;
+            --danger-color: #ef4444;
+            --shadow: 0 2px 4px rgba(0,0,0,0.05);
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
         }
 
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        [data-theme="dark"] {
+            /* Dark Mode Variables */
+            --bg-color: #000000;
+            --card-bg: #111111;
+            --text-primary: #ededed;
+            --text-secondary: #888888;
+            --border-color: #333333;
+            --accent-color: #ffffff;
+            --accent-text: #000000;
         }
 
-        html {
-            scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg);
+            background-color: var(--bg-color);
             color: var(--text-primary);
-            line-height: 1.6;
-            font-size: 16px;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            font-family: var(--font-family);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
         }
 
-        /* Header */
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background-color: #ffffff;
-            border-bottom: 1px solid var(--border-light);
-            height: var(--header-height);
-            box-shadow: var(--shadow-sm);
-            transition: box-shadow var(--transition);
-        }
-
-        .header.scrolled {
-            box-shadow: var(--shadow);
-        }
-
-        .header-inner {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 24px;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            font-size: 1.3rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            letter-spacing: -0.02em;
-            flex-shrink: 0;
-        }
-
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background-color: var(--accent);
-            border-radius: var(--radius);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-weight: 800;
-            font-size: 1.1rem;
-            letter-spacing: 0;
-            flex-shrink: 0;
-        }
-
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.925rem;
-            padding: 8px 14px;
-            border-radius: var(--radius);
-            transition: all var(--transition);
-            white-space: nowrap;
-        }
-
-        .nav-link:hover,
-        .nav-link:focus-visible {
-            color: var(--accent);
-            background-color: var(--accent-light);
-            outline: none;
-        }
-
-        .hamburger {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: var(--radius);
-            color: var(--text-primary);
-            transition: background-color var(--transition);
-            flex-shrink: 0;
-        }
-
-        .hamburger:hover {
-            background-color: var(--bg-tertiary);
-        }
-
-        .hamburger-icon {
-            display: block;
-            width: 22px;
-            height: 2px;
-            background-color: currentColor;
-            border-radius: 2px;
-            position: relative;
-            transition: all var(--transition);
-        }
-
-        .hamburger-icon::before,
-        .hamburger-icon::after {
-            content: '';
-            display: block;
-            width: 22px;
-            height: 2px;
-            background-color: currentColor;
-            border-radius: 2px;
-            position: absolute;
-            transition: all var(--transition);
-        }
-
-        .hamburger-icon::before {
-            top: -7px;
-        }
-        .hamburger-icon::after {
-            top: 7px;
-        }
-
-        .hamburger.active .hamburger-icon {
-            background-color: transparent;
-        }
-        .hamburger.active .hamburger-icon::before {
-            top: 0;
-            transform: rotate(45deg);
-        }
-        .hamburger.active .hamburger-icon::after {
-            top: 0;
-            transform: rotate(-45deg);
-        }
-
-        /* Mobile nav */
-        .mobile-nav {
-            display: none;
-            position: fixed;
-            top: var(--header-height);
-            left: 0;
-            right: 0;
-            background-color: #ffffff;
-            border-bottom: 1px solid var(--border-light);
-            padding: 16px 24px;
-            flex-direction: column;
-            gap: 4px;
-            z-index: 99;
-            box-shadow: var(--shadow-md);
-            transform: translateY(-8px);
-            opacity: 0;
-            pointer-events: none;
-            transition: all var(--transition-slow);
-        }
-
-        .mobile-nav.active {
-            display: flex;
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .mobile-nav-link {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            padding: 12px 16px;
-            border-radius: var(--radius);
-            transition: all var(--transition);
-            display: block;
-        }
-
-        .mobile-nav-link:hover,
-        .mobile-nav-link:focus-visible {
-            background-color: var(--bg-tertiary);
-            color: var(--accent);
-            outline: none;
-        }
-
-        /* Main content */
-        .main {
-            flex: 1;
-        }
-
-        /* Hero */
-        .hero {
-            padding: 64px 24px 48px;
-            text-align: center;
-            background-color: var(--bg);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .hero-inner {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background-color: var(--accent-light);
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 0.8rem;
-            padding: 6px 14px;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            letter-spacing: 0.03em;
-            text-transform: uppercase;
-        }
-
-        .hero-title {
-            font-size: clamp(2rem, 5vw, 3.2rem);
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            line-height: 1.15;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
-            color: var(--text-secondary);
-            max-width: 550px;
-            margin: 0 auto 32px;
-            line-height: 1.6;
-            font-weight: 400;
-        }
-
-        .hero-cta {
-            display: inline-block;
-            background-color: var(--accent);
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 13px 28px;
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            transition: all var(--transition);
-            border: none;
-            cursor: pointer;
-            letter-spacing: -0.01em;
-        }
-
-        .hero-cta:hover {
-            background-color: var(--accent-hover);
-            box-shadow: var(--shadow-md);
-            transform: translateY(-1px);
-        }
-
-        /* Tools section */
-        .tools-section {
-            padding: 56px 24px 80px;
-            background-color: var(--bg-secondary);
-        }
-
-        .tools-section-inner {
-            max-width: var(--max-width);
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 44px;
-        }
-
-        .section-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .section-subtitle {
-            font-size: 0.95rem;
-            color: var(--text-tertiary);
-            font-weight: 400;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .tool-card {
-            background-color: #ffffff;
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            padding: 28px 24px;
-            cursor: pointer;
-            transition: all var(--transition);
-            position: relative;
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .tool-card:hover {
-            box-shadow: var(--shadow-lg);
-            border-color: var(--border);
-            transform: translateY(-2px);
-        }
-
-        .tool-card:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .tool-card-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: var(--radius);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: #ffffff;
-            flex-shrink: 0;
-            letter-spacing: 0;
-        }
-
-        .tool-card-icon.blue { background-color: #2563eb; }
-        .tool-card-icon.green { background-color: #059669; }
-        .tool-card-icon.purple { background-color: #7c3aed; }
-        .tool-card-icon.orange { background-color: #ea580c; }
-        .tool-card-icon.teal { background-color: #0d9488; }
-        .tool-card-icon.indigo { background-color: #4f46e5; }
-        .tool-card-icon.rose { background-color: #e11d48; }
-
-        .tool-card-title {
-            font-weight: 600;
-            font-size: 1.05rem;
-            color: var(--text-primary);
-            letter-spacing: -0.01em;
-        }
-
-        .tool-card-desc {
-            font-size: 0.875rem;
-            color: var(--text-tertiary);
-            line-height: 1.5;
-            flex: 1;
-        }
-
-        .tool-card-arrow {
-            align-self: flex-end;
-            color: var(--text-tertiary);
-            font-size: 1.2rem;
-            transition: transform var(--transition);
-            font-weight: 300;
-        }
-
-        .tool-card:hover .tool-card-arrow {
-            transform: translateX(4px);
-            color: var(--accent);
-        }
-
-        /* Modal overlay */
-        .modal-overlay {
+        /* Utility */
+        .hidden { display: none !important; }
+        .flex { display: flex; }
+        .grid { display: grid; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        
+        /* Loading Screen */
+        #loader {
             position: fixed;
             inset: 0;
-            background-color: rgba(0, 0, 0, 0.45);
-            z-index: 200;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity var(--transition-slow);
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal {
-            background-color: #ffffff;
-            border-radius: var(--radius-xl);
-            width: 100%;
-            max-width: 720px;
-            max-height: 90vh;
+            background: var(--bg-color);
+            z-index: 9999;
             display: flex;
             flex-direction: column;
-            box-shadow: var(--shadow-xl);
-            transform: translateY(20px) scale(0.97);
-            transition: transform var(--transition-slow);
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--border-color);
+            border-top-color: var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        
+        /* Header */
+        header {
+            padding: 20px 5%;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            background: rgba(var(--bg-color), 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        .brand { font-weight: 700; font-size: 1.25rem; letter-spacing: -0.02em; }
+        .nav-controls { gap: 15px; }
+        
+        .search-bar {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: var(--text-primary);
+            outline: none;
+            width: 200px;
+            transition: width 0.3s ease;
+        }
+        .search-bar:focus { width: 250px; border-color: var(--text-secondary); }
+        
+        .btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+        .btn:hover { background: var(--card-bg); border-color: var(--text-secondary); }
+        .btn-primary {
+            background: var(--accent-color);
+            color: var(--accent-text);
+            border-color: var(--accent-color);
+        }
+        .btn-primary:hover { opacity: 0.9; }
+
+        /* Layout */
+        main { padding: 30px 5%; max-width: 1400px; margin: 0 auto; min-height: 80vh; }
+        
+        /* Categories & Stats */
+        .controls-area {
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .stats {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--success-color);
+        }
+        .category-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            scrollbar-width: none; /* Firefox */
+        }
+        .category-scroll::-webkit-scrollbar { display: none; }
+        
+        .cat-chip {
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .cat-chip.active, .cat-chip:hover {
+            background: var(--accent-color);
+            color: var(--accent-text);
+            border-color: var(--accent-color);
+        }
+
+        /* Channel Grid */
+        .channel-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        @media (min-width: 768px) { .channel-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 1024px) { .channel-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+            border-color: var(--text-secondary);
+        }
+        
+        .card-img-wrapper {
+            aspect-ratio: 16/9;
+            background: #f0f0f0;
+            position: relative;
             overflow: hidden;
         }
-
-        .modal-overlay.active .modal {
-            transform: translateY(0) scale(1);
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Logos usually better contained */
+            padding: 20px;
         }
-
-        .modal-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            padding: 24px 28px 16px;
-            border-bottom: 1px solid var(--border-light);
-            gap: 16px;
-            flex-shrink: 0;
-        }
-
-        .modal-header-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .modal-title {
-            font-size: 1.35rem;
+        .status-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--text-primary);
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            backdrop-filter: blur(2px);
+        }
+        .badge-live { background: var(--success-color); }
+        
+        .card-content { padding: 12px; }
+        .card-title {
+            font-weight: 600;
+            font-size: 0.95rem;
             margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-
-        .modal-desc {
-            font-size: 0.875rem;
-            color: var(--text-tertiary);
-            line-height: 1.4;
+        .card-cat {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
         }
-
-        .modal-close {
-            background: none;
-            border: none;
-            cursor: pointer;
-            width: 36px;
-            height: 36px;
+        
+        .fav-btn {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(255,255,255,0.8);
             border-radius: 50%;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
-            color: var(--text-tertiary);
-            transition: all var(--transition);
-            flex-shrink: 0;
-            font-weight: 300;
-            line-height: 1;
+            font-size: 14px;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.2s;
         }
+        [data-theme="dark"] .fav-btn { background: rgba(0,0,0,0.6); color: white; }
+        .card:hover .fav-btn { opacity: 1; }
+        .fav-btn.is-fav { opacity: 1; color: var(--danger-color); }
 
-        .modal-close:hover {
-            background-color: var(--bg-tertiary);
-            color: var(--text-primary);
-        }
-
-        .modal-body {
-            padding: 20px 28px 28px;
-            overflow-y: auto;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .modal-body::-webkit-scrollbar { width: 5px; }
-        .modal-body::-webkit-scrollbar-track { background: transparent; }
-        .modal-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
-
-        /* Extra fields */
-        .extra-fields {
-            display: none;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .extra-fields.visible {
-            display: flex;
-        }
-
-        .extra-fields .field-group {
-            flex: 1;
-            min-width: 140px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .extra-fields label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            letter-spacing: 0.01em;
-        }
-
-        .extra-fields input,
-        .extra-fields select {
-            padding: 10px 14px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            color: var(--text-primary);
-            background-color: var(--bg);
-            transition: all var(--transition);
-            width: 100%;
-            appearance: none;
-            -webkit-appearance: none;
-        }
-
-        .extra-fields select {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%236c757d'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            padding-right: 32px;
-            cursor: pointer;
-        }
-
-        .extra-fields input:focus,
-        .extra-fields select:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
-        }
-
-        /* Input group */
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .input-label-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .input-label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            letter-spacing: 0.01em;
-        }
-
-        .char-count {
-            font-size: 0.75rem;
-            color: var(--text-tertiary);
-            font-weight: 400;
-            white-space: nowrap;
-        }
-
-        .char-count.warning { color: var(--warning); }
-
-        textarea {
-            width: 100%;
-            min-height: 140px;
-            padding: 14px 16px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.925rem;
-            color: var(--text-primary);
-            background-color: var(--bg);
-            resize: vertical;
-            line-height: 1.6;
-            transition: all var(--transition);
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
-        }
-
-        textarea::placeholder { color: #adb5bd; }
-
-        /* Buttons row */
-        .btn-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            padding: 11px 20px;
-            border-radius: var(--radius);
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            border: 1px solid transparent;
-            transition: all var(--transition);
-            letter-spacing: -0.01em;
-            white-space: nowrap;
-            text-decoration: none;
-            line-height: 1.3;
-        }
-
-        .btn-primary {
-            background-color: var(--accent);
-            color: #ffffff;
-            border-color: var(--accent);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-hover);
-            border-color: var(--accent-hover);
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn-primary:disabled {
-            background-color: #93b4f5;
-            border-color: #93b4f5;
-            cursor: not-allowed;
-            box-shadow: none;
-            opacity: 0.7;
-        }
-
-        .btn-secondary {
-            background-color: #ffffff;
-            color: var(--text-secondary);
-            border-color: var(--border);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--bg-tertiary);
-            border-color: #c0c7cf;
-        }
-
-        .btn-ghost {
-            background-color: transparent;
-            color: var(--text-secondary);
-            border-color: transparent;
-        }
-
-        .btn-ghost:hover {
-            background-color: var(--bg-tertiary);
-            color: var(--text-primary);
-        }
-
-        .btn-sm { padding: 7px 14px; font-size: 0.8rem; }
-
-        /* Output area */
-        .output-area {
-            display: none;
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-md);
-            padding: 18px 20px;
-            min-height: 80px;
-            position: relative;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .output-area.visible { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .output-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            margin-bottom: 10px;
-        }
-
-        .output-content {
-            font-size: 0.925rem;
-            color: var(--text-primary);
-            line-height: 1.7;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .output-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 14px;
-            flex-wrap: wrap;
-        }
-
-        /* Loading spinner */
-        .spinner-container {
-            display: none;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 0;
-        }
-
-        .spinner-container.visible { display: flex; }
-
-        .spinner {
-            width: 20px;
-            height: 20px;
-            border: 2.5px solid var(--border);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-            flex-shrink: 0;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .spinner-text {
-            font-size: 0.85rem;
-            color: var(--text-tertiary);
-            font-weight: 500;
-        }
-
-        /* Error message */
-        .error-message {
-            display: none;
-            background-color: var(--error-light);
-            border: 1px solid #fecaca;
-            color: var(--error);
-            padding: 12px 16px;
-            border-radius: var(--radius);
-            font-size: 0.875rem;
-            font-weight: 500;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .error-message.visible { display: block; }
-
-        /* Toast */
-        .toast-container {
+        /* Player Modal */
+        #player-modal {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 300;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
             display: flex;
-            flex-direction: column;
-            gap: 8px;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
             pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #player-modal.active { opacity: 1; pointer-events: auto; }
+        
+        .player-container {
+            width: 100%;
+            max-width: 1200px;
+            aspect-ratio: 16/9;
+            background: #000;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        
+        video { width: 100%; height: 100%; outline: none; }
+        
+        .watermark {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            font-size: 14px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.4);
+            pointer-events: none;
+            z-index: 10;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .toast {
-            background-color: #1a1a2e;
-            color: #ffffff;
-            padding: 12px 20px;
-            border-radius: var(--radius-md);
-            font-size: 0.85rem;
-            font-weight: 500;
-            box-shadow: var(--shadow-lg);
-            animation: slideIn 0.35s ease, fadeOut 0.35s ease 2.2s forwards;
-            pointer-events: all;
-            max-width: 380px;
-            letter-spacing: -0.01em;
+        .close-player {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #fff;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
         }
 
-        .toast.success { border-left: 3px solid var(--success); }
-        .toast.error { border-left: 3px solid var(--error); }
-
-        @keyframes slideIn {
-            from { transform: translateX(120%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes fadeOut {
-            from { opacity: 1; transform: translateX(0); }
-            to { opacity: 0; transform: translateX(30px); }
-        }
-
-        /* Footer */
-        .footer {
-            background-color: #ffffff;
-            border-top: 1px solid var(--border-light);
-            padding: 40px 24px;
-            margin-top: auto;
-        }
-
-        .footer-inner {
-            max-width: var(--max-width);
-            margin: 0 auto;
+        .player-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+            color: white;
+            z-index: 10;
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 5%;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 50px;
         }
 
-        .footer-links {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .footer-link {
-            color: var(--text-tertiary);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: color var(--transition);
-        }
-
-        .footer-link:hover { color: var(--accent); }
-
-        .footer-copy {
-            color: var(--text-tertiary);
-            font-size: 0.85rem;
-            font-weight: 400;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav { display: none; }
-            .hamburger { display: flex; align-items: center; justify-content: center; }
-            .hero { padding: 40px 20px 32px; }
-            .tools-section { padding: 36px 16px 56px; }
-            .tools-grid { grid-template-columns: 1fr; gap: 14px; }
-            .modal { max-width: 100%; max-height: 95vh; border-radius: var(--radius-lg); margin: 8px; }
-            .modal-header { padding: 18px 20px 14px; }
-            .modal-body { padding: 16px 20px 22px; }
-            .extra-fields { flex-direction: column; }
-            .extra-fields .field-group { min-width: 100%; }
-            .btn-row { flex-direction: column; align-items: stretch; }
-            .btn { justify-content: center; }
-            .footer-inner { flex-direction: column; text-align: center; }
-            .footer-links { justify-content: center; }
-            .toast-container { left: 16px; right: 16px; bottom: 16px; }
-            .toast { max-width: 100%; }
-        }
-
-        @media (max-width: 480px) {
-            .hero-title { font-size: 1.6rem; }
-            .hero-subtitle { font-size: 0.9rem; }
-            .modal-header { padding: 14px 16px 12px; }
-            .modal-body { padding: 12px 16px 18px; }
-            .modal-title { font-size: 1.15rem; }
-            textarea { min-height: 120px; }
-        }
-
-        .sr-only {
-            position: absolute; width: 1px; height: 1px;
-            padding: 0; margin: -1px; overflow: hidden;
-            clip: rect(0,0,0,0); white-space: nowrap; border: 0;
-        }
-
-        :focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            color: var(--text-secondary);
+            grid-column: 1 / -1;
         }
     </style>
 </head>
 <body>
-    <header class="header" id="header" role="banner">
-        <div class="header-inner">
-            <a href="#" class="logo" aria-label="AI Toolbox Home">
-                <span class="logo-icon">AI</span>
-                AI Toolbox
-            </a>
-            <nav class="nav" role="navigation" aria-label="Main navigation">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#tools" class="nav-link">Tools</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </nav>
-            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
-                <span class="hamburger-icon"></span>
-            </button>
-        </div>
-        <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
-            <a href="#home" class="mobile-nav-link">Home</a>
-            <a href="#tools" class="mobile-nav-link">Tools</a>
-            <a href="#about" class="mobile-nav-link">About</a>
-            <a href="#contact" class="mobile-nav-link">Contact</a>
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="spinner"></div>
+        <p>Loading Channels...</p>
+    </div>
+
+    <!-- Header -->
+    <header class="flex justify-between items-center">
+        <div class="brand">MSR TV</div>
+        
+        <div class="flex items-center nav-controls">
+            <button class="btn" id="toggle-fav">Favorites</button>
+            <button class="btn" id="toggle-rec">Recent</button>
+            <button class="btn" id="theme-toggle">Dark</button>
+            <input type="text" class="search-bar" id="search-input" placeholder="Search channels...">
         </div>
     </header>
 
-    <main class="main" id="home">
-        <section class="hero" aria-labelledby="hero-title">
-            <div class="hero-inner">
-                <span class="hero-badge">AI-Powered Tools</span>
-                <h1 class="hero-title" id="hero-title">Professional AI Tools at Your Fingertips</h1>
-                <p class="hero-subtitle">Access a suite of powerful AI tools designed to boost your productivity. Summarize text, check grammar, paraphrase content, explain code, translate languages, and more.</p>
-                <a href="#tools" class="hero-cta">Explore Tools</a>
+    <!-- Main Content -->
+    <main>
+        <!-- Controls -->
+        <div class="controls-area flex items-center justify-between">
+            <div class="stats" id="live-counter">LIVE CHANNELS: ...</div>
+            
+            <div class="category-scroll" id="category-list">
+                <div class="cat-chip active" data-cat="All">All</div>
+                <!-- Categories injected by JS -->
             </div>
-        </section>
+        </div>
 
-        <section class="tools-section" id="tools" aria-labelledby="tools-title">
-            <div class="tools-section-inner">
-                <div class="section-header">
-                    <h2 class="section-title" id="tools-title">Choose a Tool</h2>
-                    <p class="section-subtitle">Click on any tool to get started</p>
-                </div>
-                <div class="tools-grid">
-                    <div class="tool-card" data-tool="summarizer" tabindex="0" role="button" aria-label="AI Text Summarizer">
-                        <span class="tool-card-icon blue">S</span>
-                        <h3 class="tool-card-title">AI Text Summarizer</h3>
-                        <p class="tool-card-desc">Condense long articles, documents, or paragraphs into clear, concise summaries.</p>
-                        <span class="tool-card-arrow">→</span>
-                    </div>
-                    <div class="tool-card" data-tool="grammar" tabindex="0" role="button" aria-label="Grammar Checker">
-                        <span class="tool-card-icon green">G</span>
-                        <h3 class="tool-card-title">Grammar Checker</h3>
-                        <p class="tool-card-desc">Fix grammar mistakes, punctuation errors, and improve sentence structure instantly.</p>
-                        <span class="tool-card-arrow">→</span>
-                    </div>
-                    <div class="tool-card" data-tool="paraphraser" tabindex="0" role="button" aria-label="Paraphraser">
-                        <span class="tool-card-icon purple">P</span>
-                        <h3 class="tool-card-title">Paraphraser</h3>
-                        <p class="tool-card-desc">Rewrite text naturally with different wording while preserving the original meaning.</p>
-                        <span class="tool-card-arrow">→</span>
-                    </div>
-                    <div class="tool-card" data-tool="code-explainer" tabindex="0" role="button" aria-label="Code Explainer">
-                        <span class="tool-card-icon orange">C</span>
-                        <h3 class="tool-card-title">Code Explainer</h3>
-                        <p class="tool-card-desc">Understand complex code snippets with simple, easy-to-follow explanations.</p>
-                        <span class="tool-card-arrow">→</span>
-                    </div>
-                    <div class="tool-card" data-tool="translator" tabindex="0" role="button" aria-label="Translator">
-                        <span class="tool-card-icon teal">T</span>
-                        <h3 class="tool-card-title">Translator</h3>
-                        <p class="tool-card-desc">Translate text between multiple languages with high accuracy and fluency.</p>
-                        <span class="tool-card-arrow">→</span>
-                    </div>
-                    <div class="tool-card" data-tool="email-writer" tabindex="0" role="button" aria-label="AI Email Writer">
-                        <span class="tool-card-icon indigo">E</span>
-                        <h3 class="tool-card-title">AI Email Writer</h3>
-                        <p class="tool-card-desc">Generate professional, well-structured emails tailored to your needs.</p>
-                        <span class="tool-card-arrow">→</span>
-                    </div>
-                    <div class="tool-card" data-tool="blog-generator" tabindex="0" role="button" aria-label="Blog Generator">
-                        <span class="tool-card-icon rose">B</span>
-                        <h3 class="tool-card-title">Blog Generator</h3>
-                        <p class="tool-card-desc">Create SEO-friendly blog articles with proper headings and engaging content.</p>
-                        <span class="tool-card-arrow">→</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="sr-only"><h2>About AI Toolbox</h2><p>AI Toolbox provides professional AI-powered tools to enhance productivity.</p></section>
-        <section id="contact" class="sr-only"><h2>Contact</h2><p>Contact us at support@aitoolbox.com</p></section>
+        <!-- Channel Grid -->
+        <div class="grid channel-grid" id="grid">
+            <!-- Channels injected by JS -->
+        </div>
     </main>
 
-    <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div class="modal">
-            <div class="modal-header">
-                <div class="modal-header-info">
-                    <h2 class="modal-title" id="modalTitle">Tool Title</h2>
-                    <p class="modal-desc" id="modalDesc">Tool description</p>
-                </div>
-                <button class="modal-close" id="modalClose" aria-label="Close tool">&times;</button>
+    <!-- Player Modal -->
+    <div id="player-modal">
+        <div class="player-container">
+            <div class="player-header">
+                <span id="current-channel-name">Channel Name</span>
+                <button class="close-player" id="close-player">&times;</button>
             </div>
-            <div class="modal-body">
-                <div class="extra-fields" id="extraFieldsTranslator">
-                    <div class="field-group">
-                        <label for="sourceLang">Source Language</label>
-                        <select id="sourceLang">
-                            <option value="English">English</option><option value="Spanish">Spanish</option><option value="French">French</option><option value="German">German</option><option value="Italian">Italian</option><option value="Portuguese">Portuguese</option><option value="Chinese">Chinese</option><option value="Japanese">Japanese</option><option value="Korean">Korean</option><option value="Arabic">Arabic</option><option value="Russian">Russian</option><option value="Hindi">Hindi</option><option value="Auto-detect">Auto-detect</option>
-                        </select>
-                    </div>
-                    <div class="field-group">
-                        <label for="targetLang">Target Language</label>
-                        <select id="targetLang">
-                            <option value="English">English</option><option value="Spanish">Spanish</option><option value="French">French</option><option value="German">German</option><option value="Italian">Italian</option><option value="Portuguese">Portuguese</option><option value="Chinese">Chinese</option><option value="Japanese">Japanese</option><option value="Korean">Korean</option><option value="Arabic">Arabic</option><option value="Russian">Russian</option><option value="Hindi">Hindi</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="extra-fields" id="extraFieldsEmail">
-                    <div class="field-group"><label for="emailRecipient">Recipient Name</label><input type="text" id="emailRecipient" placeholder="e.g., John Smith"></div>
-                    <div class="field-group"><label for="emailSubject">Email Subject</label><input type="text" id="emailSubject" placeholder="e.g., Project Update"></div>
-                    <div class="field-group"><label for="emailTone">Tone</label><select id="emailTone"><option value="Professional">Professional</option><option value="Friendly">Friendly</option><option value="Formal">Formal</option><option value="Casual">Casual</option></select></div>
-                </div>
-                <div class="extra-fields" id="extraFieldsBlog">
-                    <div class="field-group"><label for="blogTopic">Blog Topic</label><input type="text" id="blogTopic" placeholder="e.g., Remote Work Best Practices"></div>
-                    <div class="field-group"><label for="blogKeywords">Keywords (comma-separated)</label><input type="text" id="blogKeywords" placeholder="e.g., productivity, work-from-home"></div>
-                    <div class="field-group"><label for="blogTone">Tone</label><select id="blogTone"><option value="SEO-optimized">SEO-Optimized</option><option value="Informational">Informational</option><option value="Conversational">Conversational</option><option value="Professional">Professional</option></select></div>
-                </div>
-
-                <div class="input-group">
-                    <div class="input-label-row">
-                        <label class="input-label" for="toolInput">Your Input</label>
-                        <span class="char-count" id="charCount">0 characters | 0 words</span>
-                    </div>
-                    <textarea id="toolInput" placeholder="Type or paste your text here..." aria-label="Tool input textarea"></textarea>
-                </div>
-
-                <div class="btn-row">
-                    <button class="btn btn-primary" id="generateBtn"><span id="generateBtnText">Generate</span></button>
-                    <button class="btn btn-ghost btn-sm" id="clearBtn" type="button">Clear Input</button>
-                </div>
-
-                <div class="spinner-container" id="spinnerContainer">
-                    <div class="spinner"></div>
-                    <span class="spinner-text">Processing with AI...</span>
-                </div>
-
-                <div class="error-message" id="errorMessage"></div>
-
-                <div class="output-area" id="outputArea">
-                    <div class="output-label">Generated Output</div>
-                    <div class="output-content" id="outputContent"></div>
-                    <div class="output-actions">
-                        <button class="btn btn-secondary btn-sm" id="copyBtn" type="button">📋 Copy</button>
-                        <button class="btn btn-secondary btn-sm" id="downloadBtn" type="button">💾 Download TXT</button>
-                        <button class="btn btn-ghost btn-sm" id="clearOutputBtn" type="button">Clear Output</button>
-                    </div>
-                </div>
-            </div>
+            <video id="video-player" controls playsinline></video>
+            <div class="watermark">Sports9</div>
         </div>
     </div>
 
-    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
-
-    <footer class="footer" role="contentinfo">
-        <div class="footer-inner">
-            <div class="footer-links">
-                <a href="#about" class="footer-link">About</a>
-                <a href="#" class="footer-link">Privacy Policy</a>
-                <a href="#contact" class="footer-link">Contact</a>
-            </div>
-            <p class="footer-copy">&copy; <span id="currentYear"></span> AI Toolbox. All rights reserved.</p>
-        </div>
+    <!-- Footer -->
+    <footer>
+        <p>MSR TV</p>
+        <p style="margin-top: 5px;">Built with HTML, CSS and JavaScript</p>
     </footer>
 
     <script>
-        (function() {
-            // 🔑 Your provided API key (make sure it's valid)
-            const API_KEY = "AQ.Ab8RN6IenIgmUZN6T4q2KzqC2-M_4QGp9DE3lA6MbZ-Kx5V4dw";
-            const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+        // --- 1. M3U DATA (From Prompt) ---
+        const rawM3U = `#EXTM3U
+#EXTINF:-1 ,TNT Sports ARG
+https://1nyaler.streamhostingcdn.top/stream/30/index.m3u8
+#EXTINF:-1 ,TyC Sports ARG
+https://1nyaler.streamhostingcdn.top/stream/84/index.m3u8
+#EXTINF:-1 ,ESPN LAT
+http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espnlat_720.m3u8
+#EXTINF:-1 ,ESPN ARG
+http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espnar_lng.m3u8
+#EXTINF:-1 ,ESPN 2
+http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn2ar_lng.m3u8
+#EXTINF:-1 ,ESPN 3
+http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn3ar_lng.m3u8
+#EXTINF:-1 ,ESPN 3 720p
+http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn3lat_720.m3u8
+#EXTINF:-1 ,ESPN 4 720p
+http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn4lat_720.m3u8
+#EXTINF:-1 ,ESPN 4
+http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn4lat.playlist.m3u8
+#EXTINF:-1 ,ESPN 5 720p
+http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn5lat_720.m3u8
+#EXTINF:-1 ,ESPN 6
+http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn6lat_720.m3u8
+#EXTINF:-1 ,ESPN 7
+http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espn7lt_720.m3u8
+#EXTINF:-1 ,ESPN PREMIUM
+http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espnpremar_lng.m3u8
+#EXTINF:-1 ,ESPN PREMIUM 720p
+http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-espnpremlat_720.m3u8
+#EXTINF:-1 ,FOX SPORTS
+http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-fox1ar_720.m3u8
+#EXTINF:-1 ,FOX SPORT 2
+http://181.191.141.7/Live/51334cbb88db0e050c59ef2d28c53491/local-fox2ar.playlist.m3u8
+#EXTINF:-1 ,win
+http://8.243.126.131:8000/play/a025/index.m3u8
+#EXTINF:-1 ,Win Sports
+http://181.78.17.52:8000/play/a0pw/index.m3u8
+#EXTINF:-1 ,WIN SPORTS
+http://181.78.71.71:18000/play/a03p/index.m3u8
+#EXTINF:-1 ,win+
+http://190.60.37.154:45000/play/a00q/index.m3u8
+#EXTINF:-1 ,TYC
+http://190.60.37.154:45000/play/a05a/index.m3u8
+#EXTINF:-1 ,DSPORTS 1 🇦🇷
+http://190.117.20.37:8000/play/a08d/index.m3u8
+#EXTINF:-1 ,DSports
+http://205.235.6.29:8000/play/a0nq/index.m3u8
+#EXTINF:-1 ,espn premium
+http://205.235.6.29:8000/play/a0pz/index.m3u8
+#EXTINF:-1 ,tnt sport
+http://205.235.6.29:8000/play/a0xa/index.m3u8
+#EXTINF:-1 ,tnt sport premium
+http://205.235.6.29:8000/play/a104/index.m3u8
+#EXTINF:-1 ,espn
+http://205.235.6.29:8000/play/a0zf/index.m3u8
+#EXTINF:-1 ,espn 7
+http://205.235.6.29:8000/play/a0zv/index.m3u8
+#EXTINF:-1 ,WIN
+http://217.26.190.76:8888/play/a06a/index.m3u8
+#EXTINF:-1 ,DSPORTS +
+http://217.26.190.76:8888/play/a0jb/index.m3u8
+#EXTINF:-1 ,DIRECTV SPORTS
+http://217.26.190.76:8888/play/a0co/index.m3u8
+#EXTINF:-1 ,DSports
+http://38.226.210.46:8000/play/A008/index.m3u8
+#EXTINF:-1 ,dsport
+http://jumangis.cloud:2082/JairoVargas/5T5wLJjTbu/117708
+#EXTINF:-1 ,TUDN USA
+http://m3u.tvcluboficial.com/m/m/957.m3u8
+#EXTINF:-1 ,win sport
+http://m3u.tvcluboficial.com/m/m/1039.m3u8
+#EXTINF:-1 ,win sports+
+http://m3u.tvcluboficial.com/m/m/1042.m3u8
+#EXTINF:-1 ,ADRENALINA SPORTS
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/98.m3u8
+#EXTINF:-1 ,CLARO SPORTS
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/103.m3u8
+#EXTINF:-1 ,TNT SPORTS CHILE
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/462.m3u8
+#EXTINF:-1 ,EUROSPORT 1
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/618.m3u8
+#EXTINF:-1 ,EUROSPORT 2
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/619.m3u8
+#EXTINF:-1 ,BEIN SPORTS Ñ
+https://amg01334-beinsportsllc-beinxtraesp-localnow-aekzc.amagi.tv/playlist.m3u8
+#EXTINF:-1 ,DAZN F1
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/374.m3u8
+#EXTINF:-1 ,TUDN 1
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/128.m3u8
+#EXTINF:-1 ,ESPN DEPORTES
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/112.m3u8
+#EXTINF:-1 ,WIN SPORTS PLUS
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/126.m3u8
+#EXTINF:-1 ,TUDN 2
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/791.m3u8
+#EXTINF:-1 ,ESPN PREMIUM CHI
+http://186.33.40.97:8789/play/22
+#EXTINF:-1 ,ETC TV
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/578.m3u8
+#EXTINF:-1 ,ESPN
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/107.m3u8
+#EXTINF:-1 ,ESPN CO
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/10685.m3u8
+#EXTINF:-1 ,ESPN 2
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/108.m3u8
+#EXTINF:-1 ,ESPN 3
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/109.m3u8
+#EXTINF:-1 ,ESPN 4
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/110.m3u8
+#EXTINF:-1 ,CLARO SPORTS
+http://162.19.255.233:8080/play/UNbAl57p9hXZClOu56FCTUSaL5q1VtS-E1wCfb1nvO4/m3u8
+#EXTINF:-1 ,FOX
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/459.m3u8
+#EXTINF:-1 ,FOX 2
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/10532.m3u8
+#EXTINF:-1 ,WIN SPORTS
+http://190.60.39.195:8000/play/a0ug/index.m3u8
+#EXTINF:-1 ,ESPN PREMIUN 1
+http://190.7.19.197:232/play/a038/index.m3u8
+#EXTINF:-1 ,ESPN 5
+http://181.118.158.103:8000/play/a03c/index.m3u8
+#EXTINF:-1 ,ESPN ARG
+http://45.170.130.224:8000/play/a04l/index.m3u8
+#EXTINF:-1 ,TYC SPORTS
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/8631.m3u8
+#EXTINF:-1 ,TYC SPORTS Internacional
+http://190.7.19.197:232/play/a04w/index.m3u8
+#EXTINF:-1 ,DAZN 1
+http://znty.dyndns.org:5010/hls/eleven1.m3u8
+#EXTINF:-1 ,DAZN 2
+http://znty.dyndns.org:5010/hls/eleven2.m3u8
+#EXTINF:-1 ,DAZN 3
+http://znty.dyndns.org:5010/hls/eleven3.m3u8
+#EXTINF:-1 ,DAZN 4
+http://znty.dyndns.org:5010/hls/eleven4.m3u8
+#EXTINF:-1 ,DAZN 5
+http://znty.dyndns.org:5010/hls/eleven5.m3u8
+#EXTINF:-1 ,МАТЧ! ФУТБOЛ 2HD 🇷🇺
+http://193.25.8.59:8000/fut2
+#EXTINF:-1 ,SKY SPORT LALIGA 🇲🇽
+http://179.60.224.196:8000/play/a0i7/index.m3u8
+#EXTINF:-1 ,LIG 🇪🇸
+http://200.115.120.1:8000/play/ca124/index.m3u8
+#EXTINF:-1 ,МАТЧ! ФУТБOЛ 2HD 🇷🇺
+http://cdntv.online/low/9mlxywika2/56.m3u8
+#EXTINF:-1 ,TDM Desporto 🇲🇴
+http://cdn6.163189.xyz/163189/amty
+#EXTINF:-1 ,IDMANTV 🇹🇷
+https://str2.yodacdn.net/idman_300_to_small/tracks-v1a1/mono.m3u8
+#EXTINF:-1 ,MAX SPORT 4 🇧🇬
+http://77.46.130.252:99/maxsport4
+#EXTINF:-1 ,SKY SPORT LALIGA 🇲🇽
+http://181.78.109.48:9998/play/a06r/index.m3u8
+#EXTINF:-1 ,OTT CLUB 🇷🇺
+http://czrb8vng.ottclub.xyz/iptv/AHMQNVLWUTM5PW/6554/index.m3u8
+#EXTINF:-1 ,Digi Sport 2 🇷🇴
+http://91.201.172.14:35006/
+#EXTINF:-1 ,Матч! 🇷🇺
+http://catchup.videoline.ru/match/tracks-v1a1/mono.m3u8
+#EXTINF:-1 ,Матч! 🇷🇺
+http://bl.video.matchtv.ru/media/playlist/free_d46d0cf1712c0542ec7fd4f0808f600a_hd/17_89756005/1080/e6bef86de8a133cd7b27deb040758a00/4796141934.m3u8
+#EXTINF:-1 ,Матч! 🇷🇺
+http://cdntv.online/low/9mlxywika2/48.m3u8
+#EXTINF:-1 ,ESPN 2 🇦🇷
+http://181.205.130.194:4000/play/a07i
+#EXTINF:-1 ,ESPN 2 🇦🇷
+http://191.97.49.82:8001/play/a00m/index.m3u8
+#EXTINF:-1 ,Dazn 1 🇵🇹
+http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2531/index.m3u8
+#EXTINF:-1 ,Dazn 1 🇵🇹
+http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/19158/index.m3u8
+#EXTINF:-1 ,Dazn 2 🇵🇹
+http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2532/index.m3u8
+#EXTINF:-1 ,Dazn 3 🇵🇹
+http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/7062/index.m3u8
+#EXTINF:-1 ,Dazn 4 🇵🇹
+http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2534/index.m3u8
+#EXTINF:-1 ,Dazn 5 🇵🇹
+http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2535/index.m3u8
+#EXTINF:-1 ,TNT SPORTS PREMIUM 🇬🇧
+http://200.115.120.1:8000/play/ca040/index.m3u8
+#EXTINF:-1 ,BEIN 3 🇫🇷
+http://145.239.5.177/559/mpegts
+#EXTINF:-1 ,Bein Sport 1 🇫🇷
+http://99.27.51.147:8080/BeinSport/index.m3u8
+#EXTINF:-1 ,Bein Sport 3 🇫🇷
+http://99.27.51.147:8080/BeinSport3/index.m3u8
+#EXTINF:-1 ,Bein Sport 3 🇫🇷
+http://145.239.5.177:80/559/index.m3u8
+#EXTINF:-1 ,CANAL + Sport 🇫🇷
+http://151.80.18.177:86/Canal+_sport_HD/index.m3u8
+#EXTINF:-1 ,Setenta Sport 1 🇷🇺
+http://cdntv.online/low/9mlxywika2/1021.m3u8
+#EXTINF:-1 ,Setenta Sport 2 🇷🇺
+http://cdntv.online/low/9mlxywika2/1022.m3u8
+#EXTINF:-1 ,Матч! 🇷🇺
+http://tv.tuva.ru/machtv/index.m3u8
+#EXTINF:-1 ,Матч! 🇷🇺
+http://185.46.48.18:80/match/tracks-v1a1/mono.m3u8
+#EXTINF:-1 ,Матч! 🇷🇺
+http://5.188.221.43:8080/play/match
+#EXTINF:-1 ,Матч! 🇷🇺
+http://95.47.155.244:8001/play/a003
+#EXTINF:-1 ,МАТЧ! ФУТБOЛ 1HD 🇷🇺
+http://193.25.8.59:8000/fut
+#EXTINF:-1 ,МАТЧ! ФУТБOЛ 1HD 🇷🇺
+http://cdntv.online/low/9mlxywika2/55.m3u8
+#EXTINF:-1 ,МАТЧ! ФУТБOЛ 3HD 🇷🇺
+http://185.57.68.33/110/mpegts
+#EXTINF:-1 ,Матч! Футбол 3 HD 🇷🇺
+http://185.57.68.33:8091/110/playlist.m3u8
+#EXTINF:-1 ,МАТЧ! ФУТБOЛ 3HD 🇷🇺
+http://cdntv.online/low/9mlxywika2/57.m3u8
+#EXTINF:-1 ,Футбол 3 (SD) 🇷🇺
+http://185.57.68.33:80/110/index.m3u8
+#EXTINF:-1 ,Матч! 4 HD 🇷🇺
+http://46.149.191.217:9010/play/a019
+#EXTINF:-1 ,Setanta Sport 🇺🇦
+http://217.174.225.146/hls/ch004_720/index.m3u8
+#EXTINF:-1 ,Суспільне Kiev Спорт HD 🇺🇦
+https://tva.in.ua/live/susp-sport.m3u8
+#EXTINF:-1 ,Super Sport 1 🇦🇱
+http://93.93.113.95:25461/TV-Berati/XtreamCodes/494
+#EXTINF:-1 ,Super Sport 2 🇦🇱
+http://93.93.113.95:25461/TV-Berati/XtreamCodes/495
+#EXTINF:-1 ,RTSH Sport 🇦🇱
+http://217.73.139.200:5443/play/a01d
+#EXTINF:-1 ,NOVA SPORT 1 HD 🇨🇿
+http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2555/index.m3u8
+#EXTINF:-1 ,CT SPORT HD 🇨🇿
+http://88.212.15.19/live/test_ctsport_25p/playlist.m3u8
+#EXTINF:-1 ,SPORT 1 HD 🇨🇿
+http://88.212.15.19/live/test_sport1_25p/playlist.m3u8
+#EXTINF:-1 ,SPORT 2 HD 🇨🇿
+http://88.212.15.19/live/test_sport_2/playlist.m3u8
+#EXTINF:-1 ,ARENA SPORT 1 🇨🇿
+http://88.212.15.19/live/test_arenasport/playlist.m3u8
+#EXTINF:-1 ,ARENA SPORT 2 🇨🇿
+http://88.212.15.19/live/test_arenasport_dva/playlist.m3u8
+#EXTINF:-1 ,MAX SPORT 1 🇧🇬
+http://77.46.130.252:99/maxsport1
+#EXTINF:-1 ,MAX SPORT 2 🇧🇬
+http://77.46.130.252:99/maxsport2
+#EXTINF:-1 ,MAX SPORT 3 🇧🇬
+http://77.46.130.252:99/maxsport3
+#EXTINF:-1 ,M4 Sport 🇭🇺
+http://46.149.191.217:9010/play/a017
+#EXTINF:-1 ,Sportdigital 🇩🇪
+https://jmp2.uk/stvp-ATAJ0500433A
+#EXTINF:-1 ,ZIGGO SPORT 2 HD 🇳🇱
+http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2561/index.m3u8
+#EXTINF:-1 ,ZIGGO SPORT 3 HD 🇳🇱
+http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2559/index.m3u8
+#EXTINF:-1 ,ZIGGO SPORT LIVE 🇳🇱
+http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2560/index.m3u8
+#EXTINF:-1 ,2TV Sport 🇳🇴
+https://tv.cdn.xsg.ge/gpb-2tv/index.m3u8
+#EXTINF:-1 ,ORF+ 🇦🇹
+http://212.186.45.34:9981/stream/channelid/906723447
+#EXTINF:-1 ,5 SPORT 🇮🇱
+http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2558/index.m3u8
+#EXTINF:-1 ,TELEFE 🇦🇷
+http://200.115.120.1:8000/play/ca016/index.m3u8
+#EXTINF:-1 ,CAZE TV 1 🇧🇷
+https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/Caze_TV.m3u8
+#EXTINF:-1 ,REAL MADRID TV 🇪🇸
+https://rmtv.akamaized.net/hls/live/2043153/rmtv-es-web/bitrate_3.m3u8
+#EXTINF:-1 ,BEIN SPORT EXTRA Ñ 🇪🇸
+https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8
+#EXTINF:-1 ,TELEMUNDO 🇲🇽
+https://nbculocallive.akamaized.net/hls/live/2037499/puertorico/stream1/master.m3u8
+#EXTINF:-1 ,MTR Sports-1 🇬🇧
+https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg02873-kravemedia-mtrspt1-distrotv/playlist.m3u8
+#EXTINF:-1 ,X SPORT 🇷🇺
+http://iptv.prosto.tv:7000/ch109/video.m3u8
+#EXTINF:-1 ,Turkmenistan Sport 🇹🇲
+https://alpha.tv.online.tm/legacyhls/ch004_720/index.m3u8
+#EXTINF:-1 ,Turkmenistan Sport 🇹🇲
+http://217.174.225.146/legacyhls/ch004_720/index.m3u8
+#EXTINF:-1 ,SPORT ITALIA 🇮🇹
+https://amg01370-italiansportcom-sportitalia-rakuten-3hmdb.amagi.tv/amRdirect/ads_pod_type=playerpage_midroll&ads_env=prod&ads_ppid=&ads_rtvid=271861&ads_streaming_id=4f185419-74f6-4564-8ea9-4cdc60746e2f&ads_amagi_channel=781&ads_device_type=web&ads_device_model=&ads_device_year=&ads_player_width=&ads_rtv_content_language=ita&ads_market=it&ads_rtv_content_id=3741&ads_device_make=&ads_user_type=visitor&ads_content_classification=6&ads_gdpr_consent=&ads_device_lmt=1&ads_player_height=&uid=1gnmqg5gu-qsvc-bfo-gaq3-3dgjgexshpe/hls/amagi_hls_data_rakutenAA-sportitalia-rakuten/CDN/1920x1080_4540800/chunklist.m3u8
+#EXTINF:-1 ,TR Sport (480p) 🇮🇹
+https://livetr.teleromagna.it/mia/live/playlist.m3u8
+#EXTINF:-1 ,L`Equipe 🇫🇷
+https://jmp2.uk/stvp-FR200016Y5
+#EXTINF:-1 ,INFOSPORT 🇫🇷
+http://212.102.60.80/Infosport/index.m3u8
+#EXTINF:-1 ,ON Sports+ 🇭🇰
+https://freem3u.xyz/api/live/play.m3u8
+#EXTINF:-1 ,Fox Sports 🇮🇳
+http://y3fqd48g.megatv.fun/iptv/NRLXRWSBWBPLN4/19146/index.m3u8
+#EXTINF:-1 ,MMN Sport 🇸🇦
+http://mmn.mypsx.net:1935/live/mmnhdsport/chunklist.m3u8
+#EXTINF:-1 ,MASR 🇶🇦
+https://shls-masr-ak.akamaized.net/out/v1/d5036cabf11e45bf9d0db410ca135c18/index.m3u8
+#EXTINF:-1 ,TELETRAK 🇨🇱
+http://unlimited6-cl.dps.live/sportinghd/sportinghd.smil/playlist.m3u8
+#EXTINF:-1 ,Sport5 🇮🇱
+https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8
+#EXTINF:-1 ,Sport5 🇮🇱
+https://rgelive.akamaized.net/hls/live/2043095/live3/playlist.m3u8
+#EXTINF:-1 ,TUDN 🇲🇽
+http://45.5.119.43:4000/play/a05q/index.m3u8
+#EXTINF:-1 ,ESPN 🇦🇷
+http://181.118.156.46:8000/play/a04g/index.m3u8
+#EXTINF:-1 ,ESPN 2 🇨🇴
+http://200.10.30.241:8000/play/a01r/index.m3u8
+#EXTINF:-1 ,Claro Sports 2
+http://45.5.118.152:8000/play/a0ah/index.m3u8
+#EXTINF:-1 ,Movistar Deportes
+http://38.226.210.46:8000/play/a06d/index.m3u8
+#EXTINF:-1 ,Tigo Sports
+http://181.78.17.52:8000/play/a0rq/index.m3u8
+#EXTINF:-1 ,Via X Sport
+http://38.226.49.253:8000/play/a042/index.m3u8
+#EXTINF:-1 ,Golf Channel
+http://45.167.1.136:8000/play/a05s
+#EXTINF:-1 ,Golf Channel
+https://andro.226503.xyz/checklist/androstreamlivebiraz1.m3u8
+#EXTINF:-1 ,BEIN SPORTS 2 Turkey
+https://andro.okan11gote12sokan.cfd/checklist/androstreamlivebs2.m3u8
+#EXTINF:-1 ,BEIN SPORTS 3 Turkey
+https://andro.okan11gote12sokan.cfd/checklist/androstreamlivebs3.m3u8
+#EXTINF:-1 ,BEIN SPORTS 4 Turkey
+https://andro.okan11gote12sokan.cfd/checklist/androstreamlivebs4.m3u8
+#EXTINF:-1 ,BEIN SPORTS 5 Turkey
+https://andro.226503.xyz/checklist/androstreamlivebs5.m3u8
+#EXTINF:-1 ,BEIN SPORTS France (alt)
+http://99.27.51.147:8080/BeinSport/mpegts
+#EXTINF:-1 ,BEIN SPORTS 3 France (Alt)
+http://99.27.51.147:8080/BeinSport3/mpegts
+#EXTINF:-1 ,NBC Team USA
+https://amg01416-amg01416c4-firetv-us-4522.playouts.now.amagi.tv/playlist.m3u8
+#EXTINF:-1 ,AYM Sports
+https://aym-as.otteravision.com/aym/as/as.m3u8
+#EXTINF:-1 ,BEK Sports West (USA)
+https://cdn3.wowza.com/5/ZWQ1K2NYTmpFbGsr/BEK-WOWZA-1/smil:BEKPRIMEW.smil/.m3u8
+#EXTINF:-1 ,RS News
+https://video07.logicahost.com.br/rsnews01/rsnews01/playlist.m3u8
+#EXTINF:-1 ,RS Sports 1
+https://video07.logicahost.com.br/rssports01/rssports01/playlist.m3u8
+#EXTINF:-1 ,RS Sports 2
+https://video07.logicahost.com.br/rssports02/rssports02/playlist.m3u8
+#EXTINF:-1 ,RS Sports 3
+https://video07.logicahost.com.br/rssports03/rssports03/playlist.m3u8
+#EXTINF:-1 ,RS Sports 4
+https://video07.logicahost.com.br/rssports04/rssports04/playlist.m3u8
+#EXTINF:-1 ,RS Sports 5
+https://video03.logicahost.com.br/rssports5/rssports5/playlist.m3u8
+#EXTINF:-1 ,RS TV
+https://video07.logicahost.com.br/rstv1/rstv1/playlist.m3u8
+#EXTINF:-1 ,RS News Web
+https://video01.logicahost.com.br/rsnewswebtv/rsnewswebtv/playlist.m3u8
+#EXTINF:-1 ,RS PREMIERE
+https://video03.logicahost.com.br/rspremiere/rspremiere/playlist.m3u8
+#EXTINF:-1 ,Latino | beIN Sports ñ HD
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/101.m3u8
+#EXTINF:-1 ,Latino | FOX SPORTS HD
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/113.m3u8
+#EXTINF:-1 ,Latino | FOX SPORTS 2 HD
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/114.m3u8
+#EXTINF:-1 ,Latino | REAL MADRID HD
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/121.m3u8
+#EXTINF:-1 ,MX | TVC DEPORTES HD
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/122.m3u8
+#EXTINF:-1 ,Latino | Win Sports HD
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/125.m3u8
+#EXTINF:-1 ,espn4
+http://45.5.119.43:4000/play/a028/index.m3u8
+#EXTINF:-1 ,la liga
+http://45.5.119.43:4000/play/a05r/index.m3u8
+#EXTINF:-1 ,espn2
+http://45.5.119.43:4000/play/a053/index.m3u8
+#EXTINF:-1 ,SKY SPORTS GT
+http://45.171.64.30:2000/play/a08m/index.m3u8
+#EXTINF:-1 ,TIGO SPORT
+http://45.171.64.30:2000/play/a08e/index.m3u8
+#EXTINF:-1 ,Winsport
+http://181.78.85.59:2500/play/a030/index.m3u8
+#EXTINF:-1 ,ESPN CO
+http://181.205.130.194:4000/play/a08n
+#EXTINF:-1 ,ESPN 6 HD
+http://181.205.130.194:4000/play/a0eh
+#EXTINF:-1 ,TUDN
+http://45.171.64.30:2000/play/a08j/index.m3u8
+#EXTINF:-1 ,Latino | FOX SPORTS PREMIUM HD
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/375.m3u8
+#EXTINF:-1 ,Latino | FOX DEPORTES HD
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/376.m3u8
+#EXTINF:-1 ,Latino | TYC SPORTS HD
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/380.m3u8
+#EXTINF:-1 ,USA | NBA TV
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/402.m3u8
+#EXTINF:-1 ,AR | ESPN 2 HD
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/449.m3u8
+#EXTINF:-1 ,USA | Fox Soccer Plus
+https://tv.topmediatv.net:25463/live/TopMediaWeb/bOteTR8ED1/3414.m3u8
+#EXTINF:-1 ,Fox SPORTS 3
+http://45.5.119.43:4000/play/a024/index.m3u8
+#EXTINF:-1 ,5
+http://45.5.119.43:4000/play/a05o/index.m3u8
+#EXTINF:-1 ,Win2
+http://190.60.37.118:4000/play/a0bw
+#EXTINF:-1 ,Gol TV
+http://38.44.109.41:8003/play/a02h/index.m3u8
+#EXTINF:-1 ,ESPN Premium
+http://217.26.190.76:8888/play/a0es/index.m3u8
+#EXTINF:-1 ,ESPN IXP
+http://200.229.147.142:8000/play/a013/index.m3u8
+#EXTINF:-1 ,TUDN IXP
+http://200.229.147.142:8000/play/a096/index.m3u8
+#EXTINF:-1 ,ESPN 4 HD
+http://181.78.49.113:9999/play/a07e/index.m3u8
+#EXTINF:-1 ,ESPN 5 HD
+http://181.78.49.113:9999/play/a07f/index.m3u8
+#EXTINF:-1 ,win4
+http://181.205.130.194:4000/play/a0fu
+#EXTINF:-1 ,Mundial NBC Universo
+http://190.11.225.124:5000/live/universo_hd/playlist.m3u8
+#EXTINF:-1 ,Mundial Azteca UNO
+http://38.44.109.41:8003/play/a033/index.m3u8
+#EXTINF:-1 ,Azteca 7
+https://tv91.hostingnuclear.com:19360/xhunestv/xhunestv.m3u8
+#EXTINF:-1 ,Azteca 7a
+https://estrellatv-roku.amagi.tv/playlist.m3u8
+#EXTINF:-1 ,BeiN Sports Extra
+https://bein-esp-xumo.amagi.tv/playlistR720P.m3u8
+#EXTINF:-1 ,BEIN SPORTS 1 AU
+https://wahyu1ptv.pages.dev/AstroBein2.m3u8
+#EXTINF:-1 ,BEIN SPORTS 1 AU
+https://wahyu1ptv.pages.dev/AstroBein3.m3u8
+#EXTINF:-1 ,RTI 1 (1080p)
+http://69.64.57.208:8080/rti1/playlist.m3u8
+#EXTINF:-1 ,RTI 2 (1080p)
+http://69.64.57.208:8080/rti2/playlist.m3u8
+#EXTINF:-1 ,✔️ Bein Sports Xtra ñ *2
+https://bein-esp-xumo.amagi.tv/playlist.m3u8
+#EXTINF:-1 ,✔️ Garage TV
+https://stream1.sersat.com/hls/garagetv.m3u8
+#EXTINF:-1 ,✔️ Red Bull TV
+http://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_3360.m3u8
+#EXTINF:-1 ,✔️ TyC Sports
+http://38.44.109.41:8003/play/a02l/index.m3u8
+#EXTINF:-1 ,✔️ Xtrema TV Cna Deportes 2
+https://stmv6.voxtvhd.com.br/cnardeportes/cnardeportes/playlist.m3u8
+#EXTINF:-1 ,Tango Sports 4
+http://190.7.19.197:232/play/a037/index.m3u8`;
 
-            // DOM references
-            const header = document.getElementById('header');
-            const hamburger = document.getElementById('hamburger');
-            const mobileNav = document.getElementById('mobileNav');
-            const modalOverlay = document.getElementById('modalOverlay');
-            const modalClose = document.getElementById('modalClose');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalDesc = document.getElementById('modalDesc');
-            const toolInput = document.getElementById('toolInput');
-            const charCount = document.getElementById('charCount');
-            const generateBtn = document.getElementById('generateBtn');
-            const generateBtnText = document.getElementById('generateBtnText');
-            const clearBtn = document.getElementById('clearBtn');
-            const spinnerContainer = document.getElementById('spinnerContainer');
-            const errorMessage = document.getElementById('errorMessage');
-            const outputArea = document.getElementById('outputArea');
-            const outputContent = document.getElementById('outputContent');
-            const copyBtn = document.getElementById('copyBtn');
-            const downloadBtn = document.getElementById('downloadBtn');
-            const clearOutputBtn = document.getElementById('clearOutputBtn');
-            const toastContainer = document.getElementById('toastContainer');
+        // --- 2. STATE MANAGEMENT ---
+        const state = {
+            allChannels: [],
+            validChannels: [], // Only live channels go here
+            categories: new Set(['All']),
+            currentCategory: 'All',
+            searchQuery: '',
+            favorites: JSON.parse(localStorage.getItem('msr_favorites') || '[]'),
+            recent: JSON.parse(localStorage.getItem('msr_recent') || '[]'),
+            isDark: localStorage.getItem('msr_theme') === 'dark',
+            view: 'all', // 'all', 'fav', 'rec'
+            hlsInstance: null,
+            refreshInterval: null
+        };
 
-            const extraFieldsTranslator = document.getElementById('extraFieldsTranslator');
-            const extraFieldsEmail = document.getElementById('extraFieldsEmail');
-            const extraFieldsBlog = document.getElementById('extraFieldsBlog');
+        // --- 3. DOM ELEMENTS ---
+        const els = {
+            loader: document.getElementById('loader'),
+            grid: document.getElementById('grid'),
+            counter: document.getElementById('live-counter'),
+            catList: document.getElementById('category-list'),
+            search: document.getElementById('search-input'),
+            themeBtn: document.getElementById('theme-toggle'),
+            favBtn: document.getElementById('toggle-fav'),
+            recBtn: document.getElementById('toggle-rec'),
+            playerModal: document.getElementById('player-modal'),
+            closePlayerBtn: document.getElementById('close-player'),
+            video: document.getElementById('video-player'),
+            currentChName: document.getElementById('current-channel-name')
+        };
 
-            const sourceLang = document.getElementById('sourceLang');
-            const targetLang = document.getElementById('targetLang');
-            const emailRecipient = document.getElementById('emailRecipient');
-            const emailSubject = document.getElementById('emailSubject');
-            const emailTone = document.getElementById('emailTone');
-            const blogTopic = document.getElementById('blogTopic');
-            const blogKeywords = document.getElementById('blogKeywords');
-            const blogTone = document.getElementById('blogTone');
+        // --- 4. M3U PARSER ---
+        function parseM3U(data) {
+            const lines = data.split('\n');
+            const channels = [];
+            let currentCh = null;
 
-            let currentTool = null;
-            let isGenerating = false;
-            let generatedText = '';
+            lines.forEach(line => {
+                line = line.trim();
+                if (!line) return;
 
-            const toolDefinitions = {
-                'summarizer': {
-                    title: 'AI Text Summarizer',
-                    description: 'Summarize the following text clearly and professionally.',
-                    extraFields: null,
-                    placeholder: 'Paste the text you want to summarize here...',
-                    buildPrompt: (input) => `Summarize the following text clearly and professionally. Provide a concise yet comprehensive summary:\n\n${input}`,
-                },
-                'grammar': {
-                    title: 'Grammar Checker',
-                    description: 'Correct grammar mistakes while preserving meaning.',
-                    extraFields: null,
-                    placeholder: 'Paste the text you want to check for grammar errors...',
-                    buildPrompt: (input) => `Correct all grammar mistakes, punctuation errors, and awkward phrasing in the following text while preserving the original meaning. Return only the corrected version:\n\n${input}`,
-                },
-                'paraphraser': {
-                    title: 'Paraphraser',
-                    description: 'Rewrite the text naturally with different wording.',
-                    extraFields: null,
-                    placeholder: 'Paste the text you want to paraphrase...',
-                    buildPrompt: (input) => `Rewrite the following text naturally with different wording while keeping the same meaning. Make it sound fresh and original:\n\n${input}`,
-                },
-                'code-explainer': {
-                    title: 'Code Explainer',
-                    description: 'Explain this code in simple language.',
-                    extraFields: null,
-                    placeholder: 'Paste your code here...',
-                    buildPrompt: (input) => `Explain the following code in simple, easy-to-understand language. Break down what each part does and how it works:\n\n${input}`,
-                },
-                'translator': {
-                    title: 'Translator',
-                    description: 'Translate text accurately between languages.',
-                    extraFields: 'translator',
-                    placeholder: 'Enter the text you want to translate...',
-                    buildPrompt: (input, extraData) => `Translate the following text from ${extraData.sourceLang} to ${extraData.targetLang} accurately and naturally:\n\n${input}`,
-                    getExtraData: () => ({ sourceLang: sourceLang.value, targetLang: targetLang.value }),
-                },
-                'email-writer': {
-                    title: 'AI Email Writer',
-                    description: 'Generate professional emails tailored to your needs.',
-                    extraFields: 'email',
-                    placeholder: 'Describe what the email should cover (key points, context, etc.)...',
-                    buildPrompt: (input, extraData) => {
-                        let prompt = 'Write a professional email';
-                        if (extraData.recipient) prompt += ` addressed to ${extraData.recipient}`;
-                        if (extraData.subject) prompt += ` with the subject "${extraData.subject}"`;
-                        prompt += ` in a ${extraData.tone.toLowerCase()} tone. Include appropriate greeting, body, and closing. Here are the key points:\n\n${input}`;
-                        return prompt;
-                    },
-                    getExtraData: () => ({ recipient: emailRecipient.value.trim(), subject: emailSubject.value.trim(), tone: emailTone.value }),
-                },
-                'blog-generator': {
-                    title: 'Blog Generator',
-                    description: 'Generate SEO-friendly blog articles with headings.',
-                    extraFields: 'blog',
-                    placeholder: 'Additional context, notes, or specific points to include...',
-                    buildPrompt: (input, extraData) => {
-                        let prompt = 'Generate an SEO-friendly blog article with proper headings (H2, H3), an engaging introduction, and a strong conclusion.';
-                        if (extraData.topic) prompt += ` The topic is: "${extraData.topic}".`;
-                        if (extraData.keywords) prompt += ` Incorporate these keywords naturally: ${extraData.keywords}.`;
-                        prompt += ` Write in a ${extraData.tone.toLowerCase()} tone.`;
-                        if (input.trim()) prompt += ` Additional context:\n\n${input}`;
-                        prompt += '\n\nFormat with clear headings, short paragraphs, and make it engaging.';
-                        return prompt;
-                    },
-                    getExtraData: () => ({ topic: blogTopic.value.trim(), keywords: blogKeywords.value.trim(), tone: blogTone.value }),
-                },
-            };
+                if (line.startsWith('#EXTINF')) {
+                    // Extract Name
+                    const nameMatch = line.match(/,(.*)$/);
+                    const name = nameMatch ? nameMatch[1].trim() : 'Unknown Channel';
+                    
+                    // Extract Group (optional, defaulting to Sports)
+                    let group = 'Sports';
+                    const groupMatch = line.match(/group-title="([^"]*)"/);
+                    if (groupMatch) group = groupMatch[1].trim();
 
-            function updateCharCount() {
-                const text = toolInput.value;
-                const chars = text.length;
-                const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-                charCount.textContent = `${chars} character${chars !== 1 ? 's' : ''} | ${words} word${words !== 1 ? 's' : ''}`;
-                charCount.classList.toggle('warning', chars > 8000);
-            }
+                    // Heuristic Category Grouping based on name if no group
+                    if (group === 'Sports') {
+                        const n = name.toLowerCase();
+                        if (n.includes('news')) group = 'News';
+                        else if (n.includes('movie')) group = 'Movies';
+                    }
 
-            function showToast(message, type = 'success') {
-                const toast = document.createElement('div');
-                toast.className = `toast ${type}`;
-                toast.textContent = message;
-                toastContainer.appendChild(toast);
-                setTimeout(() => { if (toast.parentNode) toast.remove(); }, 2800);
-            }
-
-            function showError(message) {
-                errorMessage.textContent = message;
-                errorMessage.classList.add('visible');
-                outputArea.classList.remove('visible');
-                generatedText = '';
-            }
-
-            function hideError() { errorMessage.classList.remove('visible'); }
-
-            function showOutput(text) {
-                generatedText = text;
-                outputContent.textContent = text;
-                outputArea.classList.add('visible');
-                hideError();
-            }
-
-            function hideOutput() {
-                outputArea.classList.remove('visible');
-                outputContent.textContent = '';
-                generatedText = '';
-                hideError();
-            }
-
-            function setLoading(loading) {
-                isGenerating = loading;
-                spinnerContainer.classList.toggle('visible', loading);
-                generateBtn.disabled = loading;
-                generateBtnText.textContent = loading ? 'Generating...' : 'Generate';
-                if (loading) { hideError(); hideOutput(); }
-            }
-
-            function hideAllExtraFields() {
-                [extraFieldsTranslator, extraFieldsEmail, extraFieldsBlog].forEach(el => el.classList.remove('visible'));
-            }
-
-            function showExtraFields(toolKey) {
-                hideAllExtraFields();
-                const def = toolDefinitions[toolKey];
-                if (def.extraFields === 'translator') extraFieldsTranslator.classList.add('visible');
-                else if (def.extraFields === 'email') extraFieldsEmail.classList.add('visible');
-                else if (def.extraFields === 'blog') extraFieldsBlog.classList.add('visible');
-            }
-
-            function resetToolUI() {
-                toolInput.value = '';
-                updateCharCount();
-                hideOutput();
-                hideError();
-                setLoading(false);
-                hideAllExtraFields();
-                if (sourceLang) sourceLang.value = 'English';
-                if (targetLang) targetLang.value = 'English';
-                if (emailRecipient) emailRecipient.value = '';
-                if (emailSubject) emailSubject.value = '';
-                if (emailTone) emailTone.value = 'Professional';
-                if (blogTopic) blogTopic.value = '';
-                if (blogKeywords) blogKeywords.value = '';
-                if (blogTone) blogTone.value = 'SEO-optimized';
-            }
-
-            async function callGeminiAPI(prompt) {
-                const response = await fetch(`${API_URL}?key=${API_KEY}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: prompt }] }]
-                    })
-                });
-                if (!response.ok) {
-                    const errData = await response.json().catch(() => ({}));
-                    throw new Error(errData.error?.message || `API request failed (status ${response.status})`);
+                    currentCh = { name, group, id: Math.random().toString(36).substr(2, 9) };
+                } else if (line.startsWith('http') && currentCh) {
+                    currentCh.url = line;
+                    // Generate a generic logo based on name if no logo provided in M3U
+                    // Using a placeholder service that generates text on image
+                    const safeName = encodeURIComponent(currentCh.name);
+                    currentCh.logo = `https://via.placeholder.com/300x170/ffffff/000000?text=${safeName}`;
+                    channels.push(currentCh);
+                    currentCh = null;
                 }
-                const data = await response.json();
-                if (!data.candidates?.[0]?.content?.parts?.[0]?.text) {
-                    throw new Error('Unexpected API response format. Please check the API key.');
-                }
-                return data.candidates[0].content.parts[0].text;
-            }
+            });
+            return channels;
+        }
 
-            function openTool(toolKey) {
-                const def = toolDefinitions[toolKey];
-                if (!def) return;
-                currentTool = toolKey;
-                resetToolUI();
-                modalTitle.textContent = def.title;
-                modalDesc.textContent = def.description;
-                toolInput.placeholder = def.placeholder || 'Type or paste your text here...';
-                showExtraFields(toolKey);
-                modalOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                toolInput.focus();
-            }
+        // --- 5. STREAM VALIDATION (HLS.js Video Test) ---
+        async function checkStreamStatus(channel) {
+            return new Promise((resolve) => {
+                const timeout = setTimeout(() => {
+                    resolve(false); // Timeout means dead
+                }, 7000); // 7s timeout per channel
 
-            function closeModal() {
-                modalOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-                currentTool = null;
-                resetToolUI();
-            }
-
-            async function handleGenerate() {
-                if (!currentTool || isGenerating) return;
-                const input = toolInput.value.trim();
-                if (!input && currentTool !== 'blog-generator') {
-                    showError('Please enter some text before generating.');
-                    toolInput.focus();
+                if (!Hls.isSupported()) {
+                    // Fallback for browsers without HLS support (rare now)
+                    clearTimeout(timeout);
+                    resolve(false); 
                     return;
                 }
-                const def = toolDefinitions[currentTool];
-                let extraData = {};
-                if (def.getExtraData) extraData = def.getExtraData();
-                if (currentTool === 'blog-generator' && !blogTopic.value.trim() && !input) {
-                    showError('Please enter a blog topic or some context text.');
-                    if (blogTopic) blogTopic.focus();
-                    return;
-                }
-                const prompt = def.buildPrompt(input, extraData);
-                setLoading(true);
-                try {
-                    const result = await callGeminiAPI(prompt);
-                    showOutput(result);
-                    showToast('Content generated successfully!', 'success');
-                } catch (err) {
-                    console.error(err);
-                    showError(`Error: ${err.message}`);
-                    showToast('Generation failed. Please try again.', 'error');
-                } finally {
-                    setLoading(false);
-                }
-            }
 
-            async function handleCopy() {
-                if (!generatedText) return;
-                try {
-                    await navigator.clipboard.writeText(generatedText);
-                    showToast('Copied to clipboard!', 'success');
-                    const orig = copyBtn.textContent;
-                    copyBtn.textContent = '✓ Copied!';
-                    setTimeout(() => { copyBtn.textContent = orig; }, 1800);
-                } catch {
-                    const ta = document.createElement('textarea');
-                    ta.value = generatedText;
-                    ta.style.position = 'fixed';
-                    ta.style.left = '-9999px';
-                    document.body.appendChild(ta);
-                    ta.select();
-                    document.execCommand('copy');
-                    ta.remove();
-                    showToast('Copied to clipboard!', 'success');
-                }
-            }
-
-            function handleDownload() {
-                if (!generatedText) return;
-                const blob = new Blob([generatedText], { type: 'text/plain;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                const name = currentTool ? toolDefinitions[currentTool].title.replace(/\s+/g, '-').toLowerCase() : 'output';
-                a.download = `${name}-${Date.now()}.txt`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-                showToast('File downloaded!', 'success');
-            }
-
-            function handleClearInput() {
-                toolInput.value = '';
-                updateCharCount();
-                hideOutput();
-                hideError();
-                toolInput.focus();
-            }
-
-            function handleClearOutput() {
-                hideOutput();
-                showToast('Output cleared.', 'success');
-            }
-
-            // Event binding
-            document.querySelectorAll('.tool-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const tool = card.getAttribute('data-tool');
-                    if (tool) openTool(tool);
+                const hls = new Hls({
+                    enableWorker: false,
+                    lowLatencyMode: true,
+                    backBufferLength: 0
                 });
-                card.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        const tool = card.getAttribute('data-tool');
-                        if (tool) openTool(tool);
+                
+                const video = document.createElement('video');
+                video.muted = true;
+                video.setAttribute('playsinline', '');
+
+                hls.loadSource(channel.url);
+                hls.attachMedia(video);
+
+                hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                    cleanup();
+                    resolve(true);
+                });
+
+                hls.on(Hls.Events.ERROR, (event, data) => {
+                    if (data.fatal) {
+                        cleanup();
+                        resolve(false);
                     }
                 });
-            });
 
-            modalClose.addEventListener('click', closeModal);
-            modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modalOverlay.classList.contains('active')) closeModal(); });
-
-            generateBtn.addEventListener('click', handleGenerate);
-            clearBtn.addEventListener('click', handleClearInput);
-            copyBtn.addEventListener('click', handleCopy);
-            downloadBtn.addEventListener('click', handleDownload);
-            clearOutputBtn.addEventListener('click', handleClearOutput);
-            toolInput.addEventListener('input', updateCharCount);
-
-            hamburger.addEventListener('click', () => {
-                const active = mobileNav.classList.contains('active');
-                if (active) {
-                    mobileNav.classList.remove('active');
-                    hamburger.classList.remove('active');
-                    hamburger.setAttribute('aria-expanded', 'false');
-                } else {
-                    mobileNav.classList.add('active');
-                    hamburger.classList.add('active');
-                    hamburger.setAttribute('aria-expanded', 'true');
-                }
-            });
-
-            document.querySelectorAll('.mobile-nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileNav.classList.remove('active');
-                    hamburger.classList.remove('active');
-                    hamburger.setAttribute('aria-expanded', 'false');
+                // Native fallback if HLS fails immediately but video might play native
+                video.addEventListener('canplay', () => {
+                    cleanup();
+                    resolve(true);
                 });
-            });
+                
+                video.addEventListener('error', () => {
+                     cleanup();
+                     resolve(false);
+                });
 
-            document.addEventListener('click', (e) => {
-                if (mobileNav.classList.contains('active') && !mobileNav.contains(e.target) && !hamburger.contains(e.target)) {
-                    mobileNav.classList.remove('active');
-                    hamburger.classList.remove('active');
-                    hamburger.setAttribute('aria-expanded', 'false');
+                function cleanup() {
+                    clearTimeout(timeout);
+                    hls.destroy();
+                    video.remove();
                 }
             });
+        }
 
-            let scrollTicking = false;
-            window.addEventListener('scroll', () => {
-                if (!scrollTicking) {
-                    requestAnimationFrame(() => {
-                        header.classList.toggle('scrolled', window.scrollY > 10);
-                        scrollTicking = false;
-                    });
-                    scrollTicking = true;
-                }
+        // --- 6. CORE LOGIC ---
+
+        // Initialize
+        async function init() {
+            applyTheme();
+            state.allChannels = parseM3U(rawM3U);
+            
+            // Extract Categories
+            state.allChannels.forEach(ch => {
+                if (ch.group) state.categories.add(ch.group);
             });
+            renderCategories();
 
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href === '#') return;
-                    const target = document.querySelector(href);
-                    if (target && !target.classList.contains('sr-only')) {
-                        e.preventDefault();
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Start Validation
+            await validateChannels();
+
+            // Remove loader
+            els.loader.style.opacity = '0';
+            setTimeout(() => els.loader.classList.add('hidden'), 500);
+
+            // Auto Refresh (60s)
+            state.refreshInterval = setInterval(validateChannels, 60000);
+        }
+
+        // Validate with concurrency control
+        async function validateChannels() {
+            const limit = 10; // Check 10 at a time to prevent browser freeze
+            const chunks = [];
+            for (let i = 0; i < state.allChannels.length; i += limit) {
+                chunks.push(state.allChannels.slice(i, i + limit));
+            }
+
+            let liveCount = 0;
+
+            for (const chunk of chunks) {
+                const promises = chunk.map(async (channel) => {
+                    const isLive = await checkStreamStatus(channel);
+                    return { ...channel, isLive };
+                });
+                
+                const results = await Promise.all(promises);
+                
+                // Update State
+                results.forEach(res => {
+                    const index = state.validChannels.findIndex(c => c.id === res.id);
+                    if (res.isLive) {
+                        liveCount++;
+                        if (index === -1) state.validChannels.push(res);
+                    } else {
+                        if (index !== -1) state.validChannels.splice(index, 1);
                     }
                 });
-            });
+                
+                // Update UI live counter immediately
+                els.counter.innerText = `LIVE CHANNELS: ${liveCount}`;
+                renderGrid();
+            }
+        }
 
-            updateCharCount();
-            console.log('AI Toolbox ready. Using API key:', API_KEY.substring(0, 4) + '...');
-        })();
+        // --- 7. RENDERING ---
+
+        function renderCategories() {
+            els.catList.innerHTML = `<div class="cat-chip active" data-cat="All">All</div>`;
+            state.categories.forEach(cat => {
+                if (cat === 'All') return;
+                const chip = document.createElement('div');
+                chip.className = 'cat-chip';
+                chip.innerText = cat;
+                chip.dataset.cat = cat;
+                chip.onclick = () => setCategory(cat);
+                els.catList.appendChild(chip);
+            });
+        }
+
+        function setCategory(cat) {
+            state.currentCategory = cat;
+            state.view = 'all'; // Reset custom views
+            updateButtonStates();
+            
+            document.querySelectorAll('.cat-chip').forEach(c => {
+                c.classList.toggle('active', c.dataset.cat === cat);
+            });
+            renderGrid();
+        }
+
+        function renderGrid() {
+            els.grid.innerHTML = '';
+            
+            let filtered = state.validChannels;
+
+            // 1. View Filtering
+            if (state.view === 'fav') {
+                filtered = filtered.filter(c => state.favorites.includes(c.id));
+            } else if (state.view === 'rec') {
+                filtered = filtered.filter(c => state.recent.includes(c.id));
+            }
+
+            // 2. Category Filtering
+            if (state.view === 'all' && state.currentCategory !== 'All') {
+                filtered = filtered.filter(c => c.group === state.currentCategory);
+            }
+
+            // 3. Search Filtering
+            if (state.searchQuery) {
+                const q = state.searchQuery.toLowerCase();
+                filtered = filtered.filter(c => 
+                    c.name.toLowerCase().includes(q) || 
+                    c.group.toLowerCase().includes(q)
+                );
+            }
+
+            if (filtered.length === 0) {
+                els.grid.innerHTML = `<div class="empty-state">No live channels available.</div>`;
+                return;
+            }
+
+            filtered.forEach(ch => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                const isFav = state.favorites.includes(ch.id);
+                
+                card.innerHTML = `
+                    <div class="card-img-wrapper">
+                        <img src="${ch.logo}" class="card-img" alt="${ch.name}" loading="lazy">
+                        <span class="status-badge badge-live">LIVE</span>
+                        <button class="fav-btn ${isFav ? 'is-fav' : ''}" onclick="event.stopPropagation(); toggleFav('${ch.id}')">
+                            ${isFav ? '♥' : '♡'}
+                        </button>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title" title="${ch.name}">${ch.name}</div>
+                        <div class="card-cat">${ch.group}</div>
+                    </div>
+                `;
+                
+                card.onclick = () => openPlayer(ch);
+                els.grid.appendChild(card);
+            });
+        }
+
+        // --- 8. PLAYER & INTERACTIONS ---
+
+        function openPlayer(channel) {
+            // Save to recent
+            addToRecent(channel.id);
+
+            els.currentChName.innerText = channel.name;
+            els.playerModal.classList.add('active');
+
+            if (state.hlsInstance) {
+                state.hlsInstance.destroy();
+            }
+
+            const video = els.video;
+
+            if (Hls.isSupported()) {
+                state.hlsInstance = new Hls();
+                state.hlsInstance.loadSource(channel.url);
+                state.hlsInstance.attachMedia(video);
+                state.hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
+                    video.play().catch(e => console.log("Auto-play blocked", e));
+                });
+                state.hlsInstance.on(Hls.Events.ERROR, (event, data) => {
+                   if (data.fatal) {
+                       // Simple error recovery visual
+                       console.error('Stream Error', data);
+                   }
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = channel.url;
+                video.addEventListener('loadedmetadata', () => {
+                    video.play();
+                });
+            }
+        }
+
+        function closePlayer() {
+            els.playerModal.classList.remove('active');
+            els.video.pause();
+            if (state.hlsInstance) {
+                state.hlsInstance.destroy();
+                state.hlsInstance = null;
+            }
+            els.video.src = '';
+        }
+
+        window.toggleFav = function(id) {
+            if (state.favorites.includes(id)) {
+                state.favorites = state.favorites.filter(f => f !== id);
+            } else {
+                state.favorites.push(id);
+            }
+            localStorage.setItem('msr_favorites', JSON.stringify(state.favorites));
+            renderGrid();
+        };
+
+        function addToRecent(id) {
+            state.recent = [id, ...state.recent.filter(r => r !== id)].slice(0, 20);
+            localStorage.setItem('msr_recent', JSON.stringify(state.recent));
+        }
+
+        // --- 9. UI HANDLERS ---
+
+        els.search.addEventListener('input', (e) => {
+            state.searchQuery = e.target.value;
+            renderGrid();
+        });
+
+        els.themeBtn.addEventListener('click', () => {
+            state.isDark = !state.isDark;
+            localStorage.setItem('msr_theme', state.isDark ? 'dark' : 'light');
+            applyTheme();
+        });
+
+        function applyTheme() {
+            if (state.isDark) {
+                document.body.setAttribute('data-theme', 'dark');
+                els.themeBtn.innerText = 'Light';
+            } else {
+                document.body.removeAttribute('data-theme');
+                els.themeBtn.innerText = 'Dark';
+            }
+        }
+
+        // View Toggles
+        els.favBtn.addEventListener('click', () => {
+            if (state.view === 'fav') state.view = 'all';
+            else state.view = 'fav';
+            state.currentCategory = 'All'; // Reset cats
+            updateButtonStates();
+            document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+            renderGrid();
+        });
+
+        els.recBtn.addEventListener('click', () => {
+            if (state.view === 'rec') state.view = 'all';
+            else state.view = 'rec';
+            state.currentCategory = 'All';
+            updateButtonStates();
+            document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+            renderGrid();
+        });
+
+        function updateButtonStates() {
+            els.favBtn.classList.toggle('btn-primary', state.view === 'fav');
+            els.recBtn.classList.toggle('btn-primary', state.view === 'rec');
+        }
+
+        els.closePlayerBtn.addEventListener('click', closePlayer);
+
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closePlayer();
+        });
+
+        // Start
+        init();
+
     </script>
 </body>
 </html>
