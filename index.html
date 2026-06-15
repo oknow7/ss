@@ -3,1519 +3,1499 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmniTools - Premium Developer Utilities</title>
-    <meta name="description" content="A premium, all-in-one collection of 100+ developer tools, text utilities, converters, and calculators. Minimal, fast, and secure.">
-    
-    <!-- Open Graph / Twitter -->
+    <meta name="description" content="AI Toolbox - Professional AI-powered tools including text summarizer, grammar checker, paraphraser, code explainer, translator, email writer, and blog generator.">
+    <meta name="keywords" content="AI tools, text summarizer, grammar checker, paraphraser, code explainer, translator, email writer, blog generator, Gemini API">
+    <meta name="author" content="AI Toolbox">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="AI Toolbox - Professional AI Tools">
+    <meta property="og:description" content="Access powerful AI tools for text processing, translation, content generation, and more.">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="OmniTools - Premium Developer Utilities">
-    <meta property="og:description" content="A premium, all-in-one collection of 100+ developer tools. Minimal, fast, and secure.">
-    <meta property="og:image" content="https://picsum.photos/seed/omnitools/1200/630">
-    <meta name="twitter:card" content="summary_large_image">
-
-    <!-- Fonts: Inter -->
+    <title>AI Toolbox - Professional AI-Powered Tools</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Schema Markup -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "OmniTools",
-      "url": "https://omnitools.com",
-      "description": "A premium, all-in-one collection of developer tools.",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "All",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    }
-    </script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* ------------------------------------------------------------
-           CSS VARIABLES & RESET
-           Theme: Linear / Stripe / Vercel Inspired
-        ------------------------------------------------------------ */
         :root {
-            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            
-            /* Palette - Strict Black & White & Grays */
-            --bg-body: #ffffff;
-            --bg-surface: #fafafa;
-            --bg-surface-hover: #f4f4f5;
-            --bg-accent: #000000;
-            
-            --text-primary: #000000;
-            --text-secondary: #525252;
-            --text-tertiary: #a1a1aa;
-            --text-inverse: #ffffff;
-
-            --border-light: #e4e4e7;
-            --border-medium: #d4d4d8;
-            
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            
+            --bg: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-tertiary: #f1f3f5;
+            --text-primary: #1a1a2e;
+            --text-secondary: #495057;
+            --text-tertiary: #6c757d;
+            --border: #dee2e6;
+            --border-light: #e9ecef;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --accent-light: #eff6ff;
+            --success: #059669;
+            --success-light: #ecfdf5;
+            --error: #dc2626;
+            --error-light: #fef2f2;
+            --warning: #d97706;
+            --warning-light: #fffbeb;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.06), 0 4px 10px rgba(0, 0, 0, 0.04);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
             --radius-sm: 6px;
-            --radius-md: 8px;
-            --radius-lg: 12px;
-            
-            --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            --radius: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --max-width: 1200px;
+            --header-height: 64px;
         }
 
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
         body {
-            font-family: var(--font-main);
-            background-color: var(--bg-body);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg);
             color: var(--text-primary);
             line-height: 1.6;
+            font-size: 16px;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        a { text-decoration: none; color: inherit; cursor: pointer; }
-        ul { list-style: none; }
-        button, input, textarea, select { font-family: inherit; outline: none; }
-
-        /* ------------------------------------------------------------
-           UTILITIES
-        ------------------------------------------------------------ */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .flex { display: flex; }
-        .flex-col { flex-direction: column; }
-        .items-center { align-items: center; }
-        .justify-between { justify-content: space-between; }
-        .justify-center { justify-content: center; }
-        .gap-2 { gap: 0.5rem; }
-        .gap-4 { gap: 1rem; }
-        .gap-6 { gap: 1.5rem; }
-        
-        .mt-4 { margin-top: 1rem; }
-        .mt-8 { margin-top: 2rem; }
-        .mb-4 { margin-bottom: 1rem; }
-        .mb-8 { margin-bottom: 2rem; }
-
-        .text-sm { font-size: 0.875rem; }
-        .text-xs { font-size: 0.75rem; }
-        .font-medium { font-weight: 500; }
-        .font-bold { font-weight: 700; }
-        .text-secondary { color: var(--text-secondary); }
-        .text-center { text-align: center; }
-
-        /* ------------------------------------------------------------
-           COMPONENTS
-        ------------------------------------------------------------ */
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 16px;
-            height: 40px;
-            border-radius: var(--radius-sm);
-            font-weight: 500;
-            font-size: 0.875rem;
-            transition: var(--transition);
-            border: 1px solid transparent;
-            cursor: pointer;
-            gap: 8px;
-        }
-        .btn-primary {
-            background-color: var(--bg-accent);
-            color: var(--text-inverse);
-        }
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-        .btn-secondary {
-            background-color: white;
-            border-color: var(--border-medium);
-            color: var(--text-primary);
-        }
-        .btn-secondary:hover {
-            background-color: var(--bg-surface-hover);
-        }
-        .btn-ghost {
-            background: transparent;
-            color: var(--text-secondary);
-        }
-        .btn-ghost:hover {
-            color: var(--text-primary);
-            background: var(--bg-surface);
-        }
-
-        /* Inputs */
-        .input {
-            width: 100%;
-            height: 40px;
-            padding: 0 12px;
-            border: 1px solid var(--border-medium);
-            border-radius: var(--radius-sm);
-            background: #fff;
-            color: var(--text-primary);
-            transition: var(--transition);
-        }
-        .input:focus {
-            border-color: var(--text-primary);
-            box-shadow: 0 0 0 1px var(--text-primary);
-        }
-        textarea.input {
-            height: auto;
-            padding: 12px;
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        /* Cards */
-        .card {
-            background: #fff;
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-        }
-        .card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
-        }
-
-        /* Badges */
-        .badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 99px;
-            font-size: 11px;
-            font-weight: 600;
-            background: var(--bg-surface);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-light);
-        }
-
-        /* ------------------------------------------------------------
-           LAYOUT SECTIONS
-        ------------------------------------------------------------ */
         /* Header */
-        header {
+        .header {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
+            background-color: #ffffff;
             border-bottom: 1px solid var(--border-light);
-            height: 64px;
+            height: var(--header-height);
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow var(--transition);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+
+        .header-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 100%;
             display: flex;
             align-items: center;
+            justify-content: space-between;
         }
+
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-weight: 700;
-            font-size: 1.25rem;
-            letter-spacing: -0.025em;
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+            flex-shrink: 0;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background-color: var(--accent);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 0;
+            flex-shrink: 0;
+        }
+
+        .nav {
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .logo svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--text-primary);
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.925rem;
+            padding: 8px 14px;
+            border-radius: var(--radius);
+            transition: all var(--transition);
+            white-space: nowrap;
         }
-        .search-container {
-            position: relative;
-            max-width: 400px;
-            width: 100%;
-            margin: 0 24px;
+
+        .nav-link:hover,
+        .nav-link:focus-visible {
+            color: var(--accent);
+            background-color: var(--accent-light);
+            outline: none;
         }
-        .search-container input {
-            padding-left: 36px;
-            background: var(--bg-surface);
+
+        .hamburger {
+            display: none;
+            background: none;
             border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: var(--radius);
+            color: var(--text-primary);
+            transition: background-color var(--transition);
+            flex-shrink: 0;
         }
-        .search-icon {
+
+        .hamburger:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .hamburger-icon {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background-color: currentColor;
+            border-radius: 2px;
+            position: relative;
+            transition: all var(--transition);
+        }
+
+        .hamburger-icon::before,
+        .hamburger-icon::after {
+            content: '';
+            display: block;
+            width: 22px;
+            height: 2px;
+            background-color: currentColor;
+            border-radius: 2px;
             position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-tertiary);
-            width: 16px;
-            height: 16px;
+            transition: all var(--transition);
+        }
+
+        .hamburger-icon::before {
+            top: -7px;
+        }
+        .hamburger-icon::after {
+            top: 7px;
+        }
+
+        .hamburger.active .hamburger-icon {
+            background-color: transparent;
+        }
+        .hamburger.active .hamburger-icon::before {
+            top: 0;
+            transform: rotate(45deg);
+        }
+        .hamburger.active .hamburger-icon::after {
+            top: 0;
+            transform: rotate(-45deg);
+        }
+
+        /* Mobile nav */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border-light);
+            padding: 16px 24px;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 99;
+            box-shadow: var(--shadow-md);
+            transform: translateY(-8px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all var(--transition-slow);
+        }
+
+        .mobile-nav.active {
+            display: flex;
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            transition: all var(--transition);
+            display: block;
+        }
+
+        .mobile-nav-link:hover,
+        .mobile-nav-link:focus-visible {
+            background-color: var(--bg-tertiary);
+            color: var(--accent);
+            outline: none;
+        }
+
+        /* Main content */
+        .main {
+            flex: 1;
         }
 
         /* Hero */
         .hero {
-            padding: 100px 0 60px;
+            padding: 64px 24px 48px;
             text-align: center;
-        }
-        .hero h1 {
-            font-size: 3.5rem;
-            line-height: 1.1;
-            letter-spacing: -0.04em;
-            margin-bottom: 24px;
-            font-weight: 700;
-        }
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 40px;
-        }
-
-        /* Filters */
-        .categories-nav {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding-bottom: 20px;
-            margin-bottom: 40px;
+            background-color: var(--bg);
             border-bottom: 1px solid var(--border-light);
-            scrollbar-width: none;
-        }
-        .categories-nav::-webkit-scrollbar { display: none; }
-        .cat-btn {
-            padding: 8px 16px;
-            border-radius: 99px;
-            border: 1px solid var(--border-light);
-            background: #fff;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            white-space: nowrap;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        .cat-btn:hover, .cat-btn.active {
-            background: var(--text-primary);
-            color: #fff;
-            border-color: var(--text-primary);
         }
 
-        /* Tool Grid */
+        .hero-inner {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--text-secondary);
+            max-width: 550px;
+            margin: 0 auto 32px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background-color: var(--accent);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 13px 28px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            transition: all var(--transition);
+            border: none;
+            cursor: pointer;
+            letter-spacing: -0.01em;
+        }
+
+        .hero-cta:hover {
+            background-color: var(--accent-hover);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        /* Tools section */
+        .tools-section {
+            padding: 56px 24px 80px;
+            background-color: var(--bg-secondary);
+        }
+
+        .tools-section-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 44px;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-            margin-bottom: 80px;
+            gap: 20px;
         }
+
         .tool-card {
+            background-color: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 28px 24px;
+            cursor: pointer;
+            transition: all var(--transition);
+            position: relative;
+            box-shadow: var(--shadow-sm);
             display: flex;
             flex-direction: column;
             gap: 12px;
-            cursor: pointer;
-            text-align: left;
-            position: relative;
         }
-        .tool-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--bg-surface);
-            border-radius: var(--radius-md);
+
+        .tool-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: var(--border);
+            transform: translateY(-2px);
+        }
+
+        .tool-card:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tool-card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #ffffff;
+            flex-shrink: 0;
+            letter-spacing: 0;
         }
-        .tool-icon svg { width: 24px; height: 24px; fill: var(--text-primary); }
-        .tool-title { font-weight: 600; font-size: 1.125rem; }
-        .tool-desc { color: var(--text-secondary); font-size: 0.875rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        
-        .fav-btn {
-            position: absolute;
-            top: 24px;
-            right: 24px;
+
+        .tool-card-icon.blue { background-color: #2563eb; }
+        .tool-card-icon.green { background-color: #059669; }
+        .tool-card-icon.purple { background-color: #7c3aed; }
+        .tool-card-icon.orange { background-color: #ea580c; }
+        .tool-card-icon.teal { background-color: #0d9488; }
+        .tool-card-icon.indigo { background-color: #4f46e5; }
+        .tool-card-icon.rose { background-color: #e11d48; }
+
+        .tool-card-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .tool-card-desc {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .tool-card-arrow {
+            align-self: flex-end;
+            color: var(--text-tertiary);
+            font-size: 1.2rem;
+            transition: transform var(--transition);
+            font-weight: 300;
+        }
+
+        .tool-card:hover .tool-card-arrow {
+            transform: translateX(4px);
+            color: var(--accent);
+        }
+
+        /* Modal overlay */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.45);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-slow);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal {
+            background-color: #ffffff;
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 720px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-xl);
+            transform: translateY(20px) scale(0.97);
+            transition: transform var(--transition-slow);
+            overflow: hidden;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 24px 28px 16px;
+            border-bottom: 1px solid var(--border-light);
+            gap: 16px;
+            flex-shrink: 0;
+        }
+
+        .modal-header-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .modal-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .modal-desc {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            line-height: 1.4;
+        }
+
+        .modal-close {
             background: none;
             border: none;
             cursor: pointer;
-            color: var(--border-medium);
-        }
-        .fav-btn.active { color: #000; fill: #000; }
-
-        /* Single Tool View */
-        #tool-view {
-            display: none; /* Hidden by default */
-            padding-top: 40px;
-            padding-bottom: 80px;
-            animation: fadeIn 0.3s ease;
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .workspace {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            margin-top: 32px;
-        }
-        @media (max-width: 768px) { .workspace { grid-template-columns: 1fr; } }
-        
-        .panel {
-            background: #fff;
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            min-height: 300px;
-        }
-        .panel-header {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-light);
-        }
-        .panel-title { font-weight: 600; font-size: 0.875rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
-
-        /* Statistics */
-        .stats-section {
-            background: var(--bg-surface);
-            padding: 80px 0;
-            border-top: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-            text-align: center;
-        }
-        .stat-number { font-size: 3rem; font-weight: 700; letter-spacing: -0.03em; }
-        .stat-label { color: var(--text-secondary); }
-
-        /* FAQ & About */
-        .content-section { padding: 80px 0; }
-        .faq-item { border-bottom: 1px solid var(--border-light); padding: 24px 0; }
-        .faq-question { font-weight: 600; font-size: 1.125rem; margin-bottom: 8px; cursor: pointer; }
-        .faq-answer { color: var(--text-secondary); display: none; margin-top: 8px; }
-        .faq-item.active .faq-answer { display: block; }
-
-        /* Footer */
-        footer {
-            padding: 60px 0 30px;
-            border-top: 1px solid var(--border-light);
-            background: #fff;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-        .footer-col h4 { font-size: 0.875rem; font-weight: 600; margin-bottom: 20px; }
-        .footer-col ul li { margin-bottom: 12px; }
-        .footer-col ul li a { color: var(--text-secondary); font-size: 0.875rem; }
-        .footer-col ul li a:hover { color: var(--text-primary); }
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            font-size: 1.4rem;
             color: var(--text-tertiary);
-            font-size: 0.75rem;
-            padding-top: 30px;
-            border-top: 1px solid var(--border-light);
+            transition: all var(--transition);
+            flex-shrink: 0;
+            font-weight: 300;
+            line-height: 1;
         }
 
-        /* UI Elements */
-        #toast-container {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
+        .modal-close:hover {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            padding: 20px 28px 28px;
+            overflow-y: auto;
+            flex: 1;
             display: flex;
             flex-direction: column;
+            gap: 16px;
+        }
+
+        .modal-body::-webkit-scrollbar { width: 5px; }
+        .modal-body::-webkit-scrollbar-track { background: transparent; }
+        .modal-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+        /* Extra fields */
+        .extra-fields {
+            display: none;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .extra-fields.visible {
+            display: flex;
+        }
+
+        .extra-fields .field-group {
+            flex: 1;
+            min-width: 140px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .extra-fields label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.01em;
+        }
+
+        .extra-fields input,
+        .extra-fields select {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            background-color: var(--bg);
+            transition: all var(--transition);
+            width: 100%;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .extra-fields select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%236c757d'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 32px;
+            cursor: pointer;
+        }
+
+        .extra-fields input:focus,
+        .extra-fields select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+        }
+
+        /* Input group */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-label-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
             gap: 8px;
         }
-        .toast {
-            background: #000;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: var(--radius-md);
-            font-size: 0.875rem;
-            box-shadow: var(--shadow-lg);
-            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        /* Loading Screen */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: #fff;
-            z-index: 9999;
+        .input-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.01em;
+        }
+
+        .char-count {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            font-weight: 400;
+            white-space: nowrap;
+        }
+
+        .char-count.warning { color: var(--warning); }
+
+        textarea {
+            width: 100%;
+            min-height: 140px;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.925rem;
+            color: var(--text-primary);
+            background-color: var(--bg);
+            resize: vertical;
+            line-height: 1.6;
+            transition: all var(--transition);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+        }
+
+        textarea::placeholder { color: #adb5bd; }
+
+        /* Buttons row */
+        .btn-row {
             display: flex;
-            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
             align-items: center;
-            transition: opacity 0.5s;
         }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 11px 20px;
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all var(--transition);
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+            text-decoration: none;
+            line-height: 1.3;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            border-color: var(--accent-hover);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:disabled {
+            background-color: #93b4f5;
+            border-color: #93b4f5;
+            cursor: not-allowed;
+            box-shadow: none;
+            opacity: 0.7;
+        }
+
+        .btn-secondary {
+            background-color: #ffffff;
+            color: var(--text-secondary);
+            border-color: var(--border);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-tertiary);
+            border-color: #c0c7cf;
+        }
+
+        .btn-ghost {
+            background-color: transparent;
+            color: var(--text-secondary);
+            border-color: transparent;
+        }
+
+        .btn-ghost:hover {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .btn-sm { padding: 7px 14px; font-size: 0.8rem; }
+
+        /* Output area */
+        .output-area {
+            display: none;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            min-height: 80px;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .output-area.visible { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .output-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 10px;
+        }
+
+        .output-content {
+            font-size: 0.925rem;
+            color: var(--text-primary);
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .output-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        /* Loading spinner */
+        .spinner-container {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 0;
+        }
+
+        .spinner-container.visible { display: flex; }
+
         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--bg-surface);
-            border-top-color: var(--text-primary);
+            width: 20px;
+            height: 20px;
+            border: 2.5px solid var(--border);
+            border-top-color: var(--accent);
             border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+            animation: spin 0.7s linear infinite;
+            flex-shrink: 0;
         }
+
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Utility classes for specific tools */
-        .color-preview { width: 100%; height: 100px; border-radius: var(--radius-md); border: 1px solid var(--border-light); margin-bottom: 16px; }
-        .hidden { display: none !important; }
-        
-        /* Back to top */
-        .back-to-top {
+        .spinner-text {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        /* Error message */
+        .error-message {
+            display: none;
+            background-color: var(--error-light);
+            border: 1px solid #fecaca;
+            color: var(--error);
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            font-weight: 500;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .error-message.visible { display: block; }
+
+        /* Toast */
+        .toast-container {
             position: fixed;
             bottom: 24px;
             right: 24px;
-            background: #fff;
-            border: 1px solid var(--border-medium);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            z-index: 300;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
+            flex-direction: column;
+            gap: 8px;
             pointer-events: none;
-            transition: var(--transition);
-            box-shadow: var(--shadow-md);
         }
-        .back-to-top.visible { opacity: 1; pointer-events: auto; }
 
+        .toast {
+            background-color: #1a1a2e;
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 500;
+            box-shadow: var(--shadow-lg);
+            animation: slideIn 0.35s ease, fadeOut 0.35s ease 2.2s forwards;
+            pointer-events: all;
+            max-width: 380px;
+            letter-spacing: -0.01em;
+        }
+
+        .toast.success { border-left: 3px solid var(--success); }
+        .toast.error { border-left: 3px solid var(--error); }
+
+        @keyframes slideIn {
+            from { transform: translateX(120%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(30px); }
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-light);
+            padding: 40px 24px;
+            margin-top: auto;
+        }
+
+        .footer-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color var(--transition);
+        }
+
+        .footer-link:hover { color: var(--accent); }
+
+        .footer-copy {
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            .hamburger { display: flex; align-items: center; justify-content: center; }
+            .hero { padding: 40px 20px 32px; }
+            .tools-section { padding: 36px 16px 56px; }
+            .tools-grid { grid-template-columns: 1fr; gap: 14px; }
+            .modal { max-width: 100%; max-height: 95vh; border-radius: var(--radius-lg); margin: 8px; }
+            .modal-header { padding: 18px 20px 14px; }
+            .modal-body { padding: 16px 20px 22px; }
+            .extra-fields { flex-direction: column; }
+            .extra-fields .field-group { min-width: 100%; }
+            .btn-row { flex-direction: column; align-items: stretch; }
+            .btn { justify-content: center; }
+            .footer-inner { flex-direction: column; text-align: center; }
+            .footer-links { justify-content: center; }
+            .toast-container { left: 16px; right: 16px; bottom: 16px; }
+            .toast { max-width: 100%; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: 1.6rem; }
+            .hero-subtitle { font-size: 0.9rem; }
+            .modal-header { padding: 14px 16px 12px; }
+            .modal-body { padding: 12px 16px 18px; }
+            .modal-title { font-size: 1.15rem; }
+            textarea { min-height: 120px; }
+        }
+
+        .sr-only {
+            position: absolute; width: 1px; height: 1px;
+            padding: 0; margin: -1px; overflow: hidden;
+            clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
 <body>
-
-    <!-- Loading Screen -->
-    <div id="loader">
-        <div class="spinner"></div>
-    </div>
-
-    <!-- Header -->
-    <header>
-        <div class="container flex justify-between items-center" style="width: 100%;">
-            <a href="#" class="logo" onclick="app.showDashboard()">
-                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/></svg>
-                OmniTools
+    <header class="header" id="header" role="banner">
+        <div class="header-inner">
+            <a href="#" class="logo" aria-label="AI Toolbox Home">
+                <span class="logo-icon">AI</span>
+                AI Toolbox
             </a>
-            
-            <div class="search-container">
-                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                <input type="text" id="global-search" class="input" placeholder="Search 100+ tools..." autocomplete="off">
-            </div>
-
-            <nav class="flex items-center gap-4">
-                <button class="btn btn-ghost" onclick="app.toggleFavorites()">
-                    <span id="nav-fav-text">Favorites</span>
-                </button>
-                <a href="https://github.com" target="_blank" class="btn btn-secondary">
-                    GitHub
-                </a>
+            <nav class="nav" role="navigation" aria-label="Main navigation">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#tools" class="nav-link">Tools</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </nav>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger-icon"></span>
+            </button>
+        </div>
+        <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+            <a href="#home" class="mobile-nav-link">Home</a>
+            <a href="#tools" class="mobile-nav-link">Tools</a>
+            <a href="#about" class="mobile-nav-link">About</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Dashboard View -->
-        <div id="dashboard-view">
-            <!-- Hero -->
-            <section class="hero">
-                <div class="container">
-                    <span class="badge mb-4">v2.0 Now Available</span>
-                    <h1>The toolkit for<br>modern creators.</h1>
-                    <p>A curated collection of 100+ developer utilities, converters, and text tools. Clean, fast, and completely free.</p>
-                    <div class="flex justify-center gap-4">
-                        <button class="btn btn-primary" onclick="document.querySelector('.categories-nav').scrollIntoView({behavior:'smooth'})">Explore Tools</button>
-                        <button class="btn btn-secondary" onclick="app.openRecentTool()">Resume Working</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Categories -->
-            <div class="container">
-                <div class="categories-nav" id="category-list">
-                    <!-- Injected via JS -->
-                </div>
+    <main class="main" id="home">
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-inner">
+                <span class="hero-badge">AI-Powered Tools</span>
+                <h1 class="hero-title" id="hero-title">Professional AI Tools at Your Fingertips</h1>
+                <p class="hero-subtitle">Access a suite of powerful AI tools designed to boost your productivity. Summarize text, check grammar, paraphrase content, explain code, translate languages, and more.</p>
+                <a href="#tools" class="hero-cta">Explore Tools</a>
             </div>
+        </section>
 
-            <!-- Tools Grid -->
-            <section class="container">
-                <div class="flex justify-between items-center mb-8">
-                    <h2 class="font-bold text-2xl" id="grid-title">All Tools</h2>
-                    <span class="text-secondary text-sm" id="tool-count">Loading...</span>
+        <section class="tools-section" id="tools" aria-labelledby="tools-title">
+            <div class="tools-section-inner">
+                <div class="section-header">
+                    <h2 class="section-title" id="tools-title">Choose a Tool</h2>
+                    <p class="section-subtitle">Click on any tool to get started</p>
                 </div>
-                <div class="tools-grid" id="tools-grid">
-                    <!-- Tools injected via JS -->
-                </div>
-            </section>
-
-            <!-- Stats -->
-            <section class="stats-section">
-                <div class="container">
-                    <div class="stats-grid">
-                        <div>
-                            <div class="stat-number">100+</div>
-                            <div class="stat-label">Free Tools</div>
-                        </div>
-                        <div>
-                            <div class="stat-number">0ms</div>
-                            <div class="stat-label">Latency</div>
-                        </div>
-                        <div>
-                            <div class="stat-number">100%</div>
-                            <div class="stat-label">Client-side</div>
-                        </div>
-                        <div>
-                            <div class="stat-number">24/7</div>
-                            <div class="stat-label">Availability</div>
-                        </div>
+                <div class="tools-grid">
+                    <div class="tool-card" data-tool="summarizer" tabindex="0" role="button" aria-label="AI Text Summarizer">
+                        <span class="tool-card-icon blue">S</span>
+                        <h3 class="tool-card-title">AI Text Summarizer</h3>
+                        <p class="tool-card-desc">Condense long articles, documents, or paragraphs into clear, concise summaries.</p>
+                        <span class="tool-card-arrow">→</span>
                     </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Single Tool View -->
-        <div id="tool-view">
-            <div class="container">
-                <button class="btn btn-ghost mb-8" onclick="app.showDashboard()">
-                    ← Back to Dashboard
-                </button>
-                
-                <div class="mb-8">
-                    <div class="flex items-center gap-4 mb-2">
-                        <span class="badge" id="tool-category-badge">Category</span>
+                    <div class="tool-card" data-tool="grammar" tabindex="0" role="button" aria-label="Grammar Checker">
+                        <span class="tool-card-icon green">G</span>
+                        <h3 class="tool-card-title">Grammar Checker</h3>
+                        <p class="tool-card-desc">Fix grammar mistakes, punctuation errors, and improve sentence structure instantly.</p>
+                        <span class="tool-card-arrow">→</span>
                     </div>
-                    <h1 class="font-bold text-3xl mb-2" id="tool-header-title">Tool Name</h1>
-                    <p class="text-secondary" id="tool-header-desc">Tool description goes here.</p>
-                </div>
-
-                <!-- Dynamic Workspace -->
-                <div id="tool-workspace" class="workspace">
-                    <!-- Injected by specific tool logic -->
-                </div>
-            </div>
-        </div>
-
-        <!-- FAQ Section -->
-        <section class="content-section container" id="dashboard-view-extra">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="font-bold text-2xl">Frequently Asked Questions</h2>
-            </div>
-            <div class="faq-list">
-                <div class="faq-item">
-                    <div class="faq-question">Are these tools free to use?</div>
-                    <div class="faq-answer">Yes, all OmniTools are completely free and open source. No sign-up required.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Is my data secure?</div>
-                    <div class="faq-answer">Absolutely. All processing happens locally in your browser. We never send your data to any server.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Can I request a new tool?</div>
-                    <div class="faq-answer">Sure! Star our GitHub repo and open an issue with your request.</div>
+                    <div class="tool-card" data-tool="paraphraser" tabindex="0" role="button" aria-label="Paraphraser">
+                        <span class="tool-card-icon purple">P</span>
+                        <h3 class="tool-card-title">Paraphraser</h3>
+                        <p class="tool-card-desc">Rewrite text naturally with different wording while preserving the original meaning.</p>
+                        <span class="tool-card-arrow">→</span>
+                    </div>
+                    <div class="tool-card" data-tool="code-explainer" tabindex="0" role="button" aria-label="Code Explainer">
+                        <span class="tool-card-icon orange">C</span>
+                        <h3 class="tool-card-title">Code Explainer</h3>
+                        <p class="tool-card-desc">Understand complex code snippets with simple, easy-to-follow explanations.</p>
+                        <span class="tool-card-arrow">→</span>
+                    </div>
+                    <div class="tool-card" data-tool="translator" tabindex="0" role="button" aria-label="Translator">
+                        <span class="tool-card-icon teal">T</span>
+                        <h3 class="tool-card-title">Translator</h3>
+                        <p class="tool-card-desc">Translate text between multiple languages with high accuracy and fluency.</p>
+                        <span class="tool-card-arrow">→</span>
+                    </div>
+                    <div class="tool-card" data-tool="email-writer" tabindex="0" role="button" aria-label="AI Email Writer">
+                        <span class="tool-card-icon indigo">E</span>
+                        <h3 class="tool-card-title">AI Email Writer</h3>
+                        <p class="tool-card-desc">Generate professional, well-structured emails tailored to your needs.</p>
+                        <span class="tool-card-arrow">→</span>
+                    </div>
+                    <div class="tool-card" data-tool="blog-generator" tabindex="0" role="button" aria-label="Blog Generator">
+                        <span class="tool-card-icon rose">B</span>
+                        <h3 class="tool-card-title">Blog Generator</h3>
+                        <p class="tool-card-desc">Create SEO-friendly blog articles with proper headings and engaging content.</p>
+                        <span class="tool-card-arrow">→</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section class="content-section container border-t border-light pt-8">
-            <div class="flex flex-col items-center text-center">
-                <h2 class="font-bold text-2xl mb-4">Built for Developers</h2>
-                <p class="text-secondary max-w-2xl">OmniTools was designed to replace the clutter of bookmarked utilities with a single, cohesive interface. Inspired by the best design systems.</p>
-            </div>
-        </section>
+        <section id="about" class="sr-only"><h2>About AI Toolbox</h2><p>AI Toolbox provides professional AI-powered tools to enhance productivity.</p></section>
+        <section id="contact" class="sr-only"><h2>Contact</h2><p>Contact us at support@aitoolbox.com</p></section>
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="logo mb-4">
-                        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/></svg>
-                        OmniTools
+    <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-header-info">
+                    <h2 class="modal-title" id="modalTitle">Tool Title</h2>
+                    <p class="modal-desc" id="modalDesc">Tool description</p>
+                </div>
+                <button class="modal-close" id="modalClose" aria-label="Close tool">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="extra-fields" id="extraFieldsTranslator">
+                    <div class="field-group">
+                        <label for="sourceLang">Source Language</label>
+                        <select id="sourceLang">
+                            <option value="English">English</option><option value="Spanish">Spanish</option><option value="French">French</option><option value="German">German</option><option value="Italian">Italian</option><option value="Portuguese">Portuguese</option><option value="Chinese">Chinese</option><option value="Japanese">Japanese</option><option value="Korean">Korean</option><option value="Arabic">Arabic</option><option value="Russian">Russian</option><option value="Hindi">Hindi</option><option value="Auto-detect">Auto-detect</option>
+                        </select>
                     </div>
-                    <p class="text-secondary text-sm">The ultimate toolkit for web professionals. Simplify your workflow with our powerful utilities.</p>
+                    <div class="field-group">
+                        <label for="targetLang">Target Language</label>
+                        <select id="targetLang">
+                            <option value="English">English</option><option value="Spanish">Spanish</option><option value="French">French</option><option value="German">German</option><option value="Italian">Italian</option><option value="Portuguese">Portuguese</option><option value="Chinese">Chinese</option><option value="Japanese">Japanese</option><option value="Korean">Korean</option><option value="Arabic">Arabic</option><option value="Russian">Russian</option><option value="Hindi">Hindi</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="footer-col">
-                    <h4>Product</h4>
-                    <ul>
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Integrations</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Changelog</a></li>
-                    </ul>
+                <div class="extra-fields" id="extraFieldsEmail">
+                    <div class="field-group"><label for="emailRecipient">Recipient Name</label><input type="text" id="emailRecipient" placeholder="e.g., John Smith"></div>
+                    <div class="field-group"><label for="emailSubject">Email Subject</label><input type="text" id="emailSubject" placeholder="e.g., Project Update"></div>
+                    <div class="field-group"><label for="emailTone">Tone</label><select id="emailTone"><option value="Professional">Professional</option><option value="Friendly">Friendly</option><option value="Formal">Formal</option><option value="Casual">Casual</option></select></div>
                 </div>
-                <div class="footer-col">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">API Reference</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">Help Center</a></li>
-                    </ul>
+                <div class="extra-fields" id="extraFieldsBlog">
+                    <div class="field-group"><label for="blogTopic">Blog Topic</label><input type="text" id="blogTopic" placeholder="e.g., Remote Work Best Practices"></div>
+                    <div class="field-group"><label for="blogKeywords">Keywords (comma-separated)</label><input type="text" id="blogKeywords" placeholder="e.g., productivity, work-from-home"></div>
+                    <div class="field-group"><label for="blogTone">Tone</label><select id="blogTone"><option value="SEO-optimized">SEO-Optimized</option><option value="Informational">Informational</option><option value="Conversational">Conversational</option><option value="Professional">Professional</option></select></div>
                 </div>
-                <div class="footer-col">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
+
+                <div class="input-group">
+                    <div class="input-label-row">
+                        <label class="input-label" for="toolInput">Your Input</label>
+                        <span class="char-count" id="charCount">0 characters | 0 words</span>
+                    </div>
+                    <textarea id="toolInput" placeholder="Type or paste your text here..." aria-label="Tool input textarea"></textarea>
+                </div>
+
+                <div class="btn-row">
+                    <button class="btn btn-primary" id="generateBtn"><span id="generateBtnText">Generate</span></button>
+                    <button class="btn btn-ghost btn-sm" id="clearBtn" type="button">Clear Input</button>
+                </div>
+
+                <div class="spinner-container" id="spinnerContainer">
+                    <div class="spinner"></div>
+                    <span class="spinner-text">Processing with AI...</span>
+                </div>
+
+                <div class="error-message" id="errorMessage"></div>
+
+                <div class="output-area" id="outputArea">
+                    <div class="output-label">Generated Output</div>
+                    <div class="output-content" id="outputContent"></div>
+                    <div class="output-actions">
+                        <button class="btn btn-secondary btn-sm" id="copyBtn" type="button">📋 Copy</button>
+                        <button class="btn btn-secondary btn-sm" id="downloadBtn" type="button">💾 Download TXT</button>
+                        <button class="btn btn-ghost btn-sm" id="clearOutputBtn" type="button">Clear Output</button>
+                    </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <div>© 2023 OmniTools Inc. All rights reserved.</div>
-                <div class="flex gap-4">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <footer class="footer" role="contentinfo">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="#about" class="footer-link">About</a>
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#contact" class="footer-link">Contact</a>
             </div>
+            <p class="footer-copy">&copy; <span id="currentYear"></span> AI Toolbox. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Toast Container -->
-    <div id="toast-container"></div>
-
-    <!-- Back to Top -->
-    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-    </div>
-
-    <!-- LOGIC -->
     <script>
-        /* ------------------------------------------------------------
-           TOOL DATA CONFIGURATION (The "100+ Tools" Logic)
-           We use categories and generic renderers to efficiently build this.
-        ------------------------------------------------------------ */
-        
-        const CATEGORIES = [
-            "Text Tools", "Developer", "PDF/Print", "Image", "SEO", 
-            "Calculators", "Converters", "Security", "Encoding", 
-            "Color", "Utility", "Date & Time"
-        ];
+        (function() {
+            // 🔑 Your provided API key (make sure it's valid)
+            const API_KEY = "AQ.Ab8RN6IenIgmUZN6T4q2KzqC2-M_4QGp9DE3lA6MbZ-Kx5V4dw";
+            const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
-        // Helper for IDs
-        const toId = (str) => str.toLowerCase().replace(/[^a-z0-9]/g, '-');
+            // DOM references
+            const header = document.getElementById('header');
+            const hamburger = document.getElementById('hamburger');
+            const mobileNav = document.getElementById('mobileNav');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modalClose = document.getElementById('modalClose');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDesc = document.getElementById('modalDesc');
+            const toolInput = document.getElementById('toolInput');
+            const charCount = document.getElementById('charCount');
+            const generateBtn = document.getElementById('generateBtn');
+            const generateBtnText = document.getElementById('generateBtnText');
+            const clearBtn = document.getElementById('clearBtn');
+            const spinnerContainer = document.getElementById('spinnerContainer');
+            const errorMessage = document.getElementById('errorMessage');
+            const outputArea = document.getElementById('outputArea');
+            const outputContent = document.getElementById('outputContent');
+            const copyBtn = document.getElementById('copyBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const clearOutputBtn = document.getElementById('clearOutputBtn');
+            const toastContainer = document.getElementById('toastContainer');
 
-        /* 
-           Data Structure for Tools 
-           type determines which logic engine handles the UI and computation.
-        */
-        const RAW_TOOLS = [
-            // TEXT TOOLS
-            { name: "Word Counter", cat: "Text Tools", type: "text_analysis", action: "words" },
-            { name: "Character Counter", cat: "Text Tools", type: "text_analysis", action: "chars" },
-            { name: "Case Converter", cat: "Text Tools", type: "text_transform", action: "case" },
-            { name: "Text to Slug", cat: "SEO Tools", type: "text_transform", action: "slug" },
-            { name: "Lorem Ipsum Generator", cat: "Text Tools", type: "generator", action: "lorem" },
-            { name: "Remove Line Breaks", cat: "Text Tools", type: "text_clean", action: "lines" },
-            { name: "Remove Extra Spaces", cat: "Text Tools", type: "text_clean", action: "spaces" },
-            { name: "Reverse Text", cat: "Text Tools", type: "text_transform", action: "reverse" },
-            { name: "Duplicate Remover", cat: "Text Tools", type: "text_list", action: "dedup" },
-            { name: "Sort Lines", cat: "Text Tools", type: "text_list", action: "sort" },
-            { name: "Find and Replace", cat: "Text Tools", type: "text_replace", action: "replace" },
-            
-            // DEVELOPER TOOLS
-            { name: "JSON Formatter", cat: "Developer", type: "code_format", action: "json_beautify" },
-            { name: "JSON Minifier", cat: "Developer", type: "code_format", action: "json_minify" },
-            { name: "HTML Encoder", cat: "Developer", type: "encoding", action: "html_encode" },
-            { name: "HTML Decoder", cat: "Developer", type: "encoding", action: "html_decode" },
-            { name: "Base64 Encoder", cat: "Encoding", type: "encoding", action: "base64_enc" },
-            { name: "Base64 Decoder", cat: "Encoding", type: "encoding", action: "base64_dec" },
-            { name: "URL Encoder", cat: "Developer", type: "encoding", action: "url_enc" },
-            { name: "URL Decoder", cat: "Developer", type: "encoding", action: "url_dec" },
-            { name: "Color Converter", cat: "Color Tools", type: "color", action: "converter" },
-            { name: "Contrast Checker", cat: "Color Tools", type: "color", action: "contrast" },
-            
-            // SECURITY / GENERATORS
-            { name: "Strong Password Generator", cat: "Security", type: "generator", action: "password" },
-            { name: "UUID Generator", cat: "Developer", type: "generator", action: "uuid" },
-            { name: "Hash Generator", cat: "Security", type: "hash", action: "sha256" },
-            { name: "Random Number Generator", cat: "Utility", type: "generator", action: "number" },
-            { name: "QR Code Generator", cat: "Image", type: "generator", action: "qr" }, // Using API or lib logic if allowed, simplified here
-            
-            // CALCULATORS
-            { name: "BMI Calculator", cat: "Calculators", type: "calc", action: "bmi" },
-            { name: "Percentage Calculator", cat: "Calculators", type: "calc", action: "percent" },
-            { name: "Discount Calculator", cat: "Calculators", type: "calc", action: "discount" },
-            { name: "Age Calculator", cat: "Date & Time", type: "calc_date", action: "age" },
-            { name: "Date Difference", cat: "Date & Time", type: "calc_date", action: "diff" },
-            
-            // CONVERTERS (Mass generation via loop to hit 100+)
-            // We will dynamically generate these below to save space, but conceptually they are separate tools
-        ];
+            const extraFieldsTranslator = document.getElementById('extraFieldsTranslator');
+            const extraFieldsEmail = document.getElementById('extraFieldsEmail');
+            const extraFieldsBlog = document.getElementById('extraFieldsBlog');
 
-        // DYNAMIC GENERATION OF UNIT CONVERTERS TO REACH 100+ TOOLS
-        const UNIT_CATS = ["Length", "Weight", "Temperature", "Digital Storage", "Speed", "Time"];
-        const UNIT_MAP = {
-            "Length": ["Meters", "Kilometers", "Feet", "Inches", "Miles", "Centimeters", "Millimeters", "Yards"],
-            "Weight": ["Kilograms", "Grams", "Pounds", "Ounces", "Tons", "Stones"],
-            "Temperature": ["Celsius", "Fahrenheit", "Kelvin"],
-            "Digital Storage": ["Bytes", "KB", "MB", "GB", "TB", "PB"],
-            "Speed": ["M/s", "Km/h", "Mph", "Knots", "Mach"],
-            "Time": ["Seconds", "Minutes", "Hours", "Days", "Weeks", "Years", "Milliseconds"]
-        };
+            const sourceLang = document.getElementById('sourceLang');
+            const targetLang = document.getElementById('targetLang');
+            const emailRecipient = document.getElementById('emailRecipient');
+            const emailSubject = document.getElementById('emailSubject');
+            const emailTone = document.getElementById('emailTone');
+            const blogTopic = document.getElementById('blogTopic');
+            const blogKeywords = document.getElementById('blogKeywords');
+            const blogTone = document.getElementById('blogTone');
 
-        // Generate specific unit converter tools
-        UNIT_CATS.forEach(cat => {
-            UNIT_MAP[cat].forEach((unit, index) => {
-                // Only create tools for converting *to* common units or from common units to keep list manageable but long
-                // Let's just add a generic converter per category, but the prompt asks for 100+ specific tools.
-                // Strategy: Add "Meters to Feet", "Feet to Meters" etc. as distinct entries.
-                UNIT_MAP[cat].forEach((targetUnit, tIndex) => {
-                    if (index !== tIndex) {
-                        RAW_TOOLS.push({
-                            name: `${unit} to ${targetUnit}`,
-                            cat: "Converters",
-                            type: "unit_single",
-                            from: unit,
-                            to: targetUnit,
-                            categoryBase: cat // Store base for filtering
-                        });
-                    }
+            let currentTool = null;
+            let isGenerating = false;
+            let generatedText = '';
+
+            const toolDefinitions = {
+                'summarizer': {
+                    title: 'AI Text Summarizer',
+                    description: 'Summarize the following text clearly and professionally.',
+                    extraFields: null,
+                    placeholder: 'Paste the text you want to summarize here...',
+                    buildPrompt: (input) => `Summarize the following text clearly and professionally. Provide a concise yet comprehensive summary:\n\n${input}`,
+                },
+                'grammar': {
+                    title: 'Grammar Checker',
+                    description: 'Correct grammar mistakes while preserving meaning.',
+                    extraFields: null,
+                    placeholder: 'Paste the text you want to check for grammar errors...',
+                    buildPrompt: (input) => `Correct all grammar mistakes, punctuation errors, and awkward phrasing in the following text while preserving the original meaning. Return only the corrected version:\n\n${input}`,
+                },
+                'paraphraser': {
+                    title: 'Paraphraser',
+                    description: 'Rewrite the text naturally with different wording.',
+                    extraFields: null,
+                    placeholder: 'Paste the text you want to paraphrase...',
+                    buildPrompt: (input) => `Rewrite the following text naturally with different wording while keeping the same meaning. Make it sound fresh and original:\n\n${input}`,
+                },
+                'code-explainer': {
+                    title: 'Code Explainer',
+                    description: 'Explain this code in simple language.',
+                    extraFields: null,
+                    placeholder: 'Paste your code here...',
+                    buildPrompt: (input) => `Explain the following code in simple, easy-to-understand language. Break down what each part does and how it works:\n\n${input}`,
+                },
+                'translator': {
+                    title: 'Translator',
+                    description: 'Translate text accurately between languages.',
+                    extraFields: 'translator',
+                    placeholder: 'Enter the text you want to translate...',
+                    buildPrompt: (input, extraData) => `Translate the following text from ${extraData.sourceLang} to ${extraData.targetLang} accurately and naturally:\n\n${input}`,
+                    getExtraData: () => ({ sourceLang: sourceLang.value, targetLang: targetLang.value }),
+                },
+                'email-writer': {
+                    title: 'AI Email Writer',
+                    description: 'Generate professional emails tailored to your needs.',
+                    extraFields: 'email',
+                    placeholder: 'Describe what the email should cover (key points, context, etc.)...',
+                    buildPrompt: (input, extraData) => {
+                        let prompt = 'Write a professional email';
+                        if (extraData.recipient) prompt += ` addressed to ${extraData.recipient}`;
+                        if (extraData.subject) prompt += ` with the subject "${extraData.subject}"`;
+                        prompt += ` in a ${extraData.tone.toLowerCase()} tone. Include appropriate greeting, body, and closing. Here are the key points:\n\n${input}`;
+                        return prompt;
+                    },
+                    getExtraData: () => ({ recipient: emailRecipient.value.trim(), subject: emailSubject.value.trim(), tone: emailTone.value }),
+                },
+                'blog-generator': {
+                    title: 'Blog Generator',
+                    description: 'Generate SEO-friendly blog articles with headings.',
+                    extraFields: 'blog',
+                    placeholder: 'Additional context, notes, or specific points to include...',
+                    buildPrompt: (input, extraData) => {
+                        let prompt = 'Generate an SEO-friendly blog article with proper headings (H2, H3), an engaging introduction, and a strong conclusion.';
+                        if (extraData.topic) prompt += ` The topic is: "${extraData.topic}".`;
+                        if (extraData.keywords) prompt += ` Incorporate these keywords naturally: ${extraData.keywords}.`;
+                        prompt += ` Write in a ${extraData.tone.toLowerCase()} tone.`;
+                        if (input.trim()) prompt += ` Additional context:\n\n${input}`;
+                        prompt += '\n\nFormat with clear headings, short paragraphs, and make it engaging.';
+                        return prompt;
+                    },
+                    getExtraData: () => ({ topic: blogTopic.value.trim(), keywords: blogKeywords.value.trim(), tone: blogTone.value }),
+                },
+            };
+
+            function updateCharCount() {
+                const text = toolInput.value;
+                const chars = text.length;
+                const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+                charCount.textContent = `${chars} character${chars !== 1 ? 's' : ''} | ${words} word${words !== 1 ? 's' : ''}`;
+                charCount.classList.toggle('warning', chars > 8000);
+            }
+
+            function showToast(message, type = 'success') {
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.textContent = message;
+                toastContainer.appendChild(toast);
+                setTimeout(() => { if (toast.parentNode) toast.remove(); }, 2800);
+            }
+
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.classList.add('visible');
+                outputArea.classList.remove('visible');
+                generatedText = '';
+            }
+
+            function hideError() { errorMessage.classList.remove('visible'); }
+
+            function showOutput(text) {
+                generatedText = text;
+                outputContent.textContent = text;
+                outputArea.classList.add('visible');
+                hideError();
+            }
+
+            function hideOutput() {
+                outputArea.classList.remove('visible');
+                outputContent.textContent = '';
+                generatedText = '';
+                hideError();
+            }
+
+            function setLoading(loading) {
+                isGenerating = loading;
+                spinnerContainer.classList.toggle('visible', loading);
+                generateBtn.disabled = loading;
+                generateBtnText.textContent = loading ? 'Generating...' : 'Generate';
+                if (loading) { hideError(); hideOutput(); }
+            }
+
+            function hideAllExtraFields() {
+                [extraFieldsTranslator, extraFieldsEmail, extraFieldsBlog].forEach(el => el.classList.remove('visible'));
+            }
+
+            function showExtraFields(toolKey) {
+                hideAllExtraFields();
+                const def = toolDefinitions[toolKey];
+                if (def.extraFields === 'translator') extraFieldsTranslator.classList.add('visible');
+                else if (def.extraFields === 'email') extraFieldsEmail.classList.add('visible');
+                else if (def.extraFields === 'blog') extraFieldsBlog.classList.add('visible');
+            }
+
+            function resetToolUI() {
+                toolInput.value = '';
+                updateCharCount();
+                hideOutput();
+                hideError();
+                setLoading(false);
+                hideAllExtraFields();
+                if (sourceLang) sourceLang.value = 'English';
+                if (targetLang) targetLang.value = 'English';
+                if (emailRecipient) emailRecipient.value = '';
+                if (emailSubject) emailSubject.value = '';
+                if (emailTone) emailTone.value = 'Professional';
+                if (blogTopic) blogTopic.value = '';
+                if (blogKeywords) blogKeywords.value = '';
+                if (blogTone) blogTone.value = 'SEO-optimized';
+            }
+
+            async function callGeminiAPI(prompt) {
+                const response = await fetch(`${API_URL}?key=${API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }]
+                    })
                 });
-            });
-        });
+                if (!response.ok) {
+                    const errData = await response.json().catch(() => ({}));
+                    throw new Error(errData.error?.message || `API request failed (status ${response.status})`);
+                }
+                const data = await response.json();
+                if (!data.candidates?.[0]?.content?.parts?.[0]?.text) {
+                    throw new Error('Unexpected API response format. Please check the API key.');
+                }
+                return data.candidates[0].content.parts[0].text;
+            }
 
-        // Extra simple tools to pad the list
-        const SIMPLE_TOOLS = [
-            "Current Timestamp", "Unix to Date", "Roman Numeral Converter", 
-            "Binary to Decimal", "Decimal to Binary", "Hex to Decimal", "Decimal to Hex",
-            "RGB to HEX", "HEX to RGB", "CMYK to RGB", "HSL to HEX",
-            "JS Minifier", "CSS Minifier", "SQL Formatter", "XML Formatter",
-            "Email Extractor", "Phone Extractor", "IP Address Lookup (Sim)", "User Agent Parser",
-            "Cron Generator", "Meta Tag Generator", "Robot.txt Generator", "Sitemap Generator"
-        ];
+            function openTool(toolKey) {
+                const def = toolDefinitions[toolKey];
+                if (!def) return;
+                currentTool = toolKey;
+                resetToolUI();
+                modalTitle.textContent = def.title;
+                modalDesc.textContent = def.description;
+                toolInput.placeholder = def.placeholder || 'Type or paste your text here...';
+                showExtraFields(toolKey);
+                modalOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                toolInput.focus();
+            }
 
-        SIMPLE_TOOLS.forEach(t => {
-            let type = "placeholder"; 
-            let action = "work";
-            if(t.includes("Timestamp")) type = "generator";
-            if(t.includes("Converter") || t.includes("to")) type = "converter_generic";
-            
-            RAW_TOOLS.push({
-                name: t,
-                cat: t.includes("Color") ? "Color Tools" : (t.includes("Date") ? "Date & Time" : (t.includes("Converter") || t.includes("to") ? "Converters" : "Developer")),
-                type: type,
-                action: action
-            });
-        });
+            function closeModal() {
+                modalOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+                currentTool = null;
+                resetToolUI();
+            }
 
-        // Ensure we have enough tools (The unit loop generates a lot)
-        const ALL_TOOLS = RAW_TOOLS.map((t, i) => ({
-            id: `tool-${i}`,
-            ...t
-        }));
-
-        /* ------------------------------------------------------------
-           CORE APPLICATION LOGIC
-        ------------------------------------------------------------ */
-        
-        const app = {
-            state: {
-                currentTool: null,
-                favorites: JSON.parse(localStorage.getItem('ot_favs') || '[]'),
-                recent: JSON.parse(localStorage.getItem('ot_recent') || '[]'),
-                filter: 'All',
-                search: ''
-            },
-
-            init() {
-                this.renderCategories();
-                this.renderGrid();
-                this.bindEvents();
-                
-                // Remove loader
-                setTimeout(() => {
-                    document.getElementById('loader').style.opacity = '0';
-                    setTimeout(() => document.getElementById('loader').remove(), 500);
-                }, 800);
-            },
-
-            bindEvents() {
-                // Search
-                document.getElementById('global-search').addEventListener('input', (e) => {
-                    this.state.search = e.target.value.toLowerCase();
-                    this.renderGrid();
-                });
-
-                // FAQ Toggles
-                document.querySelectorAll('.faq-question').forEach(q => {
-                    q.addEventListener('click', () => q.parentElement.classList.toggle('active'));
-                });
-
-                // Scroll listener for back to top
-                window.addEventListener('scroll', () => {
-                    const btn = document.querySelector('.back-to-top');
-                    if (window.scrollY > 300) btn.classList.add('visible');
-                    else btn.classList.remove('visible');
-                });
-            },
-
-            /* RENDERERS */
-            
-            renderCategories() {
-                const nav = document.getElementById('category-list');
-                // Add unique categories from tools
-                const uniqueCats = ["All", ...new Set(ALL_TOOLS.map(t => t.cat))];
-                
-                nav.innerHTML = uniqueCats.map(cat => `
-                    <button class="cat-btn ${cat === 'All' ? 'active' : ''}" 
-                            onclick="app.setCategory('${cat}')">${cat}</button>
-                `).join('');
-            },
-
-            setCategory(cat) {
-                this.state.filter = cat;
-                document.querySelectorAll('.cat-btn').forEach(b => {
-                    b.classList.toggle('active', b.textContent === cat);
-                });
-                this.renderGrid();
-            },
-
-            getFilteredTools() {
-                return ALL_TOOLS.filter(t => {
-                    const matchesCat = this.state.filter === 'All' || t.cat === this.state.filter;
-                    const matchesSearch = t.name.toLowerCase().includes(this.state.search);
-                    // Special handling for Unit converters category
-                    const matchesBaseCat = t.categoryBase ? this.state.filter === 'Converters' : true;
-                    return (matchesCat || matchesBaseCat) && matchesSearch;
-                });
-            },
-
-            renderGrid() {
-                const grid = document.getElementById('tools-grid');
-                const tools = this.getFilteredTools();
-                
-                document.getElementById('grid-title').textContent = this.state.filter === 'All' ? 'All Tools' : this.state.filter;
-                document.getElementById('tool-count').textContent = `${tools.length} tools`;
-
-                if (tools.length === 0) {
-                    grid.innerHTML = `<div class="col-span-3 text-center text-secondary py-12">No tools found matching your criteria.</div>`;
+            async function handleGenerate() {
+                if (!currentTool || isGenerating) return;
+                const input = toolInput.value.trim();
+                if (!input && currentTool !== 'blog-generator') {
+                    showError('Please enter some text before generating.');
+                    toolInput.focus();
                     return;
                 }
-
-                grid.innerHTML = tools.map(tool => {
-                    const isFav = this.state.favorites.includes(tool.id);
-                    return `
-                    <div class="card tool-card" onclick="app.openTool('${tool.id}')">
-                        <button class="fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); app.toggleFav('${tool.id}')">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
-                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                            </svg>
-                        </button>
-                        <div class="tool-icon">
-                            ${this.getIconForCategory(tool.cat)}
-                        </div>
-                        <div class="tool-title">${tool.name}</div>
-                        <div class="tool-desc">${this.getDesc(tool)}</div>
-                    </div>
-                `}).join('');
-            },
-
-            getDesc(tool) {
-                if(tool.type === 'unit_single') return `Convert ${tool.from} to ${tool.to} instantly.`;
-                return `A professional ${tool.name.toLowerCase()} utility for developers and creators.`;
-            },
-
-            getIconForCategory(cat) {
-                // Simplified SVG return based on category
-                const svgs = {
-                    "Text Tools": `<svg viewBox="0 0 24 24"><path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/></svg>`,
-                    "Developer": `<svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>`,
-                    "Converters": `<svg viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>`,
-                    "Security": `<svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-9-2c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>`,
-                    "Color Tools": `<svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>`
-                };
-                return svgs[cat] || svgs["Text Tools"];
-            },
-
-            toggleFav(id) {
-                if (this.state.favorites.includes(id)) {
-                    this.state.favorites = this.state.favorites.filter(fid => fid !== id);
-                } else {
-                    this.state.favorites.push(id);
+                const def = toolDefinitions[currentTool];
+                let extraData = {};
+                if (def.getExtraData) extraData = def.getExtraData();
+                if (currentTool === 'blog-generator' && !blogTopic.value.trim() && !input) {
+                    showError('Please enter a blog topic or some context text.');
+                    if (blogTopic) blogTopic.focus();
+                    return;
                 }
-                localStorage.setItem('ot_favs', JSON.stringify(this.state.favorites));
-                this.renderGrid();
-                
-                // If inside a tool, update that UI too (omitted for brevity in single file, toast handles feedback)
-            },
-
-            toggleFavorites() {
-                this.state.filter = 'Favorites';
-                document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-                // Logic to filter by favs
-                const grid = document.getElementById('tools-grid');
-                const tools = ALL_TOOLS.filter(t => this.state.favorites.includes(t.id));
-                
-                document.getElementById('grid-title').textContent = 'Your Favorites';
-                document.getElementById('tool-count').textContent = `${tools.length} tools`;
-                
-                if (tools.length === 0) {
-                     grid.innerHTML = `<div class="col-span-3 text-center text-secondary py-12">No favorites yet. Click the heart icon on any tool to save it.</div>`;
-                } else {
-                     // Reuse renderGrid logic but manually updating innerHTML is faster for this toggle
-                     grid.innerHTML = tools.map(tool => {
-                        const isFav = true;
-                        return `
-                        <div class="card tool-card" onclick="app.openTool('${tool.id}')">
-                            <button class="fav-btn active" onclick="event.stopPropagation(); app.toggleFav('${tool.id}')">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                            </button>
-                            <div class="tool-icon">${this.getIconForCategory(tool.cat)}</div>
-                            <div class="tool-title">${tool.name}</div>
-                            <div class="tool-desc">${this.getDesc(tool)}</div>
-                        </div>
-                    `}).join('');
+                const prompt = def.buildPrompt(input, extraData);
+                setLoading(true);
+                try {
+                    const result = await callGeminiAPI(prompt);
+                    showOutput(result);
+                    showToast('Content generated successfully!', 'success');
+                } catch (err) {
+                    console.error(err);
+                    showError(`Error: ${err.message}`);
+                    showToast('Generation failed. Please try again.', 'error');
+                } finally {
+                    setLoading(false);
                 }
-                this.showDashboard();
-            },
+            }
 
-            /* NAVIGATION & TOOL LOGIC */
-
-            openTool(id) {
-                const tool = ALL_TOOLS.find(t => t.id === id);
-                if (!tool) return;
-
-                this.state.currentTool = tool;
-                
-                // Update History
-                this.state.recent = this.state.recent.filter(r => r !== id);
-                this.state.recent.unshift(id);
-                if(this.state.recent.length > 5) this.state.recent.pop();
-                localStorage.setItem('ot_recent', JSON.stringify(this.state.recent));
-
-                // Hide Dashboard, Show Tool
-                document.getElementById('dashboard-view').classList.add('hidden');
-                document.getElementById('dashboard-view-extra').classList.add('hidden');
-                document.getElementById('tool-view').style.display = 'block';
-                
-                // Update Header
-                document.getElementById('tool-category-badge').textContent = tool.cat;
-                document.getElementById('tool-header-title').textContent = tool.name;
-                document.getElementById('tool-header-desc').textContent = this.getDesc(tool);
-
-                // Render Workspace
-                const workspace = document.getElementById('tool-workspace');
-                workspace.innerHTML = this.getToolHTML(tool);
-                window.scrollTo(0, 0);
-            },
-
-            showDashboard() {
-                document.getElementById('tool-view').style.display = 'none';
-                document.getElementById('dashboard-view').classList.remove('hidden');
-                document.getElementById('dashboard-view-extra').classList.remove('hidden');
-                this.state.currentTool = null;
-            },
-            
-            openRecentTool() {
-                if(this.state.recent.length > 0) {
-                    this.openTool(this.state.recent[0]);
-                } else {
-                    this.showToast("No recent tools found");
+            async function handleCopy() {
+                if (!generatedText) return;
+                try {
+                    await navigator.clipboard.writeText(generatedText);
+                    showToast('Copied to clipboard!', 'success');
+                    const orig = copyBtn.textContent;
+                    copyBtn.textContent = '✓ Copied!';
+                    setTimeout(() => { copyBtn.textContent = orig; }, 1800);
+                } catch {
+                    const ta = document.createElement('textarea');
+                    ta.value = generatedText;
+                    ta.style.position = 'fixed';
+                    ta.style.left = '-9999px';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    ta.remove();
+                    showToast('Copied to clipboard!', 'success');
                 }
-            },
+            }
 
-            /* --- TOOL RENDERING ENGINE --- */
-
-            getToolHTML(tool) {
-                // Common actions wrapper
-                const actions = `
-                    <div class="panel-header">
-                        <span class="panel-title">Input</span>
-                        <button class="btn btn-ghost text-xs" onclick="app.resetTool()">Reset</button>
-                    </div>
-                `;
-                
-                const resultHeader = `
-                    <div class="panel-header">
-                        <span class="panel-title">Result</span>
-                        <div class="flex gap-2">
-                             <button class="btn btn-secondary text-xs" onclick="app.copyResult()">Copy</button>
-                             <button class="btn btn-secondary text-xs" onclick="app.downloadResult()">Download</button>
-                        </div>
-                    </div>
-                `;
-
-                // 1. Text Transform (Case, Reverse, etc.)
-                if (tool.type === 'text_transform') {
-                    return `
-                        <div class="panel flex flex-col">
-                            ${actions}
-                            <textarea id="t-input" class="input" placeholder="Type or paste text here..."></textarea>
-                            ${tool.action === 'case' ? `
-                            <div class="flex gap-2 mt-4">
-                                <button class="btn btn-secondary" onclick="toolLogic.textProcess('upper')">UPPERCASE</button>
-                                <button class="btn btn-secondary" onclick="toolLogic.textProcess('lower')">lowercase</button>
-                                <button class="btn btn-secondary" onclick="toolLogic.textProcess('title')">Title Case</button>
-                            </div>` : ''}
-                        </div>
-                        <div class="panel flex flex-col">
-                            ${resultHeader}
-                            <textarea id="t-output" class="input" readonly placeholder="Result will appear here..."></textarea>
-                        </div>
-                    `;
-                }
-
-                // 2. Text Analysis (Words, Chars)
-                if (tool.type === 'text_analysis') {
-                    return `
-                        <div class="panel flex flex-col">
-                            ${actions}
-                            <textarea id="t-input" class="input" style="flex:1; min-height: 300px;" placeholder="Type here..." oninput="toolLogic.analyze()"></textarea>
-                        </div>
-                        <div class="panel flex flex-col justify-center">
-                            <div class="grid grid-cols-2 gap-4 text-center">
-                                <div class="p-4 bg-surface rounded">
-                                    <div class="text-3xl font-bold" id="res-words">0</div>
-                                    <div class="text-secondary text-sm">Words</div>
-                                </div>
-                                <div class="p-4 bg-surface rounded">
-                                    <div class="text-3xl font-bold" id="res-chars">0</div>
-                                    <div class="text-secondary text-sm">Characters</div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                // 3. Unit Converter (Single - Meters to Feet)
-                if (tool.type === 'unit_single') {
-                    return `
-                        <div class="panel flex flex-col justify-center">
-                            ${actions}
-                            <div class="mt-4">
-                                <label class="block text-sm font-medium mb-2">${tool.from}</label>
-                                <input type="number" id="t-input" class="input text-lg" placeholder="0" oninput="toolLogic.convertSingle('${tool.from}', '${tool.to}')">
-                            </div>
-                        </div>
-                        <div class="panel flex flex-col justify-center">
-                            ${resultHeader}
-                            <div class="mt-4">
-                                <label class="block text-sm font-medium mb-2">${tool.to}</label>
-                                <div id="t-output" class="text-2xl font-bold">0</div>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                // 4. Generators (Password, UUID, Lorem)
-                if (tool.type === 'generator') {
-                    if (tool.action === 'password') {
-                        return `
-                        <div class="panel flex flex-col">
-                             ${actions}
-                             <div class="flex items-center gap-4 mt-4">
-                                 <label class="text-sm">Length: <span id="pwd-len-val">16</span></label>
-                                 <input type="range" id="pwd-len" min="8" max="64" value="16" class="flex-1" oninput="document.getElementById('pwd-len-val').textContent=this.value">
-                             </div>
-                             <div class="flex items-center gap-4 mt-2">
-                                 <label class="flex items-center gap-2 text-sm"><input type="checkbox" id="pwd-upper" checked> A-Z</label>
-                                 <label class="flex items-center gap-2 text-sm"><input type="checkbox" id="pwd-num" checked> 0-9</label>
-                                 <label class="flex items-center gap-2 text-sm"><input type="checkbox" id="pwd-sym"> !@#</label>
-                             </div>
-                             <button class="btn btn-primary mt-6" onclick="toolLogic.genPassword()">Generate Password</button>
-                        </div>
-                        <div class="panel flex flex-col justify-center">
-                            ${resultHeader}
-                            <div id="t-output" class="text-xl font-mono break-all text-center">...</div>
-                        </div>`;
-                    }
-                    if (tool.action === 'uuid') {
-                        return `
-                        <div class="panel flex flex-col justify-center items-center">
-                             <button class="btn btn-primary" onclick="toolLogic.genUUID()">Generate UUID</button>
-                             <button class="btn btn-secondary mt-2" onclick="toolLogic.genUUID(true)">Generate Bulk (5)</button>
-                        </div>
-                        <div class="panel flex flex-col">
-                            ${resultHeader}
-                            <textarea id="t-output" class="input" readonly></textarea>
-                        </div>`;
-                    }
-                }
-
-                // 5. Encoding (Base64, URL)
-                if (tool.type === 'encoding') {
-                    return `
-                        <div class="panel flex flex-col">
-                            ${actions}
-                            <textarea id="t-input" class="input" placeholder="Input string..." oninput="toolLogic.encode('${tool.action}')"></textarea>
-                        </div>
-                        <div class="panel flex flex-col">
-                            ${resultHeader}
-                            <textarea id="t-output" class="input" readonly placeholder="Output..."></textarea>
-                        </div>
-                    `;
-                }
-                
-                // 6. Code Format (JSON)
-                if (tool.type === 'code_format') {
-                    return `
-                        <div class="panel flex flex-col">
-                            ${actions}
-                            <textarea id="t-input" class="input" style="font-family: monospace; font-size: 0.85rem;" placeholder="Paste JSON here..." oninput="toolLogic.formatCode('${tool.action}')"></textarea>
-                        </div>
-                        <div class="panel flex flex-col">
-                            ${resultHeader}
-                            <textarea id="t-output" class="input" style="font-family: monospace; font-size: 0.85rem;" readonly placeholder="Formatted JSON..."></textarea>
-                        </div>
-                    `;
-                }
-
-                // 7. Color Tools
-                if (tool.type === 'color') {
-                     return `
-                        <div class="panel flex flex-col">
-                            ${actions}
-                            <div class="flex flex-col gap-4 mt-4">
-                                <div>
-                                    <label class="text-sm font-medium">Hex Color</label>
-                                    <input type="color" id="color-picker" class="w-full h-12 mt-2 cursor-pointer rounded" value="#000000" oninput="toolLogic.processColor(this.value)">
-                                </div>
-                                <input type="text" id="t-input" class="input" value="#000000" oninput="toolLogic.processColor(this.value)">
-                            </div>
-                        </div>
-                        <div class="panel flex flex-col">
-                            ${resultHeader}
-                            <div id="color-preview" class="color-preview" style="background: #000"></div>
-                            <div class="grid grid-cols-2 gap-2 text-sm">
-                                <div class="p-2 bg-surface rounded">RGB: <span id="c-rgb" class="font-mono">rgb(0,0,0)</span></div>
-                                <div class="p-2 bg-surface rounded">HSL: <span id="c-hsl" class="font-mono">hsl(0,0%,0%)</span></div>
-                            </div>
-                        </div>
-                     `;
-                }
-
-                // 8. Calculators
-                if (tool.type === 'calc') {
-                    if(tool.action === 'bmi') {
-                         return `
-                        <div class="panel flex flex-col">
-                            ${actions}
-                            <div class="grid grid-cols-2 gap-4 mt-4">
-                                <div><label class="text-sm">Weight (kg)</label><input type="number" id="calc-w" class="input" placeholder="70"></div>
-                                <div><label class="text-sm">Height (cm)</label><input type="number" id="calc-h" class="input" placeholder="175"></div>
-                            </div>
-                            <button class="btn btn-primary mt-6" onclick="toolLogic.calcBMI()">Calculate</button>
-                        </div>
-                        <div class="panel flex flex-col justify-center">
-                            ${resultHeader}
-                            <div id="t-output" class="text-4xl font-bold text-center">--.-</div>
-                            <div id="t-msg" class="text-center text-secondary mt-2">Enter details</div>
-                        </div>
-                         `;
-                    }
-                }
-
-                // Default Fallback for generic tools
-                return `
-                    <div class="panel flex flex-col justify-center items-center text-center">
-                        <div class="text-secondary mb-4">Tool logic for <b>${tool.name}</b> is ready.</div>
-                        <button class="btn btn-primary" onclick="app.showToast('This tool is fully functional in the full version.')">Run Demo</button>
-                    </div>
-                    <div class="panel flex flex-col justify-center items-center">
-                        <div class="text-2xl font-bold">Ready</div>
-                        <div class="text-secondary">Waiting for input...</div>
-                    </div>
-                `;
-            },
-
-            resetTool() {
-                const input = document.getElementById('t-input');
-                if(input) {
-                    input.value = '';
-                    input.dispatchEvent(new Event('input'));
-                }
-                // Reset specific inputs
-                const num = document.querySelector('input[type="number"]');
-                if(num) num.value = '';
-                
-                this.showToast('Tool reset');
-            },
-
-            copyResult() {
-                const out = document.getElementById('t-output');
-                if (!out) return;
-                let val = out.value || out.innerText;
-                if(!val) return;
-                
-                navigator.clipboard.writeText(val).then(() => {
-                    this.showToast('Copied to clipboard!');
-                });
-            },
-
-            downloadResult() {
-                const out = document.getElementById('t-output');
-                if (!out) return;
-                let val = out.value || out.innerText;
-                if(!val) return;
-
-                const blob = new Blob([val], { type: 'text/plain' });
-                const url = window.URL.createObjectURL(blob);
+            function handleDownload() {
+                if (!generatedText) return;
+                const blob = new Blob([generatedText], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `omnitools-result-${Date.now()}.txt`;
+                const name = currentTool ? toolDefinitions[currentTool].title.replace(/\s+/g, '-').toLowerCase() : 'output';
+                a.download = `${name}-${Date.now()}.txt`;
+                document.body.appendChild(a);
                 a.click();
-                window.URL.revokeObjectURL(url);
-                this.showToast('Download started');
-            },
-
-            showToast(msg) {
-                const container = document.getElementById('toast-container');
-                const el = document.createElement('div');
-                el.className = 'toast';
-                el.textContent = msg;
-                container.appendChild(el);
-                setTimeout(() => {
-                    el.style.opacity = '0';
-                    el.style.transform = 'translateY(10px)';
-                    setTimeout(() => el.remove(), 300);
-                }, 3000);
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('File downloaded!', 'success');
             }
-        };
 
-        /* ------------------------------------------------------------
-           SPECIFIC TOOL LOGIC ENGINES
-           Attached to window so inline HTML can call them
-        ------------------------------------------------------------ */
-        const toolLogic = {
-            
-            // Text Analysis
-            analyze: () => {
-                const val = document.getElementById('t-input').value;
-                const chars = val.length;
-                const words = val.trim() === '' ? 0 : val.trim().split(/\s+/).length;
-                document.getElementById('res-chars').textContent = chars;
-                document.getElementById('res-words').textContent = words;
-            },
+            function handleClearInput() {
+                toolInput.value = '';
+                updateCharCount();
+                hideOutput();
+                hideError();
+                toolInput.focus();
+            }
 
-            // Text Transform
-            textProcess: (mode) => {
-                const input = document.getElementById('t-input');
-                const output = document.getElementById('t-output');
-                if(!input) return;
-                const val = input.value;
-                let res = '';
-                
-                if (mode === 'upper') res = val.toUpperCase();
-                if (mode === 'lower') res = val.toLowerCase();
-                if (mode === 'title') res = val.toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
-                if (mode === 'reverse') res = val.split('').reverse().join('');
-                if (mode === 'slug') res = val.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
-                
-                if(output) output.value = res;
-            },
+            function handleClearOutput() {
+                hideOutput();
+                showToast('Output cleared.', 'success');
+            }
 
-            // Unit Conversion (Simplified Factors)
-            convertSingle: (from, to) => {
-                const val = parseFloat(document.getElementById('t-input').value);
-                if (isNaN(val)) { document.getElementById('t-output').textContent = '0'; return; }
-                
-                // Normalize to base unit (Meters, Kg, etc. - roughly)
-                // This is a simplified dictionary for demonstration. 
-                // In a real 100+ tool app, this would be a robust conversion factor map.
-                const factors = {
-                    "Length": { "Meters": 1, "Kilometers": 0.001, "Centimeters": 100, "Millimeters": 1000, "Feet": 3.28084, "Inches": 39.3701, "Miles": 0.000621371, "Yards": 1.09361 },
-                    "Weight": { "Kilograms": 1, "Grams": 1000, "Pounds": 2.20462, "Ounces": 35.274, "Tons": 0.001, "Stones": 0.157473 },
-                    "Temperature": {}, // Special case
-                    "Digital Storage": { "Bytes": 1, "KB": 1/1024, "MB": 1/1048576, "GB": 1/1073741824, "TB": 1/1099511627776 },
-                    "Speed": { "M/s": 1, "Km/h": 3.6, "Mph": 2.23694, "Knots": 1.94384 }
-                };
-                
-                // Identify category
-                let cat = Object.keys(factors).find(c => factors[c][from] !== undefined);
-                let result = 0;
-
-                if (cat === "Temperature") {
-                    // Specific Temp logic
-                    if (from === "Celsius") result = to === "Fahrenheit" ? (val * 9/5) + 32 : val + 273.15;
-                    if (from === "Fahrenheit") result = to === "Celsius" ? (val - 32) * 5/9 : (val - 32) * 5/9 + 273.15;
-                    if (from === "Kelvin") result = to === "Celsius" ? val - 273.15 : (val - 273.15) * 9/5 + 32;
-                } else if (cat && factors[cat]) {
-                    const f1 = factors[cat][from];
-                    const f2 = factors[cat][to];
-                    // Convert to base (1) then to target
-                    const inBase = val / f1; // Wait, factors are usually X of Unit = 1 Base. 
-                    // Let's adjust logic: Factor = Value * Factor = BaseValue. 
-                    // Actually simplest is: Base = Val / Factor_From. Target = Base * Factor_To.
-                    // My factor map: 1 Meter = 100 cm. So cm factor is 100.
-                    // Val(100cm) / 100 = 1m. 1m * 0.001 = 0.001km.
-                    // My map above is wrong for 'to base'. Let's use 1 Unit = X Meters?
-                    // Let's assume Base is 1.
-                    // 1 Meter = 1 Base. 1 Foot = 0.3048 Base.
-                    const conversionRates = {
-                        "Meters": 1, "Kilometers": 1000, "Centimeters": 0.01, "Millimeters": 0.001, 
-                        "Feet": 0.3048, "Inches": 0.0254, "Miles": 1609.34, "Yards": 0.9144,
-                        "Kilograms": 1, "Grams": 0.001, "Pounds": 0.453592, "Ounces": 0.0283495, "Tons": 1000,
-                        "Bytes": 1, "KB": 1024, "MB": 1048576, "GB": 1073741824
-                    };
-                    
-                    const r1 = conversionRates[from];
-                    const r2 = conversionRates[to];
-                    if(r1 && r2) {
-                         const baseVal = val * r1;
-                         result = baseVal / r2;
-                    }
-                }
-                
-                // Fallback for demo if map misses
-                if (result === 0 && cat !== 'Temperature') result = val; 
-
-                document.getElementById('t-output').textContent = Number(result.toFixed(6));
-            },
-
-            // Generators
-            genPassword: () => {
-                const len = document.getElementById('pwd-len').value;
-                const upper = document.getElementById('pwd-upper').checked;
-                const num = document.getElementById('pwd-num').checked;
-                const sym = document.getElementById('pwd-sym').checked;
-                
-                const charsLower = 'abcdefghijklmnopqrstuvwxyz';
-                const charsUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                const charsNum = '0123456789';
-                const charsSym = '!@#$%^&*()_+~`|}{[]:;?><,./-=';
-                
-                let dict = charsLower;
-                if(upper) dict += charsUpper;
-                if(num) dict += charsNum;
-                if(sym) dict += charsSym;
-                
-                let pass = '';
-                for(let i=0; i<len; i++) {
-                    pass += dict.charAt(Math.floor(Math.random() * dict.length));
-                }
-                document.getElementById('t-output').textContent = pass;
-            },
-
-            genUUID: (bulk = false) => {
-                const uuid = () => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-                    return v.toString(16);
+            // Event binding
+            document.querySelectorAll('.tool-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const tool = card.getAttribute('data-tool');
+                    if (tool) openTool(tool);
                 });
-                
-                if(bulk) {
-                    document.getElementById('t-output').value = Array(5).fill(0).map(uuid).join('\n');
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const tool = card.getAttribute('data-tool');
+                        if (tool) openTool(tool);
+                    }
+                });
+            });
+
+            modalClose.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modalOverlay.classList.contains('active')) closeModal(); });
+
+            generateBtn.addEventListener('click', handleGenerate);
+            clearBtn.addEventListener('click', handleClearInput);
+            copyBtn.addEventListener('click', handleCopy);
+            downloadBtn.addEventListener('click', handleDownload);
+            clearOutputBtn.addEventListener('click', handleClearOutput);
+            toolInput.addEventListener('input', updateCharCount);
+
+            hamburger.addEventListener('click', () => {
+                const active = mobileNav.classList.contains('active');
+                if (active) {
+                    mobileNav.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
                 } else {
-                    document.getElementById('t-output').value = uuid();
+                    mobileNav.classList.add('active');
+                    hamburger.classList.add('active');
+                    hamburger.setAttribute('aria-expanded', 'true');
                 }
-            },
+            });
 
-            // Encoders
-            encode: (action) => {
-                const input = document.getElementById('t-input').value;
-                const output = document.getElementById('t-output');
-                let res = '';
-                
-                try {
-                    if(action === 'base64_enc') res = btoa(input);
-                    if(action === 'base64_dec') res = atob(input);
-                    if(action === 'url_enc') res = encodeURIComponent(input);
-                    if(action === 'url_dec') res = decodeURIComponent(input);
-                    if(action === 'html_encode') res = input.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-                    if(action === 'html_decode') {
-                        const doc = new DOMParser().parseFromString(input, "text/html");
-                        res = doc.documentElement.textContent;
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (mobileNav.classList.contains('active') && !mobileNav.contains(e.target) && !hamburger.contains(e.target)) {
+                    mobileNav.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            let scrollTicking = false;
+            window.addEventListener('scroll', () => {
+                if (!scrollTicking) {
+                    requestAnimationFrame(() => {
+                        header.classList.toggle('scrolled', window.scrollY > 10);
+                        scrollTicking = false;
+                    });
+                    scrollTicking = true;
+                }
+            });
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    const target = document.querySelector(href);
+                    if (target && !target.classList.contains('sr-only')) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
-                    output.value = res;
-                } catch(e) {
-                    output.value = "Error processing input.";
-                }
-            },
-            
-            // Code Formatting
-            formatCode: (action) => {
-                const input = document.getElementById('t-input').value;
-                const output = document.getElementById('t-output');
-                try {
-                    if(action === 'json_beautify') {
-                        output.value = JSON.stringify(JSON.parse(input), null, 4);
-                    }
-                    if(action === 'json_minify') {
-                        output.value = JSON.stringify(JSON.parse(input));
-                    }
-                } catch(e) {
-                    output.value = "Invalid JSON";
-                }
-            },
+                });
+            });
 
-            // Color
-            processColor: (val) => {
-                // Basic Hex processing
-                if(!val.startsWith('#')) val = '#' + val; // rough fix
-                
-                // Update picker if text input changed
-                if(document.activeElement.id === 't-input') {
-                   // valid hex check skipped for brevity
-                   document.getElementById('color-picker').value = val;
-                }
-                
-                document.getElementById('t-input').value = val;
-                document.getElementById('color-preview').style.background = val;
-                
-                // Calculate RGB
-                let r = parseInt(val.substr(1,2), 16);
-                let g = parseInt(val.substr(3,2), 16);
-                let b = parseInt(val.substr(5,2), 16);
-                
-                document.getElementById('c-rgb').textContent = `rgb(${r},${g},${b})`;
-                
-                // Calculate HSL
-                r /= 255; g /= 255; b /= 255;
-                let max = Math.max(r, g, b), min = Math.min(r, g, b);
-                let h, s, l = (max + min) / 2;
-                if(max == min){ h = s = 0; } else {
-                    let d = max - min;
-                    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-                    switch(max){
-                        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-                        case g: h = (b - r) / d + 2; break;
-                        case b: h = (r - g) / d + 4; break;
-                    }
-                    h /= 6;
-                }
-                document.getElementById('c-hsl').textContent = `hsl(${Math.round(h*360)}, ${Math.round(s*100)}%, ${Math.round(l*100)}%)`;
-            },
-
-            // Calc BMI
-            calcBMI: () => {
-                const w = parseFloat(document.getElementById('calc-w').value);
-                const h = parseFloat(document.getElementById('calc-h').value);
-                if(!w || !h) return;
-                
-                const bmi = w / ((h/100) * (h/100));
-                document.getElementById('t-output').textContent = bmi.toFixed(1);
-                
-                let msg = '';
-                if(bmi < 18.5) msg = 'Underweight';
-                else if(bmi < 25) msg = 'Normal weight';
-                else if(bmi < 30) msg = 'Overweight';
-                else msg = 'Obese';
-                
-                document.getElementById('t-msg').textContent = msg;
-            }
-        };
-
-        // Initialize App
-        window.addEventListener('DOMContentLoaded', () => app.init());
-
+            updateCharCount();
+            console.log('AI Toolbox ready. Using API key:', API_KEY.substring(0, 4) + '...');
+        })();
     </script>
 </body>
 </html>
